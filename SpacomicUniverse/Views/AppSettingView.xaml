@@ -38,7 +38,7 @@
 								<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
 									<StackPanel Margin="5">
 										<Image Margin="5"
-											   MaxWidth="360" MaxHeight="240"
+											   HorizontalAlignment="Left" MaxHeight="300"
 											   Source="{Binding BannerCache}"/>
 										<TextBlock Padding="5,5,5,1"  
 												   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
@@ -137,7 +137,7 @@
 										<Run Text="暮井慧 ( プロ生ちゃん )"/>
 									</Hyperlink>
 									が登場しています。<LineBreak/>
-									(C) 2016 Pronama.LLC<LineBreak/>
+									(C) 2016 Pronama.LLC<LineBreak/><LineBreak/>
 									※素材について、RSSフィード取得及びエラーダイアログのSD画像はIxy氏、アイコン画像はささくら氏のものを使用しています。
 								</TextBlock>
 							</StackPanel>
@@ -157,7 +157,11 @@
 										<Run Text="Chronoir_net.UniSPADA"/>
 									</Hyperlink>
 										)」を使用しています。<LineBreak/>
-									(C) 2015-2016 Chronoir.net
+									(C) 2015-2016 Chronoir.net<LineBreak/>
+									Licence : 
+									<Hyperlink NavigateUri="https://raw.githubusercontent.com/Nia-TN1012/SPADA/master/LICENCE.txt">
+										<Run Text="MIT Licence"/>
+									</Hyperlink>
 								</TextBlock>
 							</StackPanel>
 						</Border>
