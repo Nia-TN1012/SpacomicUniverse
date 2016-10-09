@@ -358,11 +358,13 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>30069NiaTomonaka.SpacomicUniverse</MainPackageIdentityName>
+    <MainPackageIdentityName>30069NiaTomonaka.356219281D069</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>SpacomicUniverse</ReservedName>
+      <ReservedName>すぱこみっく！ ユニバース</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames />
-  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NBLGGH42KKT" />
+  <AccountPackageIdentityNames>
+    <MainPackageIdentityName>30069NiaTomonaka.SpacomicUniverse</MainPackageIdentityName>
+  </AccountPackageIdentityNames>
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NBLGGH42KM5" />
 </StoreAssociation>
