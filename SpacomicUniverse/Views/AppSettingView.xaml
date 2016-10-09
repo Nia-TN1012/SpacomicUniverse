@@ -16,12 +16,17 @@
 			<PivotItem Header="設定">
 				<ScrollViewer Margin="5,30,5,5">
 					<StackPanel>
-						<Button Content="画像のキャッシュデータを削除"
-								Command="{Binding DeleteCache}"/>
-						<TextBlock Margin="5"
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap"
-								   Text="サムネイル画像と漫画画像のキャッシュをすべて削除します。次回表示する時にWeb上から画像を再取得します。"/>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<Button Margin="5"
+										Content="画像のキャッシュデータを削除"
+										Command="{Binding DeleteCache}"/>
+								<TextBlock Margin="5"
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap"
+										   Text="サムネイル画像と漫画画像のキャッシュをすべて削除します。次回表示する時にWeb上から画像を再取得します。"/>
+							</StackPanel>
+						</Border>
 					</StackPanel>
 				</ScrollViewer>
 			</PivotItem>
@@ -30,9 +35,7 @@
 					<ItemsControl ItemsSource="{Binding SauseItems}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Border Margin="5"
-										BorderBrush="#ff202020"
-										BorderThickness="1,1,1,2">
+								<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
 									<StackPanel Margin="5">
 										<Image Margin="5"
 											   MaxWidth="360" MaxHeight="240"
@@ -66,93 +69,94 @@
 			<PivotItem Header="アプリについて">
 				<ScrollViewer Margin="5">
 					<StackPanel>
-						<Grid Margin="5"
-							  Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-							  HorizontalAlignment="Left" VerticalAlignment="Center">
-							<Image Stretch="None"
-								   Source="ms-appx:///Assets/Square150x150Logo.png"/>
-						</Grid>
-						<TextBlock Padding="5,5,5,1"  
-								   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
-								   TextWrapping="Wrap" Foreground="Aqua"
-								   FontWeight="Bold"
-								   Text="すぱこみっく！ ユニバース"/>
-						<TextBlock Padding="5,1,5,3" 
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap" Foreground="Aqua"
-								   Text="Spacomic! Universe"/>
-						<TextBlock Padding="5,5,5,3" 
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap">
-							Version : <Bold>1.0.0</Bold>
-						</TextBlock>
-						<TextBlock Padding="5,1,5,3" 
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap">
-							Developer : <Bold>Nia Tomonaka</Bold> ( 
-							<Hyperlink NavigateUri="https://twitter.com/nia_tn1012">
-								<Run Text="@nia_tn1012"/>
-							</Hyperlink>
-							 )
-						</TextBlock>
-						<TextBlock Padding="5,1,5,3" 
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap"
-								   Text="(C) 2016 Chronoir.net"/>
-						<TextBlock Padding="5,1,5,3" 
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap">
-							WebSite :  
-							<Hyperlink NavigateUri="https://chronoir.net/">
-								<Run Text="https://chronoir.net/"/>
-							</Hyperlink>
-						</TextBlock>
-
-						<TextBlock Padding="5,15,5,5" 
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap" Foreground="Lime"
-								   Text="マスコットキャラについて"/>
-						<ScrollViewer BorderBrush="#ff202020" BorderThickness="1"
-									  MaxHeight="150">
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
 							<StackPanel>
-								<TextBlock Padding="5,1"
+								<TextBlock Padding="5" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap" Foreground="Lime"
+										   Text="アプリについて"/>
+								<Grid Margin="5"
+									  Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+									  HorizontalAlignment="Left" VerticalAlignment="Center">
+									<Image Stretch="None"
+										   Source="ms-appx:///Assets/Square150x150Logo.png"/>
+								</Grid>
+								<TextBlock Padding="5,5,5,1"  
+										   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
+										   TextWrapping="Wrap" Foreground="Aqua"
+										   FontWeight="Bold"
+										   Text="すぱこみっく！ ユニバース"/>
+								<TextBlock Padding="5,1,5,3" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap" Foreground="Aqua"
+										   Text="Spacomic! Universe"/>
+								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
-									 本アプリでは、マスコットキャラクターとして、
+									Version : <Bold>1.0.0</Bold>
+								</TextBlock>
+								<TextBlock Padding="5,1,5,3" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap">
+									Developer : <Bold>Nia Tomonaka</Bold> ( 
+									<Hyperlink NavigateUri="https://twitter.com/nia_tn1012">
+										<Run Text="@nia_tn1012"/>
+									</Hyperlink>
+									 )
+								</TextBlock>
+								<TextBlock Padding="5,1,5,3" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap"
+										   Text="(C) 2016 Chronoir.net"/>
+								<TextBlock Padding="5,1,5,3" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap">
+									WebSite :  
+									<Hyperlink NavigateUri="https://chronoir.net/">
+										<Run Text="https://chronoir.net/"/>
+									</Hyperlink>
+								</TextBlock>
+							</StackPanel>
+						</Border>
+
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel>
+								<TextBlock Padding="5" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap" Foreground="Lime"
+										   Text="マスコットキャラについて"/>
+								<TextBlock Padding="5"
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap">
+									本アプリでは、マスコットキャラクターとして、
 									<Hyperlink NavigateUri="http://pronama.azurewebsites.net/pronama/">
 										<Run Text="暮井慧 ( プロ生ちゃん )"/>
 									</Hyperlink>
-									が登場しています。
+									が登場しています。<LineBreak/>
+									(C) 2016 Pronama.LLC<LineBreak/>
+									※RSSフィード取得及びエラーダイアログのSD画像はIxy氏、アイコン画像はささくら氏のものを使用しています。
 								</TextBlock>
-								<TextBlock Padding="5,1" 
-										   FontSize="{ThemeResource ContentControlFontSize}"
-										   TextWrapping="Wrap"
-										   Text="(C) 2016 Pronama.LLC"/>
 							</StackPanel>
-						</ScrollViewer>
+						</Border>
 
-						<TextBlock Padding="5,15,5,5" 
-								   FontSize="{ThemeResource ContentControlFontSize}"
-								   TextWrapping="Wrap" Foreground="Lime"
-								   Text="ライブラリについて"/>
-						<ScrollViewer BorderBrush="#ff202020" BorderThickness="1"
-									  MaxHeight="150">
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
 							<StackPanel>
-								<TextBlock Padding="5,1"
+								<TextBlock Padding="5" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap" Foreground="Lime"
+										   Text="ライブラリについて"/>
+								<TextBlock Padding="5"
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
 									本アプリでは、すぱこーRSSフィードを取得に「ユニすぱーダ ( 
 									<Hyperlink NavigateUri="https://www.nuget.org/packages/Chronoir_net.UniSPADA/">
 										<Run Text="Chronoir_net.UniSPADA"/>
 									</Hyperlink>
-									 )」を使用しています。
+										)」を使用しています。<LineBreak/>
+									(C) 2015-2016 Chronoir.net
 								</TextBlock>
-								<TextBlock Padding="5,1" 
-										   FontSize="{ThemeResource ContentControlFontSize}"
-										   TextWrapping="Wrap"
-										   Text="(C) 2015-2016 Chronoir.net"/>
 							</StackPanel>
-						</ScrollViewer>
+						</Border>
 					</StackPanel>
 				</ScrollViewer>
 			</PivotItem>

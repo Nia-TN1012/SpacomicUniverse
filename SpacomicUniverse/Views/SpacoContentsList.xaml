@@ -33,8 +33,7 @@
 		<!-- アイテムの表示方法 -->
 		<DataTemplate x:Key="WideDataTemplateForGridView">
 			<Border Width="300" Height="300"
-					BorderBrush="#ff202020"
-					BorderThickness="1,1,1,2">
+					Style="{StaticResource DarkMaterialBorderStyleForGridViewItemKey}">
 				<Grid>
 					<!-- サムネイル画像 -->
 					<Image Stretch="UniformToFill"
@@ -74,8 +73,7 @@
 
 		<!-- アイテムの表示方法 -->
 		<DataTemplate x:Name="NarrowDataTemplateForGridView">
-			<Border BorderBrush="#ff202020"
-					BorderThickness="1,1,1,2">
+			<Border Style="{StaticResource DarkMaterialBorderStyleForGridViewItemKey}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="110"/>
