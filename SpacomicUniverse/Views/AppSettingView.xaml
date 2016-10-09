@@ -93,7 +93,7 @@
 								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap"
-										   Text="すぱこみっく！ユニバースは、プログラミング生放送の「すぱこー」及び「すぱこー 焼きそば編」RSSフィード＆コミックリーダーアプリです。"/>
+										   Text="すぱこみっく！ユニバースは、プログラミング生放送の「すぱこー」及び「すぱこー 焼きそば編」のRSSフィード＆コミックのリーダーアプリです。"/>
 								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">

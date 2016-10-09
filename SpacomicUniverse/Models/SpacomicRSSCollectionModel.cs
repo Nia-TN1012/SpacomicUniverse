@@ -18,7 +18,7 @@ namespace SpacomicUniverse {
 	/// <summary>
 	///		すぱこーRSSフィードのコンテンツを管理します。
 	/// </summary>
-	public class SpacoRSSModel : INotifyPropertyChanged {
+	public class SpacomicRSSCollectionModel : INotifyPropertyChanged {
 
 		/// <summary>
 		///		処理を取り消すためのトークンを表します。
@@ -41,22 +41,22 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		すぱこーRSSフィードのコンテンツを格納するコレクションを取得します。
 		/// </summary>
-		public ObservableCollection<SpacoRSSContent> Items { get; private set; }
+		public ObservableCollection<SpacomicRSSItem> Items { get; private set; }
 
 		/// <summary>
 		///		SpacoRSSListModelの新しいインスタンスを生成します。
 		/// </summary>
-		public SpacoRSSModel() {
+		public SpacomicRSSCollectionModel() {
 			SauseItems = new Dictionary<string, SpacoRSSSause>();
-			Items = new ObservableCollection<SpacoRSSContent>();
+			Items = new ObservableCollection<SpacomicRSSItem>();
 		}
 
 		/// <summary>
 		///		WebからRSSフィードを取得します。
 		/// </summary>
 		/// <returns>すぱこーRSSフィードのコンテンツを格納したリスト</returns>
-		private async Task<IEnumerable<SpacoRSSContent>> GetRSSCore() {
-			List<SpacoRSSContent> list = new List<SpacoRSSContent>();
+		private async Task<IEnumerable<SpacomicRSSItem>> GetRSSCore() {
+			List<SpacomicRSSItem> list = new List<SpacomicRSSItem>();
 
 			foreach( var sause in spacoSause ) {
 				// オフセット位置
@@ -93,7 +93,7 @@ namespace SpacomicUniverse {
 						// 利用可能なコンテンツを抽出します。
 						list.AddRange(
 							srr.Items.Where( _ => _.IsAvailable )
-									.Select( _ => new SpacoRSSContent( sause.Type, _ ) )
+									.Select( _ => new SpacomicRSSItem( sause.Type, _ ) )
 									.ToList()
 						);
 					}
@@ -116,25 +116,25 @@ namespace SpacomicUniverse {
 			try {
 				// Webからの再取得をリクエストされた時
 				if( forceReload ) {
-					IEnumerable<SpacoRSSContent> list = await GetRSSCore();
+					IEnumerable<SpacomicRSSItem> list = await GetRSSCore();
 					foreach( var item in list.OrderByDescending( _ => _.PubDate ) ) {
 						Items.Add( item );
 					}
 					// ローカルファイルに保存します。
-					await SpacoUniverseIO.SaveSpacoRSSSauseFile( SauseItems );
-					await SpacoUniverseIO.SaveRSSTempFile( Items );
+					await SpacomicLocalIO.SaveSpacoRSSSauseFile( SauseItems );
+					await SpacomicLocalIO.SaveRSSCollectionFile( Items );
 				}
 				else {
 					// 保存済みのローカルファイルから読み込み
-					var spacoRSSauseFromLocal = await SpacoUniverseIO.LoadSpacoRSSSauseFile();
-					var spacoRSSListFromLocal = await SpacoUniverseIO.LoadRSSListFile();
+					var spacoRSSauseFromLocal = await SpacomicLocalIO.LoadSpacoRSSSauseFile();
+					var spacoRSSListFromLocal = await SpacomicLocalIO.LoadRSSCollectionFile();
 
 					// 保存済みのローカルファイルからの読み込みが成功した時
 					if( spacoRSSauseFromLocal.Item1 == TaskResult.Succeeded && spacoRSSListFromLocal.Item1 == TaskResult.Succeeded ) {
 						foreach( var item in spacoRSSauseFromLocal.Item2 ) {
 							SauseItems[item.Key] = item.Value;
 						}
-						IEnumerable<SpacoRSSContent> list = spacoRSSListFromLocal.Item2;
+						IEnumerable<SpacomicRSSItem> list = spacoRSSListFromLocal.Item2;
 						foreach( var item in list ) {
 							Items.Add( item );
 						}
@@ -144,13 +144,13 @@ namespace SpacomicUniverse {
 					}
 					// ローカルファイルからの読み込みに失敗した場合、Webから取得します
 					else {
-						IEnumerable<SpacoRSSContent> list = await GetRSSCore();
+						IEnumerable<SpacomicRSSItem> list = await GetRSSCore();
 						foreach( var item in list.OrderByDescending( _ => _.PubDate ) ) {
 							Items.Add( item );
 						}
 						// ローカルファイルに保存します。
-						await SpacoUniverseIO.SaveSpacoRSSSauseFile( SauseItems );
-						await SpacoUniverseIO.SaveRSSTempFile( Items );
+						await SpacomicLocalIO.SaveSpacoRSSSauseFile( SauseItems );
+						await SpacomicLocalIO.SaveRSSCollectionFile( Items );
 					}
 				}
 			}

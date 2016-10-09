@@ -14,9 +14,9 @@ using Windows.UI.Xaml.Navigation;
 namespace SpacomicUniverse {
 
 	/// <summary>
-	///		すぱこーRSSフィード一覧を表示する、画面を表します。
+	///		すぱこーRSSフィード一覧を表示する画面「コレクションビュー」を表します。
 	/// </summary>
-	public sealed partial class SpacoContentsListView : Page {
+	public sealed partial class SpacomicRSSCollectionView : Page {
 
 		/// <summary>
 		///		すぱこーRSSフィードの最新話を見つけた時に通知するトースト用XMLデータを表します。
@@ -24,9 +24,9 @@ namespace SpacomicUniverse {
 		private XmlDocument toastXml;
 
 		/// <summary>
-		///		SpacoContentsListViewクラスの新しいインスタンスを生成します。
+		///		SpacomicRSSCollectionViewクラスの新しいインスタンスを生成します。
 		/// </summary>
-		public SpacoContentsListView() {
+		public SpacomicRSSCollectionView() {
 			InitializeComponent();
 			CreateToast();
 		}
@@ -79,7 +79,7 @@ namespace SpacomicUniverse {
 			GridView gridView = sender as GridView;
 
 			if( gridView != null && gridView.Items.Any() && gridView.SelectedIndex >= 0 ) {
-				Frame.Navigate( typeof( SpacoContentsView ), gridView.SelectedIndex );
+				Frame.Navigate( typeof( SpacomicComicView ), gridView.SelectedIndex );
 			}
 		}
 

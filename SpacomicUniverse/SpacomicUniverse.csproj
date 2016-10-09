@@ -102,21 +102,21 @@
     <Compile Include="Common\BoolToVisibiltyConverter.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\DateTimeStringConverter.cs" />
-    <Compile Include="Common\SpacoRSSContent.cs" />
-    <Compile Include="Common\SpacoUniverseIO.cs" />
-    <Compile Include="Models\SpacoRSSModel.cs" />
+    <Compile Include="Common\SpacomicRSSItem.cs" />
+    <Compile Include="Common\SpacomicLocalIO.cs" />
+    <Compile Include="Models\SpacomicRSSCollectionModel.cs" />
     <Compile Include="ViewModels\AppSettingViewModel.cs" />
-    <Compile Include="ViewModels\SpacoRSSContentsViewModel.cs" />
-    <Compile Include="ViewModels\SpacoRSSListViewModel.cs" />
+    <Compile Include="ViewModels\SpacomicComicViewModel.cs" />
+    <Compile Include="ViewModels\SpacomicCollectionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\AppSettingView.xaml.cs">
       <DependentUpon>AppSettingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SpacoContentsList.xaml.cs">
-      <DependentUpon>SpacoContentsList.xaml</DependentUpon>
+    <Compile Include="Views\SpacomicRSSCollectionView.xaml.cs">
+      <DependentUpon>SpacomicRSSCollectionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SpacoContentsView.xaml.cs">
-      <DependentUpon>SpacoContentsView.xaml</DependentUpon>
+    <Compile Include="Views\SpacomicComicView.xaml.cs">
+      <DependentUpon>SpacomicComicView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -151,11 +151,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SpacoContentsList.xaml">
+    <Page Include="Views\SpacomicRSSCollectionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SpacoContentsView.xaml">
+    <Page Include="Views\SpacomicComicView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

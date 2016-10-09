@@ -13,7 +13,7 @@ namespace SpacomicUniverse {
 	/// <summary>
 	///		すぱこーRSSフィードのコンテンツをグルー化したしたものを格納します。
 	/// </summary>
-	class SpacoRSSContentGroup {
+	class SpacomicRSSItemsGroup {
 		/// <summary>
 		///		グループ名を取得・設定します。
 		/// </summary>
@@ -22,23 +22,23 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		グループ内のコレクションを取得・設定します。
 		/// </summary>
-		public IEnumerable<SpacoRSSContent> Items { get; set; }
+		public IEnumerable<SpacomicRSSItem> Items { get; set; }
 	}
 
 	/// <summary>
 	///		すぱこーRSSフィードの一覧を表示する画面用のViewModelを表します。
 	/// </summary>
-	class SpacoRSSListViewModel : INotifyPropertyChanged {
+	class SpacoRSSCollectionViewModel : INotifyPropertyChanged {
 
 		/// <summary>
 		///		SpacoRSSModelオブジェクトを表します。
 		/// </summary>
-		private SpacoRSSModel spacoRSSModel;
+		private SpacomicRSSCollectionModel spacomicRSSCollectionModel;
 
 		/// <summary>
 		///		すぱこーRSSフィードのコンテンツのコレクションを取得します。
 		/// </summary>
-		public IEnumerable<SpacoRSSContentGroup> Items { get; private set; }
+		public IEnumerable<SpacomicRSSItemsGroup> Items { get; private set; }
 
 		/// <summary>
 		///		すぱこーRSSフィード取得中のフラグを表します。
@@ -56,30 +56,34 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		SpacoRSSListViewModelの新しいインスタンスを生成します。
+		///		SpacoRSSCollectionViewModelの新しいインスタンスを生成します。
 		/// </summary>
-		public SpacoRSSListViewModel() {
+		public SpacoRSSCollectionViewModel() {
 			// AppオブジェクトからModelを取得します。
-			spacoRSSModel = ( App.Current as App )?.SpacoRSSModel;
+			spacomicRSSCollectionModel = ( App.Current as App )?.SpacomicRSSCollectionModel;
 
-			if( spacoRSSModel != null ) {
-				spacoRSSModel.PropertyChanged +=
+			if( spacomicRSSCollectionModel != null ) {
+				// プロパティの変更を通知します。
+				spacomicRSSCollectionModel.PropertyChanged +=
 					( sender, e ) =>
 						PropertyChanged?.Invoke( sender, e );
+
 				// RSSフィードの取得が完了したことをView側に通知します。
-				spacoRSSModel.GetRSSCompleted +=
+				spacomicRSSCollectionModel.GetRSSCompleted +=
 					( sender, e ) => {
 						// RSSフィード取得中のフラグをオフにします。
 						IsProgress = false;
 						// 年月ごとにグループ分けします。
-						Items = spacoRSSModel.Items
+						Items = spacomicRSSCollectionModel.Items
 							.GroupBy( _ => _.PubDate.ToString( "yyyy年MM月" ) )
-							.Select( _ => new SpacoRSSContentGroup { GroupTitle = _.Key, Items = _.AsEnumerable() } );
+							.Select( _ => new SpacomicRSSItemsGroup { GroupTitle = _.Key, Items = _.AsEnumerable() } );
 						NotifyPropertyChanged( nameof( Items ) );
 						// RSSフィード取得完了したことをView側に通知します。
 						GetRSSCompleted?.Invoke( this, e );
 					};
-				spacoRSSModel.NewRSSContentsFound +=
+
+				// すぱこーRSSフィードの最新話が見つかったことを通知します。
+				spacomicRSSCollectionModel.NewRSSContentsFound +=
 					( sender, e ) =>
 						NewRSSContentsFound?.Invoke( sender, e );
 						
@@ -95,7 +99,7 @@ namespace SpacomicUniverse {
 			IsProgress = true;
 			Items = null;
 			NotifyPropertyChanged( nameof( Items ) );
-			spacoRSSModel?.GetRSS( forceReload );
+			spacomicRSSCollectionModel?.GetRSS( forceReload );
 		}
 
 		/// <summary>
@@ -145,16 +149,17 @@ namespace SpacomicUniverse {
 		private class GetRSSCommand : ICommand {
 
 			/// <summary>
-			///		SpacoRSSListViewModelの参照を表します。
+			///		SpacoRSSCollectionViewModelの参照を表します。
 			/// </summary>
-			private SpacoRSSListViewModel viewModel;
+			private SpacoRSSCollectionViewModel viewModel;
 
 			/// <summary>
-			///		SpacoRSSListViewModelの参照から、GetRSSCommandクラスの新しいインスタンスを生成します。
+			///		SpacoRSSCollectionViewModelの参照から、GetRSSCommandクラスの新しいインスタンスを生成します。
 			/// </summary>
-			/// <param name="_viewModel">SpacoRSSListViewModelの参照</param>
-			public GetRSSCommand( SpacoRSSListViewModel _viewModel ) {
+			/// <param name="_viewModel">SpacoRSSCollectionViewModelの参照</param>
+			public GetRSSCommand( SpacoRSSCollectionViewModel _viewModel ) {
 				viewModel = _viewModel;
+
 				// コマンド実行の可否の変更を通知します。
 				viewModel.PropertyChanged += ( sender, e ) =>
 					CanExecuteChanged?.Invoke( sender, e );
@@ -197,14 +202,15 @@ namespace SpacomicUniverse {
 			/// <summary>
 			///		SpacoRSSListViewModelの参照を表します。
 			/// </summary>
-			private SpacoRSSListViewModel viewModel;
+			private SpacoRSSCollectionViewModel viewModel;
 
 			/// <summary>
 			///		SpacoRSSListViewModelの参照から、CancelGetRSSCommandクラスの新しいインスタンスを生成します。
 			/// </summary>
 			/// <param name="_viewModel">SpacoRSSListViewModelの参照</param>
-			public CancelGetRSSCommand( SpacoRSSListViewModel _viewModel ) {
+			public CancelGetRSSCommand( SpacoRSSCollectionViewModel _viewModel ) {
 				viewModel = _viewModel;
+
 				// コマンド実行の可否の変更を通知します。
 				viewModel.PropertyChanged += ( sender, e ) =>
 					CanExecuteChanged?.Invoke( sender, e );
@@ -230,7 +236,7 @@ namespace SpacomicUniverse {
 			public void Execute( object parameter ) {
 				if( viewModel.IsProgress ) {
 					// RSSフィード取得を中止します。
-					viewModel.spacoRSSModel?.CancelGetRSS();
+					viewModel.spacomicRSSCollectionModel?.CancelGetRSS();
 					// RSSフィード取得中のフラグをオフにします。
 					viewModel.IsProgress = false;
 				}

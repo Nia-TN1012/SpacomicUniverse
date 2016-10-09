@@ -13,28 +13,34 @@ namespace SpacomicUniverse {
 	/// <summary>
 	///		取得したすぱこーRSSフィードを、ローカルファイルへ保存・読み出しをします。
 	/// </summary>
-	class SpacoUniverseIO {
+	class SpacomicLocalIO {
 
 		/// <summary>
 		///		取得したすぱこーRSSフィードのコンテンツを保存する、ローカルファイルのパスを表します。
 		/// </summary>
-		private const string spacoRSSListFilePath = "spacomic_rss.xml";
+		private const string rssListFilePath = "spacomic_rss.xml";
 
 		/// <summary>
 		///		取得したすぱこーRSSフィードのチャネル情報を保存する、ローカルファイルのパスを表します。
 		/// </summary>
-		private const string spacoRSSSauseFilePath = "spacomic_sause.xml"; 
+		private const string rssSauseFilePath = "spacomic_sause.xml";
 
-		public static async Task<Tuple<TaskResult, IEnumerable<SpacoRSSContent>>> LoadRSSListFile() {
+		/// <summary>
+		///		ローカルに保存したファイルから、すぱこーRSSフィードを読み込みます。
+		/// </summary>
+		/// <returns>結果情報とすぱこーRSSフィードコレクションのタプルオブジェクト</returns>
+		public static async Task<Tuple<TaskResult, IEnumerable<SpacomicRSSItem>>> LoadRSSCollectionFile() {
 			TaskResult result = TaskResult.Succeeded;
-			List<SpacoRSSContent> list = null;
+			List<SpacomicRSSItem> list = null;
+
+			// ローカルファイルを正しく開いた時
 			try {
 				StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-				StorageFile spacoRSSListFile = await localFolder.GetFileAsync( spacoRSSListFilePath );
+				StorageFile spacoRSSListFile = await localFolder.GetFileAsync( rssListFilePath );
 				if( spacoRSSListFile != null ) {
 					XElement spacoXml = XDocument.Parse( await FileIO.ReadTextAsync( spacoRSSListFile ) ).Root;
 					list = spacoXml.Elements( "item" ).Select( item =>
-						new SpacoRSSContent {
+						new SpacomicRSSItem {
 							Type = item.Attribute( "type" ).Value,
 							Title = item.Attribute( "title" ).Value,
 							Description = item.Attribute( "description" ).Value,
@@ -58,11 +64,16 @@ namespace SpacomicUniverse {
 				result = TaskResult.Failed;
 			}
 
-			return new Tuple<TaskResult, IEnumerable<SpacoRSSContent>>( result, list );
+			return new Tuple<TaskResult, IEnumerable<SpacomicRSSItem>>( result, list );
 		}
 
-		public static async Task SaveRSSTempFile( IEnumerable<SpacoRSSContent> rssList ) {
+		/// <summary>
+		///		すぱこーRSSフィードのコレクションをローカルファイルに保存します。
+		/// </summary>
+		/// <param name="rssList">すぱこーRSSフィードのコレクション</param>
+		public static async Task SaveRSSCollectionFile( IEnumerable<SpacomicRSSItem> rssList ) {
 			XDocument spacoXml = new XDocument( new XDeclaration( "1.0", "utf-8", "yes" ) );
+
 			spacoXml.Add(
 				new XElement( "spaco_rss",
 					rssList.Select( item =>
@@ -85,21 +96,27 @@ namespace SpacomicUniverse {
 			);
 
 			StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-			StorageFile spacoRSSListFile = await localFolder.CreateFileAsync(
-				spacoRSSListFilePath, CreationCollisionOption.ReplaceExisting
+			StorageFile spacoRSSCollectionFile = await localFolder.CreateFileAsync(
+				rssListFilePath, CreationCollisionOption.ReplaceExisting
 			);
 
-			await FileIO.WriteTextAsync( spacoRSSListFile, spacoXml.ToString() );
+			await FileIO.WriteTextAsync( spacoRSSCollectionFile, spacoXml.ToString() );
 		}
 
+		/// <summary>
+		///		ローカルに保存したファイルから、すぱこーRSSフィードのチャネル情報を読み込みます。
+		/// </summary>
+		/// <returns>結果情報とすぱこーRSSフィードのチャネル情報のタプルオブジェクト</returns>
 		public static async Task<Tuple<TaskResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>> LoadSpacoRSSSauseFile() {
 			TaskResult result = TaskResult.Succeeded;
 			List<KeyValuePair<string, SpacoRSSSause>> list = null;
+
 			try {
 				StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-				StorageFile spacoSauseInfoFile = await localFolder.GetFileAsync( spacoRSSSauseFilePath );
-				if( spacoSauseInfoFile != null ) {
-					XElement sauseXml = XDocument.Parse( await FileIO.ReadTextAsync( spacoSauseInfoFile ) ).Root;
+				StorageFile spacoRSSSauseFile = await localFolder.GetFileAsync( rssSauseFilePath );
+				// ローカルファイルを正しく開いた時
+				if( spacoRSSSauseFile != null ) {
+					XElement sauseXml = XDocument.Parse( await FileIO.ReadTextAsync( spacoRSSSauseFile ) ).Root;
 					list = sauseXml.Elements( "sause" ).Select( item =>
 						new KeyValuePair<string, SpacoRSSSause>(
 							item.Attribute( "type" ).Value,
@@ -125,6 +142,10 @@ namespace SpacomicUniverse {
 			return new Tuple<TaskResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>( result, list );
 		}
 
+		/// <summary>
+		///		すぱこーRSSフィードのチャネル情報をローカルファイルに保存します。
+		/// </summary>
+		/// <param name="sauseInfo">すぱこーRSSフィードのチャネル情報</param>
 		public static async Task SaveSpacoRSSSauseFile( IEnumerable<KeyValuePair<string, SpacoRSSSause>> sauseInfo ) {
 			XDocument sauseXml = new XDocument( new XDeclaration( "1.0", "utf-8", "yes" ) );
 
@@ -146,7 +167,7 @@ namespace SpacomicUniverse {
 
 			StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 			StorageFile spacoRSSSauseInfoFile = await localFolder.CreateFileAsync(
-				spacoRSSSauseFilePath, CreationCollisionOption.ReplaceExisting
+				rssSauseFilePath, CreationCollisionOption.ReplaceExisting
 			);
 
 			await FileIO.WriteTextAsync( spacoRSSSauseInfoFile, sauseXml.ToString() );

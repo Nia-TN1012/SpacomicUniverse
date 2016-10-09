@@ -23,7 +23,7 @@ namespace SpacomicUniverse {
 		public string RSSFeedURL { get; private set; }
 
 		/// <summary>
-		///		種別とRSSフィードのURLからSpacoRSSSourceクラスの新しいインスタンスを生成します。
+		///		種別とRSSフィードのURLから、SpacoRSSSourceクラスの新しいインスタンスを生成します。
 		/// </summary>
 		/// <param name="type">すぱこーRSSフィードの種別</param>
 		/// <param name="url">RSSフィードのURL</param>
@@ -105,7 +105,7 @@ namespace SpacomicUniverse {
 	/// <summary>
 	///		すぱこーRSSフィードのコンテンツ情報を格納します。
 	/// </summary>
-	public class SpacoRSSContent : SpacoRSSItem {
+	public class SpacomicRSSItem : SpacoRSSItem {
 
 		/// <summary>
 		///		すぱこーRSSフィードの種別を取得・設定します。
@@ -133,11 +133,11 @@ namespace SpacomicUniverse {
 			mediaCache ?? ( mediaCache = DownloadImage( MediaURL ) );
 
 		/// <summary>
-		///		すぱこーRSSフィードの種別とSpacoRSSItemオブジェクトから、SpacoRSSContentの新しいインスタンスを生成します。
+		///		すぱこーRSSフィードの種別とSpacoRSSItemオブジェクトから、SpacomicRSSItemの新しいインスタンスを生成します。
 		/// </summary>
-		/// <param name="type">すぱこーRSSフィード</param>
-		/// <param name="item">SpacoRSSItemオブジェクト</param>
-		public SpacoRSSContent( string type = null, SpacoRSSItem item = null ) : base() {
+		/// <param name="type">すぱこーRSSフィードの種別</param>
+		/// <param name="item">SpacoRSSItemのオブジェクト</param>
+		public SpacomicRSSItem( string type = null, SpacoRSSItem item = null ) : base() {
 			Type = type;
 			if( item != null ) {
 				Title = item.Title;
