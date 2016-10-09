@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="SpacomicUniverse.SpacoContentsView" x:Name="SpacoContentsView1"
+    x:Class="SpacomicUniverse.SpacomicComicView" x:Name="SpacoContentsView1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SpacomicUniverse"
@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
 	<Page.DataContext>
-		<local:SpacoRSSContentsViewModel x:Name="spacoRSSContentsViewModel"/>
+		<local:SpacomicComicViewModel x:Name="spacoRSSContentsViewModel"/>
 	</Page.DataContext>
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

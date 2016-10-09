@@ -18,7 +18,7 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		SpacoRSSModelオブジェクトを表します。
 		/// </summary>
-		private SpacoRSSModel spacoRSSModel;
+		private SpacomicRSSCollectionModel spacoRSSModel;
 
 		/// <summary>
 		///		すぱこーRSSフィードのチャネル情報のコレクションを取得します。
@@ -31,9 +31,13 @@ namespace SpacomicUniverse {
 		/// </summary>
 		public AppSettingViewModel() {
 			// AppオブジェクトからModelを取得します。
-			spacoRSSModel = ( App.Current as App )?.SpacoRSSModel;
+			spacoRSSModel = ( App.Current as App )?.SpacomicRSSCollectionModel;
+
 			if( spacoRSSModel != null ) {
-				spacoRSSModel.PropertyChanged += PropertyChanged;
+				// プロパティの変更を通知します。
+				spacoRSSModel.PropertyChanged +=
+					( sender, e ) =>
+						PropertyChanged?.Invoke( sender, e );
 			}
 		}
 
@@ -75,6 +79,7 @@ namespace SpacomicUniverse {
 			/// <param name="_viewModel">AppSettingViewModelの参照</param>
 			public DeleteCacheCommand( AppSettingViewModel _viewModel ) {
 				viewModel = _viewModel;
+
 				// コマンド実行の可否の変更を通知します。
 				viewModel.PropertyChanged += ( sender, e ) =>
 					CanExecuteChanged?.Invoke( sender, e );

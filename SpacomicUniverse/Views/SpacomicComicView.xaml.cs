@@ -12,9 +12,9 @@ using Windows.UI.Xaml.Navigation;
 namespace SpacomicUniverse {
 
 	/// <summary>
-	///		漫画画像を表示する画面を表します。
+	///		漫画の画像を表示する画面「コミックビュー」を表します。
 	/// </summary>
-	public sealed partial class SpacoContentsView : Page {
+	public sealed partial class SpacomicComicView : Page {
 
 		/// <summary>
 		///		FlipViewが初期化されたかどうかを表します。
@@ -24,7 +24,7 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		SpacoContentsViewクラスの新しいインスタンスを生成します。
 		/// </summary>
-		public SpacoContentsView() {
+		public SpacomicComicView() {
 			InitializeComponent();
 		}
 

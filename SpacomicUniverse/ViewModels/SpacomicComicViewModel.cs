@@ -9,27 +9,27 @@ using System.Runtime.CompilerServices;
 namespace SpacomicUniverse {
 
 	/// <summary>
-	///		漫画画像を表示する画面用のViewModelを表します。
+	///		漫画の画像を表示する画面用のViewModelを表します。
 	/// </summary>
-	class SpacoRSSContentsViewModel : INotifyPropertyChanged {
+	class SpacomicComicViewModel : INotifyPropertyChanged {
 
 		/// <summary>
 		///		SpacoRSSModelオブジェクトを表します。
 		/// </summary>
-		private SpacoRSSModel spacoRSSModel;
+		private SpacomicRSSCollectionModel spacomicRSSCollectionModel;
 
 		/// <summary>
 		///		すぱこーRSSフィードのコンテンツのコレクションを取得します。
 		/// </summary>
-		public IEnumerable<SpacoRSSContent> Items =>
-			spacoRSSModel?.Items;
+		public IEnumerable<SpacomicRSSItem> Items =>
+			spacomicRSSCollectionModel?.Items;
 
 		/// <summary>
 		///		現在選択しているコンテンツを取得します。
 		/// </summary>
-		public SpacoRSSContent SelectedItem =>
-			spacoRSSModel?.Items != null && spacoRSSModel.Items.Any() && SelectedIndex >= 0 ?
-			spacoRSSModel.Items[SelectedIndex] : null;
+		public SpacomicRSSItem SelectedItem =>
+			spacomicRSSCollectionModel?.Items != null && spacomicRSSCollectionModel.Items.Any() && SelectedIndex >= 0 ?
+			spacomicRSSCollectionModel.Items[SelectedIndex] : null;
 
 		/// <summary>
 		///		現在選択しているコレクションのインデックスを表します。
@@ -80,15 +80,19 @@ namespace SpacomicUniverse {
 				}
 			}
 		}
-		
+
 		/// <summary>
-		///		SpacoRSSContentsViewModelの新しいインスタンスを生成します。
+		///		SpacomicComicViewModelの新しいインスタンスを生成します。
 		/// </summary>
-		public SpacoRSSContentsViewModel() {
+		public SpacomicComicViewModel() {
 			// AppオブジェクトからModelを取得します。
-			spacoRSSModel = ( App.Current as App )?.SpacoRSSModel;
-			if( spacoRSSModel != null ) {
-				spacoRSSModel.PropertyChanged += PropertyChanged;
+			spacomicRSSCollectionModel = ( App.Current as App )?.SpacomicRSSCollectionModel;
+
+			if( spacomicRSSCollectionModel != null ) {
+				// プロパティの変更を通知します。
+				spacomicRSSCollectionModel.PropertyChanged +=
+					( sender, e ) =>
+						PropertyChanged?.Invoke( sender, e );
 			}
 		}
 

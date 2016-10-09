@@ -14,7 +14,7 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		SpacoRSSModelオブジェクトを取得します。
 		/// </summary>
-		public SpacoRSSModel SpacoRSSModel { get; } = new SpacoRSSModel();
+		public SpacomicRSSCollectionModel SpacomicRSSCollectionModel { get; } = new SpacomicRSSCollectionModel();
 
 		/// <summary>
 		/// 単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
@@ -59,7 +59,7 @@ namespace SpacomicUniverse {
 					// ナビゲーション スタックが復元されない場合は、最初のページに移動します。
 					// このとき、必要な情報をナビゲーション パラメーターとして渡して、新しいページを
 					//構成します
-					rootFrame.Navigate( typeof( SpacoContentsListView ), e.Arguments );
+					rootFrame.Navigate( typeof( SpacomicRSSCollectionView ), e.Arguments );
 				}
 				// 現在のウィンドウがアクティブであることを確認します
 				Window.Current.Activate();
