@@ -25,7 +25,7 @@ namespace SpacomicUniverse {
 		/// </summary>
 		private const string spacoRSSSauseFilePath = "spacomic_sause.xml"; 
 
-		public static async Task<Tuple<TaskResult, List<SpacoRSSContent>>> LoadRSSLocalTempFile() {
+		public static async Task<Tuple<TaskResult, IEnumerable<SpacoRSSContent>>> LoadRSSListFile() {
 			TaskResult result = TaskResult.Succeeded;
 			List<SpacoRSSContent> list = null;
 			try {
@@ -58,7 +58,7 @@ namespace SpacomicUniverse {
 				result = TaskResult.Failed;
 			}
 
-			return new Tuple<TaskResult, List<SpacoRSSContent>>( result, list );
+			return new Tuple<TaskResult, IEnumerable<SpacoRSSContent>>( result, list );
 		}
 
 		public static async Task SaveRSSTempFile( IEnumerable<SpacoRSSContent> rssList ) {
@@ -92,7 +92,7 @@ namespace SpacomicUniverse {
 			await FileIO.WriteTextAsync( spacoRSSListFile, spacoXml.ToString() );
 		}
 
-		public static async Task<Tuple<TaskResult, List<KeyValuePair<string, SpacoRSSSause>>>> LoadSpacoRSSSauseInfoFile() {
+		public static async Task<Tuple<TaskResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>> LoadSpacoRSSSauseFile() {
 			TaskResult result = TaskResult.Succeeded;
 			List<KeyValuePair<string, SpacoRSSSause>> list = null;
 			try {
@@ -122,7 +122,7 @@ namespace SpacomicUniverse {
 				result = TaskResult.Failed;
 			}
 
-			return new Tuple<TaskResult, List<KeyValuePair<string, SpacoRSSSause>>>( result, list );
+			return new Tuple<TaskResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>( result, list );
 		}
 
 		public static async Task SaveSpacoRSSSauseInfoFile( IEnumerable<KeyValuePair<string, SpacoRSSSause>> sauseInfo ) {
