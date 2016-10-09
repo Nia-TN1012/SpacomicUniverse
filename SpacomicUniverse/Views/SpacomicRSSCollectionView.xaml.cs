@@ -42,7 +42,7 @@ namespace SpacomicUniverse {
 
 				// トーストのテキストを設定します。
 				var toastTextElement = toastBindingElement.SelectSingleNode( "./text" );
-				toastTextElement.AppendChild( toastXml.CreateTextNode( "すぱこーRSSフィードの最新話をWeb上で見つけたよ。" ) );
+				toastTextElement.AppendChild( toastXml.CreateTextNode( "Webで、すぱこーRSSフィードの最新話が公開されているよ。一覧画面から再取得してみてね！" ) );
 
 				// トーストの画像を設定します。
 				var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
