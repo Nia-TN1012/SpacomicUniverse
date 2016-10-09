@@ -125,7 +125,7 @@ namespace SpacomicUniverse {
 			return new Tuple<TaskResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>( result, list );
 		}
 
-		public static async Task SaveSpacoRSSSauseInfoFile( IEnumerable<KeyValuePair<string, SpacoRSSSause>> sauseInfo ) {
+		public static async Task SaveSpacoRSSSauseFile( IEnumerable<KeyValuePair<string, SpacoRSSSause>> sauseInfo ) {
 			XDocument sauseXml = new XDocument( new XDeclaration( "1.0", "utf-8", "yes" ) );
 
 			sauseXml.Add(

@@ -33,7 +33,7 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		SpacoRSSModelオブジェクトを表します。
 		/// </summary>
-		private SpacoRSSModel spacoRSSListModel;
+		private SpacoRSSModel spacoRSSModel;
 
 		/// <summary>
 		///		すぱこーRSSフィードのコンテンツのコレクションを取得します。
@@ -60,23 +60,29 @@ namespace SpacomicUniverse {
 		/// </summary>
 		public SpacoRSSListViewModel() {
 			// AppオブジェクトからModelを取得します。
-			spacoRSSListModel = ( App.Current as App )?.SpacoRSSModel;
+			spacoRSSModel = ( App.Current as App )?.SpacoRSSModel;
 
-			if( spacoRSSListModel != null ) {
-				spacoRSSListModel.PropertyChanged += PropertyChanged;
+			if( spacoRSSModel != null ) {
+				spacoRSSModel.PropertyChanged +=
+					( sender, e ) =>
+						PropertyChanged?.Invoke( sender, e );
 				// RSSフィードの取得が完了したことをView側に通知します。
-				spacoRSSListModel.GetRSSCompleted +=
+				spacoRSSModel.GetRSSCompleted +=
 					( sender, e ) => {
 						// RSSフィード取得中のフラグをオフにします。
 						IsProgress = false;
 						// 年月ごとにグループ分けします。
-						Items = spacoRSSListModel.Items
+						Items = spacoRSSModel.Items
 							.GroupBy( _ => _.PubDate.ToString( "yyyy年MM月" ) )
 							.Select( _ => new SpacoRSSContentGroup { GroupTitle = _.Key, Items = _.AsEnumerable() } );
 						NotifyPropertyChanged( nameof( Items ) );
 						// RSSフィード取得完了したことをView側に通知します。
 						GetRSSCompleted?.Invoke( this, e );
 					};
+				spacoRSSModel.NewRSSContentsFound +=
+					( sender, e ) =>
+						NewRSSContentsFound?.Invoke( sender, e );
+						
 			}
 		}
 
@@ -89,13 +95,18 @@ namespace SpacomicUniverse {
 			IsProgress = true;
 			Items = null;
 			NotifyPropertyChanged( nameof( Items ) );
-			spacoRSSListModel?.GetRSS( forceReload );
+			spacoRSSModel?.GetRSS( forceReload );
 		}
 
 		/// <summary>
-		///		RSSフィードの取得完了後に発生させるイベントハンドラーです。
+		///		すぱこーRSSフィードの取得完了後に発生させるイベントハンドラーです。
 		/// </summary>
 		public event TaskResultEventHandler GetRSSCompleted;
+
+		/// <summary>
+		///		すぱこーRSSフィードの新しい話が見つかった時に発生させるイベントハンドラーです。
+		/// </summary>
+		public event EventHandler NewRSSContentsFound;
 
 		/// <summary>
 		///		プロパティ変更後に発生させるイベントハンドラーです。
@@ -219,7 +230,7 @@ namespace SpacomicUniverse {
 			public void Execute( object parameter ) {
 				if( viewModel.IsProgress ) {
 					// RSSフィード取得を中止します。
-					viewModel.spacoRSSListModel?.CancelGetRSS();
+					viewModel.spacoRSSModel?.CancelGetRSS();
 					// RSSフィード取得中のフラグをオフにします。
 					viewModel.IsProgress = false;
 				}

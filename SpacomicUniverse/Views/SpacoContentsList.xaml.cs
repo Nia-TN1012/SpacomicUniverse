@@ -52,23 +52,6 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		すぱこーRSSフィードの取得が完了した時に実行します。
-		/// </summary>
-		private async void spacoRSSListViewModel_GetRSSCompleted( object sender, TaskResultEventArgs e ) {
-			// 失敗した場合、エラーダイアログを表示します。
-			if( e.Result != TaskResult.Succeeded ) {
-				await LoadErrorDialog.ShowAsync();
-			}
-		}
-
-		/// <summary>
-		///		エラーダイアログのボタンが押された時に実行します。
-		/// </summary>
-		private void loadErrorDialog_PrimaryButtonClick( ContentDialog sender, ContentDialogButtonClickEventArgs args ) {
-			LoadErrorDialog.Hide();
-		}
-
-		/// <summary>
 		///		設定ボタンが押された時に実行します。
 		/// </summary>
 		private void SettingAboutButton_Click( object sender, RoutedEventArgs e ) {
@@ -89,6 +72,31 @@ namespace SpacomicUniverse {
 				SpacoRSSList.ScrollIntoView( SpacoRSSList.Items[0] );
 			}
 			HamburgerButton.IsChecked = false;
+		}
+
+		/// <summary>
+		///		すぱこーRSSフィードの取得が完了した時に実行します。
+		/// </summary>
+		private async void spacoRSSListViewModel_GetRSSCompleted( object sender, TaskResultEventArgs e ) {
+			// 失敗した場合、エラーダイアログを表示します。
+			if( e.Result != TaskResult.Succeeded ) {
+				await LoadErrorDialog.ShowAsync();
+			}
+		}
+
+		/// <summary>
+		///		エラーダイアログのボタンが押された時に実行します。
+		/// </summary>
+		private void loadErrorDialog_PrimaryButtonClick( ContentDialog sender, ContentDialogButtonClickEventArgs args ) {
+			LoadErrorDialog.Hide();
+		}
+
+		private async void spacoRSSListViewModel_NewRSSContentsFound( object sender, EventArgs e ) {
+			await NewRSSFeedDialog.ShowAsync();
+		}
+
+		private void NewRSSFeedDialog_SecondaryButtonClick( ContentDialog sender, ContentDialogButtonClickEventArgs args ) {
+			NewRSSFeedDialog.Hide();
 		}
 	}
 }

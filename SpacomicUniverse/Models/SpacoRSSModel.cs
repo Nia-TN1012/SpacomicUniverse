@@ -121,7 +121,7 @@ namespace SpacomicUniverse {
 						Items.Add( item );
 					}
 					// ローカルファイルに保存します。
-					await SpacoUniverseIO.SaveSpacoRSSSauseInfoFile( SauseItems );
+					await SpacoUniverseIO.SaveSpacoRSSSauseFile( SauseItems );
 					await SpacoUniverseIO.SaveRSSTempFile( Items );
 				}
 				else {
@@ -138,6 +138,9 @@ namespace SpacomicUniverse {
 						foreach( var item in list ) {
 							Items.Add( item );
 						}
+
+						// Web上に最新話があるかどうかチェックします。
+						CheckNewContents();
 					}
 					// ローカルファイルからの読み込みに失敗した場合、Webから取得します
 					else {
@@ -146,7 +149,7 @@ namespace SpacomicUniverse {
 							Items.Add( item );
 						}
 						// ローカルファイルに保存します。
-						await SpacoUniverseIO.SaveSpacoRSSSauseInfoFile( SauseItems );
+						await SpacoUniverseIO.SaveSpacoRSSSauseFile( SauseItems );
 						await SpacoUniverseIO.SaveRSSTempFile( Items );
 					}
 				}
@@ -162,11 +165,42 @@ namespace SpacomicUniverse {
 				result = TaskResult.Failed;
 			}
 			finally {
-				cancellationTokenSource = null;
+				cancellationTokenSource.Dispose();
 			}
 
 			// すぱこーRSSフィードの取得が完了したことをViewModel側に通知します。
 			GetRSSCompleted?.Invoke( this, new TaskResultEventArgs( result ) );
+		}
+
+		/// <summary>
+		///		すぱこーRSSフィードの新しい話がWeb上にあるかどうか判別します。
+		/// </summary>
+		private async Task CheckNewContents() {
+			// 最新話が見つかったフラグ
+			bool newContentsFound = false;
+
+			try {
+				foreach( var sause in spacoSause ) {
+					string url = $"{sause.RSSFeedURL}?count=2";
+					// このforeachブロック専用のCancellationTokenを生成します。
+					using( CancellationTokenSource cancellationTokenSourceInstant = new CancellationTokenSource() ) {
+						// タイムアウトは5秒間に設定します。
+						cancellationTokenSourceInstant.CancelAfter( 5000 );
+						using( XmlReader reader = await Task.Run( () => SpacoRSSClient.GetXmlReaderAsync( url, cancellationTokenSourceInstant.Token ) ) ) {
+							SpacoRSSReader srr = await Task.Run( () => SpacoRSSReader.LoadAsync( reader, cancellationTokenSourceInstant.Token ) );
+							// 最新話のVolumeが、Items上の同じソースの最新のVolumeより大きい時、フラグをオンにします。
+							if( srr.Items.First().Volume > Items.Where( _ => _.Type == sause.Type ).Max( _ => _.Volume ) ) {
+								newContentsFound = true;
+							}
+						}
+					}
+				}
+				// 最新話が見つかったら、ViewModelに通知します。
+				if( newContentsFound ) {
+					NewRSSContentsFound?.Invoke( this, null );
+				}
+			}
+			catch( Exception ) {}
 		}
 
 		/// <summary>
@@ -182,9 +216,14 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		RSSの取得完了後に発生させるイベントハンドラーです。
+		///		すぱこーRSSフィードの取得完了後に発生させるイベントハンドラーです。
 		/// </summary>
 		public event TaskResultEventHandler GetRSSCompleted;
+
+		/// <summary>
+		///		すぱこーRSSフィードの新しい話が見つかった時に発生させるイベントハンドラーです。
+		/// </summary>
+		public event EventHandler NewRSSContentsFound;
 
 		/// <summary>
 		///		プロパティ変更後に発生させるイベントハンドラーです。

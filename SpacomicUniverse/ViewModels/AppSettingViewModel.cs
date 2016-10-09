@@ -33,7 +33,9 @@ namespace SpacomicUniverse {
 			// AppオブジェクトからModelを取得します。
 			spacoRSSModel = ( App.Current as App )?.SpacoRSSModel;
 			if( spacoRSSModel != null ) {
-				spacoRSSModel.PropertyChanged += PropertyChanged;
+				spacoRSSModel.PropertyChanged +=
+					( sender, e ) =>
+						PropertyChanged?.Invoke( sender, e );
 			}
 		}
 
