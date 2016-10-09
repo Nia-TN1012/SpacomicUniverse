@@ -1,1 +1,1 @@
-D:\04 visualproject\Chronoir_net\SpacomicUniverse\SpacomicUniverse\AppPackages\SpacomicUniverse_1.0.0.0\SpacomicUniverse_1.0.0.0_x86_x64_arm.appxbundle
+D:\04 visualproject\Chronoir_net\SpacomicUniverse\SpacomicUniverse\AppPackages\SpacomicUniverse_1.0.1.0\SpacomicUniverse_1.0.1.0_x86_x64_arm.appxbundle
