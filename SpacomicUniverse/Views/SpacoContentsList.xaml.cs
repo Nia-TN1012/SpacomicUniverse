@@ -46,7 +46,7 @@ namespace SpacomicUniverse {
 
 				// トーストの画像を設定します。
 				var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
-				toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/Square44x44Logo.scale-200.png" );
+				toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/pronama-tendon.png" );
 
 				// トーストの表示の長さを設定します。
 				var toastElement = toastXml.DocumentElement;

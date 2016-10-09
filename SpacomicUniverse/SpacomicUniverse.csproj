@@ -127,6 +127,7 @@
     <None Include="SpacomicUniverse_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\pronama-tendon.png" />
     <Content Include="Assets\sd05s.png" />
     <Content Include="Assets\sd_eye0s.png" />
     <None Include="Package.StoreAssociation.xml" />
