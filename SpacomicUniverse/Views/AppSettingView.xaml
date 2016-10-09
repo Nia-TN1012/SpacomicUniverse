@@ -75,12 +75,9 @@
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap" Foreground="Lime"
 										   Text="アプリについて"/>
-								<Grid Margin="5"
-									  Background="{ThemeResource SystemControlBackgroundAccentBrush}"
-									  HorizontalAlignment="Left" VerticalAlignment="Center">
-									<Image MaxHeight="300"
-										   Source="ms-appx:///Assets/SplashScreen.png"/>
-								</Grid>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left" VerticalAlignment="Center"
+									   Source="ms-appx:///Assets/SplashScreen.png"/>
 								<TextBlock Padding="5,5,5,1"  
 										   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
 										   TextWrapping="Wrap" Foreground="Aqua"
@@ -99,25 +96,45 @@
 										   TextWrapping="Wrap">
 									Version : <Bold>1.0.0</Bold>
 								</TextBlock>
-								<TextBlock Padding="5,1,5,3" 
+								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
 									Developer : <Bold>Nia Tomonaka</Bold> ( 
 									<Hyperlink NavigateUri="https://twitter.com/nia_tn1012">
 										<Run Text="@nia_tn1012"/>
 									</Hyperlink>
-									 )
-								</TextBlock>
-								<TextBlock Padding="5,1,5,3" 
-										   FontSize="{ThemeResource ContentControlFontSize}"
-										   TextWrapping="Wrap"
-										   Text="(C) 2016 Chronoir.net"/>
-								<TextBlock Padding="5,1,5,3" 
-										   FontSize="{ThemeResource ContentControlFontSize}"
-										   TextWrapping="Wrap">
+									 )<LineBreak/>
+									© 2016 Chronoir.net<LineBreak/>
+									Licence : 
+									<Hyperlink NavigateUri="https://raw.githubusercontent.com/Nia-TN1012/SpacomicUniverse/master/LICENCE.txt">
+										<Run Text="Apache Licence 2.0"/>
+									</Hyperlink><LineBreak/>
 									WebSite :  
 									<Hyperlink NavigateUri="https://chronoir.net/">
-										<Run Text="https://chronoir.net/"/>
+										<Run Text="Chronoir.net"/>
+									</Hyperlink>
+								</TextBlock>
+							</StackPanel>
+						</Border>
+
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel>
+								<TextBlock Padding="5" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap" Foreground="Lime"
+										   Text="ライブラリについて"/>
+								<TextBlock Padding="5"
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap">
+									本アプリには、すぱこーRSSフィードを取得に「
+									<Hyperlink NavigateUri="https://www.nuget.org/packages/Chronoir_net.UniSPADA/">
+										<Run Text="ユニすぱーダ ( Chronoir_net.UniSPADA )"/>
+									</Hyperlink>
+									」を使用しています。<LineBreak/>
+									© 2015-2016 Chronoir.net<LineBreak/>
+									Licence : 
+									<Hyperlink NavigateUri="https://raw.githubusercontent.com/Nia-TN1012/SPADA/master/LICENCE.txt">
+										<Run Text="MIT Licence"/>
 									</Hyperlink>
 								</TextBlock>
 							</StackPanel>
@@ -132,12 +149,16 @@
 								<TextBlock Padding="5"
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
-									本アプリでは、マスコットキャラクターとして、
-									<Hyperlink NavigateUri="http://pronama.azurewebsites.net/pronama/">
+									本アプリには、マスコットキャラクターとして、
+									<Hyperlink NavigateUri="https://pronama.azurewebsites.net/pronama/">
 										<Run Text="暮井慧 ( プロ生ちゃん )"/>
 									</Hyperlink>
 									が登場しています。<LineBreak/>
-									(C) 2016 Pronama.LLC<LineBreak/><LineBreak/>
+									© 2016 Pronama.LLC<LineBreak/>
+									WebSite :  
+									<Hyperlink NavigateUri="https://pronama.azurewebsites.net/">
+										<Run Text="プログラミング生放送"/>
+									</Hyperlink><LineBreak/><LineBreak/>
 									※素材について、RSSフィード取得及びエラーダイアログのSD画像はIxy氏、アイコン画像はささくら氏のものを使用しています。
 								</TextBlock>
 							</StackPanel>
@@ -148,19 +169,14 @@
 								<TextBlock Padding="5" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap" Foreground="Lime"
-										   Text="ライブラリについて"/>
+										   Text="マスコットアプリ文化祭について"/>
 								<TextBlock Padding="5"
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
-									本アプリでは、すぱこーRSSフィードを取得に「ユニすぱーダ ( 
-									<Hyperlink NavigateUri="https://www.nuget.org/packages/Chronoir_net.UniSPADA/">
-										<Run Text="Chronoir_net.UniSPADA"/>
-									</Hyperlink>
-										)」を使用しています。<LineBreak/>
-									(C) 2015-2016 Chronoir.net<LineBreak/>
-									Licence : 
-									<Hyperlink NavigateUri="https://raw.githubusercontent.com/Nia-TN1012/SPADA/master/LICENCE.txt">
-										<Run Text="MIT Licence"/>
+									本アプリは、プログラミング生放送主催のマスコットアプリ文化祭2016に参加しています。<LineBreak/>
+									WebSite :  
+									<Hyperlink NavigateUri="https://mascot-apps-contest.azurewebsites.net/">
+										<Run Text="マスコットアプリ文化祭"/>
 									</Hyperlink>
 								</TextBlock>
 							</StackPanel>
