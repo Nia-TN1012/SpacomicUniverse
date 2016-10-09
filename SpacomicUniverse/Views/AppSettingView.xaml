@@ -107,7 +107,7 @@
 									© 2016 Chronoir.net<LineBreak/>
 									Licence : 
 									<Hyperlink NavigateUri="https://raw.githubusercontent.com/Nia-TN1012/SpacomicUniverse/master/LICENCE.txt">
-										<Run Text="Apache Licence 2.0"/>
+										<Run Text="BSD Licence ( 2-clause )"/>
 									</Hyperlink><LineBreak/>
 									WebSite :  
 									<Hyperlink NavigateUri="https://chronoir.net/">
