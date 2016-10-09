@@ -1,0 +1,150 @@
+﻿<Page
+    x:Class="SpacomicUniverse.AppSettingView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SpacomicUniverse"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+	<Page.DataContext>
+		<local:AppSettingViewModel/>
+	</Page.DataContext>
+	
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Pivot>
+			<PivotItem Header="設定">
+				<ScrollViewer Margin="5,30,5,5">
+					<StackPanel>
+						<Button Content="画像のキャッシュデータを削除"
+								Command="{Binding DeleteCache}"/>
+						<TextBlock Margin="5"
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap"
+								   Text="サムネイル画像と漫画画像のキャッシュをすべて削除します。次回表示する時にWeb上から画像を再取得します。"/>
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem Header="すぱこーについて">
+				<ScrollViewer Margin="5">
+					<ItemsControl ItemsSource="{Binding SauseItems}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border Margin="5"
+										BorderBrush="#ff202020"
+										BorderThickness="1,1,1,2">
+									<StackPanel>
+										<Image Margin="5"
+											   MaxWidth="360" MaxHeight="240"
+											   Source="{Binding BannerCache}"/>
+										<TextBlock Padding="5,5,5,1"  
+												   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
+												   TextWrapping="Wrap" Foreground="Lime"
+												   Text="{Binding Title}"/>
+										<TextBlock Padding="5,1,5,3" 
+												   FontSize="{ThemeResource ContentControlFontSize}"
+												   TextWrapping="Wrap"
+												   Text="{Binding Description}"/>
+										<TextBlock Padding="5,1,5,3" 
+												   FontSize="{ThemeResource ContentControlFontSize}"
+												   TextWrapping="Wrap" Foreground="Yellow"
+												   Text="{Binding Author}"/>
+										<TextBlock Padding="5,1,5,3" 
+												   FontSize="{ThemeResource ContentControlFontSize}"
+												   TextWrapping="Wrap">
+										<Hyperlink NavigateUri="{Binding Link}">
+											<Run Text="{Binding Link}"/>
+										</Hyperlink>
+										</TextBlock>
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem Header="アプリについて">
+				<ScrollViewer Margin="5">
+					<StackPanel>
+						<TextBlock Padding="5,5,5,1"  
+								   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
+								   TextWrapping="Wrap" Foreground="Aqua"
+								   Text="すぱこみっく ユニバース"/>
+						<TextBlock Padding="5,1,5,3" 
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap">
+							Version : <Bold>1.0.0</Bold>
+						</TextBlock>
+						<TextBlock Padding="5,1,5,3" 
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap">
+							Developer : <Bold>Nia Tomonaka</Bold> ( 
+							<Hyperlink NavigateUri="https://twitter.com/nia_tn1012">
+								<Run Text="@nia_tn1012"/>
+							</Hyperlink>
+							 )
+						</TextBlock>
+						<TextBlock Padding="5,1,5,3" 
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap"
+								   Text="(C) 2016 Chronoir.net"/>
+						<TextBlock Padding="5,1,5,3" 
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap">
+							WebSite :  
+							<Hyperlink NavigateUri="https://chronoir.net/">
+								<Run Text="https://chronoir.net/"/>
+							</Hyperlink>
+						</TextBlock>
+
+						<TextBlock Padding="5,15,5,5" 
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap" Foreground="Lime"
+								   Text="マスコットキャラについて"/>
+						<ScrollViewer BorderBrush="#ff202020" BorderThickness="1"
+									  MaxHeight="150">
+							<StackPanel>
+								<TextBlock Padding="5,1"
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap">
+									 本アプリでは、マスコットキャラクターとして、
+									<Hyperlink NavigateUri="http://pronama.azurewebsites.net/pronama/">
+										<Run Text="暮井慧 ( プロ生ちゃん )"/>
+									</Hyperlink>
+									が登場しています。
+								</TextBlock>
+								<TextBlock Padding="5,1" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap"
+										   Text="(C) 2016 Pronama.LLC"/>
+							</StackPanel>
+						</ScrollViewer>
+
+						<TextBlock Padding="5,15,5,5" 
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap" Foreground="Lime"
+								   Text="ライブラリについて"/>
+						<ScrollViewer BorderBrush="#ff202020" BorderThickness="1"
+									  MaxHeight="150">
+							<StackPanel>
+								<TextBlock Padding="5,1"
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap">
+									本アプリでは、すぱこーRSSフィードを取得に「ユニすぱーダ ( 
+									<Hyperlink NavigateUri="https://www.nuget.org/packages/Chronoir_net.UniSPADA/">
+										<Run Text="Chronoir_net.UniSPADA"/>
+									</Hyperlink>
+									 )」を使用しています。
+								</TextBlock>
+								<TextBlock Padding="5,1" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap"
+										   Text="(C) 2015-2016 Chronoir.net"/>
+							</StackPanel>
+						</ScrollViewer>
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+		</Pivot>
+	</Grid>
+</Page>

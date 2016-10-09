@@ -1,0 +1,287 @@
+﻿<Page
+    x:Class="SpacomicUniverse.SpacoContentsListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SpacomicUniverse"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" NavigationCacheMode="Enabled">
+
+	<Page.Resources>
+		<!-- Converterリソース -->
+		<local:DateTimeStringConverter x:Key="DateTimeStringConverterKey"/>
+		<local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterKey"/>
+
+		<!-- ここからGridView用 -->
+		
+		<!-- グルー化したItemsSource -->
+		<CollectionViewSource x:Key="SpacoRSSCollectionViewSourceKey"
+							  Source="{Binding Items}" ItemsPath="Items"
+							  IsSourceGrouped="True"/>
+
+		<!-- PC、タブレットなどのワイド画面用、GridViewのアイテム表示方法 -->
+		<!-- パネルは ItemsWrapGrid で横方向に並べます。 -->
+		<ItemsPanelTemplate x:Key="WideItemPanelTemplateForGridView">
+			<ItemsWrapGrid Orientation="Horizontal"
+						   HorizontalAlignment="Center"/>
+		</ItemsPanelTemplate>
+
+		<Style x:Key="WideStyleForGridView" TargetType="GridViewItem">
+			<Setter Property="Margin" Value="5"/>
+		</Style>
+
+		<!-- アイテムの表示方法 -->
+		<DataTemplate x:Key="WideDataTemplateForGridView">
+			<Border Width="300" Height="300"
+					BorderBrush="#ff202020"
+					BorderThickness="1,1,1,2">
+				<Grid>
+					<!-- サムネイル画像 -->
+					<Image Stretch="UniformToFill"
+						   Source="{Binding ThumbnailCache}"/>
+
+					<!-- タイトル、作者、投稿日時（※サムネイル画像にオーバーレイ表示） -->
+					<StackPanel VerticalAlignment="Bottom"
+								Background="#DD202020">
+						<TextBlock Padding="5,5,5,1"  
+								   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
+								   TextWrapping="Wrap" Foreground="Lime"
+								   Text="{Binding Title}"/>
+						<TextBlock Padding="5,1,5,3"
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
+								   Text="{Binding Author}"/>
+						<TextBlock Padding="5,1,5,5"
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap" Foreground="Yellow"
+								   Text="{Binding PubDate, Converter={StaticResource DateTimeStringConverterKey}, ConverterParameter=yyyy年MM月dd日 HH:mm:ss, ConverterLanguage=ja-JP}"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+		</DataTemplate>
+
+		<!-- スマホなどのスリム画面用、GridViewのアイテム表示方法 -->
+		<!-- パネルは ItemsStackPanel で縦方向に並べます。 -->
+		<ItemsPanelTemplate x:Key="NarrowItemPanelTemplateForGridView">
+			<ItemsStackPanel Orientation="Vertical"
+							 HorizontalAlignment="Stretch"/>
+		</ItemsPanelTemplate>
+
+		<Style x:Key="NarrowStyleForGridView" TargetType="GridViewItem">
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		</Style>
+
+		<!-- アイテムの表示方法 -->
+		<DataTemplate x:Name="NarrowDataTemplateForGridView">
+			<Border BorderBrush="#ff202020"
+					BorderThickness="1,1,1,2">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- サムネイル画像 -->
+					<Image Grid.Column="0" Margin="5"
+						   MaxHeight="130" Stretch="UniformToFill"
+						   HorizontalAlignment="Left"
+						   Source="{Binding ThumbnailCache}"/>
+
+					<!-- タイトル、作者、投稿日時 -->
+					<StackPanel Grid.Column="1">
+						<TextBlock Padding="5,3,5,1"  
+								   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
+								   TextWrapping="Wrap" Foreground="Lime"
+								   Text="{Binding Title}"/>
+						<TextBlock Padding="5,1,5,3"
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap"
+								   Text="{Binding Author}"/>
+						<TextBlock Padding="5,1,5,2"
+								   FontSize="{ThemeResource ContentControlFontSize}"
+								   TextWrapping="Wrap" Foreground="Yellow"
+								   Text="{Binding PubDate, Converter={StaticResource DateTimeStringConverterKey}, ConverterParameter=yyyy年MM月dd日 HH:mm:ss, ConverterLanguage=ja-JP}"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+		</DataTemplate>
+	</Page.Resources>
+
+	<Page.DataContext>
+		<local:SpacoRSSListViewModel x:Name="spacoRSSListViewModel"
+									 GetRSSCompleted="spacoRSSListViewModel_GetRSSCompleted"/>
+	</Page.DataContext>
+
+	<Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<!-- アプリのバー -->
+			<RowDefinition Height="Auto"/>
+			<!-- GridView -->
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0"
+			  Background="{StaticResource PronamaGreenKey}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<ToggleButton x:Name="HamburgerButton"
+						  Grid.Column="0"
+						  Style="{StaticResource AppBarToggleButtonStyleKey}"
+						  Content="&#xE700;"/>
+			
+			<TextBlock Grid.Column="1" 
+					   HorizontalAlignment="Center" VerticalAlignment="Center"
+					   FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"
+					   Text="すぱこー 各話リスト"/>
+
+			<Button Grid.Column="2"
+					Style="{StaticResource AppBarButtonStyleKey}"
+					Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
+					Content="&#xE72C;"
+					CommandParameter="true"
+					Command="{Binding GetRSS}"
+					ToolTipService.ToolTip="すぱこーRSSフィードを再取得"/>
+			<Button Grid.Column="2"
+					Style="{StaticResource AppBarButtonStyleKey}"
+					Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
+					Content="&#xE711;"
+					Command="{Binding CancelGetRSS}"
+					ToolTipService.ToolTip="すぱこーRSSフィードの取得を中止"/>
+		</Grid>
+
+		<Grid Grid.Row="1">
+			<SplitView x:Name="SplitViewer" 
+					   DisplayMode="Overlay" CompactPaneLength="40"
+					   IsPaneOpen="{Binding IsChecked, Mode=TwoWay, ElementName=HamburgerButton}">
+				<SplitView.Pane>
+					<Grid VerticalAlignment="Stretch">
+						<Button x:Name="SettingAboutButton"
+								Style="{StaticResource SplitViewPaneButtonStyleKey}"
+								VerticalAlignment="Bottom"
+								Click="SettingAboutButton_Click">
+							<Grid>
+								<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+										  HorizontalAlignment="Left"
+										  Glyph="&#xE713;"/>
+								<TextBlock Margin="40,0,0,0"
+										   Text="設定"/>
+							</Grid>
+						</Button>
+					</Grid>
+				</SplitView.Pane>
+				<Grid>
+					<GridView x:Name="SpacoRSSList"
+							  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
+							  Background="{ThemeResource AppBarBackgroundThemeBrush}"
+							  Tapped="GridView_Tapped">
+						<GridView.GroupStyle>
+							<GroupStyle>
+								<GroupStyle.HeaderTemplate>
+									<DataTemplate>
+										<TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+												   Text="{Binding GroupTitle}"/>
+									</DataTemplate>
+								</GroupStyle.HeaderTemplate>
+							</GroupStyle>
+						</GridView.GroupStyle>
+						<GridView.ItemContainerTransitions>
+							<TransitionCollection>
+								<AddDeleteThemeTransition/>
+								<ContentThemeTransition/>
+								<ReorderThemeTransition/>
+								<EntranceThemeTransition IsStaggeringEnabled="False"/>
+							</TransitionCollection>
+						</GridView.ItemContainerTransitions>
+					</GridView>
+
+					<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+								Visibility="{Binding IsProgress, Converter={StaticResource BoolToVisibilityConverterKey}}">
+						<!-- プログレスリング -->
+						<ProgressRing Margin="5" Height="60" Width="60"
+									  Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+									  IsActive="{Binding IsProgress}">
+							<ProgressRing.Transitions>
+								<TransitionCollection>
+									<AddDeleteThemeTransition/>
+								</TransitionCollection>
+							</ProgressRing.Transitions>
+						</ProgressRing>
+						<TextBlock Margin="5"
+								   TextAlignment="Center"
+								   Text="すぱこーRSSフィードを取得しているよ">
+							<TextBlock.Transitions>
+								<TransitionCollection>
+									<AddDeleteThemeTransition/>
+								</TransitionCollection>
+							</TextBlock.Transitions>
+						</TextBlock>
+						<Image Margin="5" Width="120"
+							   Source="ms-appx:///Assets/sd_eye0s.png">
+							<Image.Transitions>
+								<TransitionCollection>
+									<AddDeleteThemeTransition/>
+								</TransitionCollection>
+							</Image.Transitions>
+						</Image>
+					</StackPanel>
+				</Grid>
+			</SplitView>
+
+			<ContentDialog x:Name="LoadErrorDialog"
+						   MaxWidth="400" MaxHeight="400"
+						   HorizontalAlignment="Center" VerticalAlignment="Center"
+						   Title="エラー"
+						   IsPrimaryButtonEnabled="True"
+						   PrimaryButtonText="OK"
+						   PrimaryButtonClick="loadErrorDialog_PrimaryButtonClick">
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+					<TextBlock Margin="5"
+							   TextAlignment="Center"
+							   TextWrapping="Wrap">
+						ごめんね～、すぱこーRSSフィードを取得できなかったみたい。<LineBreak/>
+						ネットワークに接続されているか確認してね。
+					</TextBlock>
+					<Image Margin="5" Width="80"
+						   Source="ms-appx:///Assets/sd05s.png"/>
+				</StackPanel>
+				<ContentDialog.Transitions>
+					<TransitionCollection>
+						<AddDeleteThemeTransition/>
+					</TransitionCollection>
+				</ContentDialog.Transitions>
+			</ContentDialog>
+		</Grid>
+
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="WideState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="660"/>
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="SplitViewer.DisplayMode" Value="CompactOverlay"/>
+						<Setter Target="SpacoRSSList.ItemsPanel" Value="{StaticResource WideItemPanelTemplateForGridView}"/>
+						<Setter Target="SpacoRSSList.ItemContainerStyle" Value="{StaticResource WideStyleForGridView}"/>
+						<Setter Target="SpacoRSSList.ItemTemplate" Value="{StaticResource WideDataTemplateForGridView}"/>
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="NarrowState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0"/>
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="SplitViewer.DisplayMode" Value="Overlay"/>
+						<Setter Target="SpacoRSSList.ItemsPanel" Value="{StaticResource NarrowItemPanelTemplateForGridView}"/>
+						<Setter Target="SpacoRSSList.ItemContainerStyle" Value="{StaticResource NarrowStyleForGridView}"/>
+						<Setter Target="SpacoRSSList.ItemTemplate" Value="{StaticResource NarrowDataTemplateForGridView}"/>
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+	</Grid>
+</Page>
