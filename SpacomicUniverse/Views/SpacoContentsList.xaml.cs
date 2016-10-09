@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 /// <summary>
@@ -86,6 +75,7 @@ namespace SpacomicUniverse {
 			Frame.Navigate( typeof( AppSettingView ) );
 			// ハンバーガーボタンのチェックを解除します。
 			// ※これを忘れると、設定画面から戻る時に戻るボタンを2回押さなくてはならなくなります。
+			// 　（1回目は、ハンバーガーボタンのチェック解除のイベント）
 			HamburgerButton.IsChecked = false;
 		}
 	}
