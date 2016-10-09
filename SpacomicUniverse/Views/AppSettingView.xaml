@@ -78,8 +78,8 @@
 								<Grid Margin="5"
 									  Background="{ThemeResource SystemControlBackgroundAccentBrush}"
 									  HorizontalAlignment="Left" VerticalAlignment="Center">
-									<Image Stretch="None"
-										   Source="ms-appx:///Assets/Square150x150Logo.png"/>
+									<Image MaxHeight="300"
+										   Source="ms-appx:///Assets/SplashScreen.png"/>
 								</Grid>
 								<TextBlock Padding="5,5,5,1"  
 										   FontSize="{ThemeResource ListViewHeaderItemThemeFontSize}"
@@ -90,6 +90,10 @@
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap" Foreground="Aqua"
 										   Text="Spacomic! Universe"/>
+								<TextBlock Padding="5,5,5,3" 
+										   FontSize="{ThemeResource ContentControlFontSize}"
+										   TextWrapping="Wrap"
+										   Text="すぱこみっく！ユニバースは、プログラミング生放送の「すぱこー」及び「すぱこー 焼きそば編」RSSフィード＆コミックリーダーアプリです。"/>
 								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
@@ -134,7 +138,7 @@
 									</Hyperlink>
 									が登場しています。<LineBreak/>
 									(C) 2016 Pronama.LLC<LineBreak/>
-									※RSSフィード取得及びエラーダイアログのSD画像はIxy氏、アイコン画像はささくら氏のものを使用しています。
+									※素材について、RSSフィード取得及びエラーダイアログのSD画像はIxy氏、アイコン画像はささくら氏のものを使用しています。
 								</TextBlock>
 							</StackPanel>
 						</Border>
