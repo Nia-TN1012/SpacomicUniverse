@@ -156,22 +156,50 @@
 
 		<Grid Grid.Row="1">
 			<SplitView x:Name="SplitViewer" 
-					   DisplayMode="Overlay" CompactPaneLength="40"
+					   DisplayMode="Overlay" CompactPaneLength="40" OpenPaneLength="240"
 					   IsPaneOpen="{Binding IsChecked, Mode=TwoWay, ElementName=HamburgerButton}">
 				<SplitView.Pane>
 					<Grid VerticalAlignment="Stretch">
-						<Button x:Name="SettingAboutButton"
-								Style="{StaticResource SplitViewPaneButtonStyleKey}"
-								VerticalAlignment="Bottom"
-								Click="SettingAboutButton_Click">
-							<Grid>
-								<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
-										  HorizontalAlignment="Left"
-										  Glyph="&#xE713;"/>
-								<TextBlock Margin="40,0,0,0"
-										   Text="設定"/>
-							</Grid>
-						</Button>
+						<StackPanel VerticalAlignment="Top">
+							<Button x:Name="ToTheTopButton"
+									Style="{StaticResource SplitViewPaneButtonStyleKey}"
+									Click="ToTheTopButton_Click"
+									ToolTipService.ToolTip="RSS一覧のトップへ戻ります。">
+								<Grid>
+									<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+											  HorizontalAlignment="Left"
+											  Glyph="&#xE80F;"/>
+									<TextBlock Margin="40,0,0,0"
+											   Text="トップへ戻る"/>
+								</Grid>
+							</Button>
+						</StackPanel>
+						<StackPanel VerticalAlignment="Bottom">
+							<Border BorderBrush="#ff202020" BorderThickness="1"/>
+							<Button x:Name="UserGuideButton"
+									Style="{StaticResource SplitViewPaneButtonStyleKey}"
+									ToolTipService.ToolTip="使い方ガイドを開きます。">
+								<Grid>
+									<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+											  HorizontalAlignment="Left"
+											  Glyph="&#xE8A5;"/>
+									<TextBlock Margin="40,0,0,0"
+											   Text="使い方ガイド"/>
+								</Grid>
+							</Button>
+							<Button x:Name="SettingAboutButton"
+									Style="{StaticResource SplitViewPaneButtonStyleKey}"
+									Click="SettingAboutButton_Click"
+									ToolTipService.ToolTip="アプリの設定画面を開きます。">
+								<Grid>
+									<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+											  HorizontalAlignment="Left"
+											  Glyph="&#xE713;"/>
+									<TextBlock Margin="40,0,0,0"
+											   Text="設定"/>
+								</Grid>
+							</Button>
+						</StackPanel>
 					</Grid>
 				</SplitView.Pane>
 				<Grid>

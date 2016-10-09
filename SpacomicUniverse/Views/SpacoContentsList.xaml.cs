@@ -76,6 +76,18 @@ namespace SpacomicUniverse {
 			// ハンバーガーボタンのチェックを解除します。
 			// ※これを忘れると、設定画面から戻る時に戻るボタンを2回押さなくてはならなくなります。
 			// 　（1回目は、ハンバーガーボタンのチェック解除のイベント）
+			// 注 : Frame.Navigateの前に行うと、SplitViewのコンテンツがフリーズします。
+			HamburgerButton.IsChecked = false;
+		}
+
+		/// <summary>
+		///		トップへ戻るボタンを押した時に実行します。
+		/// </summary>
+		private void ToTheTopButton_Click( object sender, RoutedEventArgs e ) {
+			if( SpacoRSSList.Items?.Any() ?? false ) {
+				SpacoRSSList.SelectedIndex = 0;
+				SpacoRSSList.ScrollIntoView( SpacoRSSList.Items[0] );
+			}
 			HamburgerButton.IsChecked = false;
 		}
 	}

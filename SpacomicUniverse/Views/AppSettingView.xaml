@@ -33,7 +33,7 @@
 								<Border Margin="5"
 										BorderBrush="#ff202020"
 										BorderThickness="1,1,1,2">
-									<StackPanel>
+									<StackPanel Margin="5">
 										<Image Margin="5"
 											   MaxWidth="360" MaxHeight="240"
 											   Source="{Binding BannerCache}"/>
