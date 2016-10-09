@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 namespace SpacomicUniverse {
 
 	/// <summary>
-	///		すぱこーRSSフィード一覧を表示する画面を表します。
+	///		すぱこーRSSフィード一覧を表示する、画面を表します。
 	/// </summary>
 	public sealed partial class SpacoContentsListView : Page {
 
@@ -32,20 +32,23 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		すぱこーRSSフィードの最新話を見つけた時に通知するトースト用XMLデータを作成します。
+		///		すぱこーRSSフィードの最新話を見つけた時に通知する、トースト用XMLデータを作成します。
 		/// </summary>
 		private void CreateToast() {
 			try {
+				// トーストのテンプレートから「イメージとテキスト」のXMLデータを取得します。
 				toastXml = ToastNotificationManager.GetTemplateContent( ToastTemplateType.ToastImageAndText01 );
 				var toastBindingElement = toastXml.DocumentElement.SelectSingleNode( "./visual/binding" );
 
+				// トーストのテキストを設定します。
 				var toastTextElement = toastBindingElement.SelectSingleNode( "./text" );
 				toastTextElement.AppendChild( toastXml.CreateTextNode( "すぱこーRSSフィードの最新話をWeb上で見つけたよ。" ) );
 
+				// トーストの画像を設定します。
 				var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
 				toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/Square44x44Logo.scale-200.png" );
-				toastImageAttribute.SetAttribute( "alt", "logo" );
 
+				// トーストの表示の長さを設定します。
 				var toastElement = toastXml.DocumentElement;
 				toastElement.SetAttribute( "duration", "short" );
 			}
