@@ -38,11 +38,16 @@ namespace SpacomicUniverse {
 			try {
 				toastXml = ToastNotificationManager.GetTemplateContent( ToastTemplateType.ToastImageAndText01 );
 				var toastBindingElement = toastXml.DocumentElement.SelectSingleNode( "./visual/binding" );
+
 				var toastTextElement = toastBindingElement.SelectSingleNode( "./text" );
 				toastTextElement.AppendChild( toastXml.CreateTextNode( "すぱこーRSSフィードの最新話をWeb上で見つけたよ。" ) );
+
 				var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
 				toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/Square44x44Logo.scale-200.png" );
 				toastImageAttribute.SetAttribute( "alt", "logo" );
+
+				var toastElement = toastXml.DocumentElement;
+				toastElement.SetAttribute( "duration", "short" );
 			}
 			catch( Exception ) { }
 		}
