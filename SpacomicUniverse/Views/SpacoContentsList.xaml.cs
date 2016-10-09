@@ -18,6 +18,9 @@ namespace SpacomicUniverse {
 	/// </summary>
 	public sealed partial class SpacoContentsListView : Page {
 
+		/// <summary>
+		///		すぱこーRSSフィードの最新話を見つけた時に通知するトースト用XMLデータを表します。
+		/// </summary>
 		private XmlDocument toastXml;
 
 		/// <summary>
