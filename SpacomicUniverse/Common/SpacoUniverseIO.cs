@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using Windows.Storage;
 
 /// <summary>
-///		すぱコミック ユニバース
+///		すぱこみっく ユニバース
 /// </summary>
 namespace SpacomicUniverse {
 

@@ -101,6 +101,9 @@
     <Compile Include="Common\SpacoRSSContent.cs" />
     <Compile Include="Common\SpacoUniverseIO.cs" />
     <Compile Include="Models\SpacoRSSModel.cs" />
+    <Compile Include="ViewModels\AppSettingViewModel.cs" />
+    <Compile Include="ViewModels\SpacoRSSContentsViewModel.cs" />
+    <Compile Include="ViewModels\SpacoRSSListViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -132,9 +135,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

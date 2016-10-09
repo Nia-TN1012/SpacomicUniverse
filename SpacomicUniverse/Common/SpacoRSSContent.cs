@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Chronoir_net.UniSPADA;
 
 /// <summary>
-///		すぱコミック ユニバース
+///		すぱこみっく ユニバース
 /// </summary>
 namespace SpacomicUniverse {
 

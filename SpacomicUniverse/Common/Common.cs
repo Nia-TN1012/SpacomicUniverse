@@ -1,7 +1,7 @@
 ﻿using System;
 
 /// <summary>
-///		すぱコミック ユニバース
+///		すぱこみっく ユニバース
 /// </summary>
 namespace SpacomicUniverse {
 

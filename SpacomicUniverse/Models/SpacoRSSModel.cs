@@ -11,7 +11,7 @@ using System.Xml;
 using Chronoir_net.UniSPADA;
 
 /// <summary>
-///		すぱコミック ユニバース
+///		すぱこみっく ユニバース
 /// </summary>
 namespace SpacomicUniverse {
 

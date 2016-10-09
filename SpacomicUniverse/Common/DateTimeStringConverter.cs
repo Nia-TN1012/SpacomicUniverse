@@ -3,7 +3,7 @@ using System.Globalization;
 using Windows.UI.Xaml.Data;
 
 /// <summary>
-///		すぱコミック ユニバース
+///		すぱこみっく ユニバース
 /// </summary>
 namespace SpacomicUniverse {
 
