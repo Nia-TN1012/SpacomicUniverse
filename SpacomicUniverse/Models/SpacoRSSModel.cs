@@ -122,7 +122,7 @@ namespace SpacomicUniverse {
 					}
 					// ローカルファイルに保存します。
 					await SpacoUniverseIO.SaveSpacoRSSSauseFile( SauseItems );
-					await SpacoUniverseIO.SaveRSSTempFile( Items );
+					await SpacoUniverseIO.SaveRSSTempFile( Items.Skip( 1 ) );
 				}
 				else {
 					// 保存済みのローカルファイルから読み込み

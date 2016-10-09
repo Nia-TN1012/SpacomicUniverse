@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Windows.Data.Xml.Dom;
 using Windows.UI.Core;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -16,11 +18,30 @@ namespace SpacomicUniverse {
 	/// </summary>
 	public sealed partial class SpacoContentsListView : Page {
 
+		private XmlDocument toastXml;
+
 		/// <summary>
 		///		SpacoContentsListViewクラスの新しいインスタンスを生成します。
 		/// </summary>
 		public SpacoContentsListView() {
 			InitializeComponent();
+			CreateToast();
+		}
+
+		/// <summary>
+		///		すぱこーRSSフィードの最新話を見つけた時に通知するトースト用XMLデータを作成します。
+		/// </summary>
+		private void CreateToast() {
+			try {
+				toastXml = ToastNotificationManager.GetTemplateContent( ToastTemplateType.ToastImageAndText01 );
+				var toastBindingElement = toastXml.DocumentElement.SelectSingleNode( "./visual/binding" );
+				var toastTextElement = toastBindingElement.SelectSingleNode( "./text" );
+				toastTextElement.AppendChild( toastXml.CreateTextNode( "すぱこーRSSフィードの最新話をWeb上で見つけたよ。" ) );
+				var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
+				toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/Square44x44Logo.scale-200.png" );
+				toastImageAttribute.SetAttribute( "alt", "logo" );
+			}
+			catch( Exception ) { }
 		}
 
 		/// <summary>
@@ -91,12 +112,14 @@ namespace SpacomicUniverse {
 			LoadErrorDialog.Hide();
 		}
 
-		private async void spacoRSSListViewModel_NewRSSContentsFound( object sender, EventArgs e ) {
-			await NewRSSFeedDialog.ShowAsync();
-		}
-
-		private void NewRSSFeedDialog_SecondaryButtonClick( ContentDialog sender, ContentDialogButtonClickEventArgs args ) {
-			NewRSSFeedDialog.Hide();
+		/// <summary>
+		///		すぱこーRSSフィードの最新話を見つけた時に実行します。
+		/// </summary>
+		private void spacoRSSListViewModel_NewRSSContentsFound( object sender, EventArgs e ) {
+			if( toastXml != null ) {
+				ToastNotification toast = new ToastNotification( toastXml );
+				ToastNotificationManager.CreateToastNotifier().Show( toast );
+			}
 		}
 	}
 }

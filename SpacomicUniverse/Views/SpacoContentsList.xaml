@@ -249,33 +249,6 @@
 				</Grid>
 			</SplitView>
 
-			<ContentDialog x:Name="NewRSSFeedDialog"
-						   MaxWidth="400" MaxHeight="400"
-						   HorizontalAlignment="Center" VerticalAlignment="Center"
-						   Title="情報"
-						   IsPrimaryButtonEnabled="True"
-						   PrimaryButtonText="今すぐ取得"
-						   PrimaryButtonCommandParameter="true"
-						   PrimaryButtonCommand="{Binding GetRSS}"
-						   PrimaryButtonClick="NewRSSFeedDialog_SecondaryButtonClick"
-						   IsSecondaryButtonEnabled="True"
-						   SecondaryButtonText="あとで"
-						   SecondaryButtonClick="NewRSSFeedDialog_SecondaryButtonClick">
-				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-					<TextBlock Margin="5"
-							   TextWrapping="Wrap">
-						すぱこーRSSフィードの最新話をWeb上で見つけたよ。取得する？
-					</TextBlock>
-					<Image Margin="5" Width="80"
-						   Source="ms-appx:///Assets/sd_eye0s.png"/>
-				</StackPanel>
-				<ContentDialog.Transitions>
-					<TransitionCollection>
-						<AddDeleteThemeTransition/>
-					</TransitionCollection>
-				</ContentDialog.Transitions>
-			</ContentDialog>
-			
 			<ContentDialog x:Name="LoadErrorDialog"
 						   MaxWidth="400" MaxHeight="400"
 						   HorizontalAlignment="Center" VerticalAlignment="Center"
