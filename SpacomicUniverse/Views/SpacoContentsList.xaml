@@ -78,13 +78,13 @@
 					BorderThickness="1,1,1,2">
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="140"/>
+						<ColumnDefinition Width="110"/>
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 
 					<!-- サムネイル画像 -->
 					<Image Grid.Column="0" Margin="5"
-						   MaxHeight="130" Stretch="UniformToFill"
+						   MaxHeight="100" Stretch="UniformToFill"
 						   HorizontalAlignment="Left"
 						   Source="{Binding ThumbnailCache}"/>
 
@@ -137,7 +137,7 @@
 			<TextBlock Grid.Column="1" 
 					   HorizontalAlignment="Center" VerticalAlignment="Center"
 					   FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"
-					   Text="すぱこー 各話リスト"/>
+					   Text="すぱこーRSSフィード一覧"/>
 
 			<Button Grid.Column="2"
 					Style="{StaticResource AppBarButtonStyleKey}"
@@ -164,29 +164,17 @@
 							<Button x:Name="ToTheTopButton"
 									Style="{StaticResource SplitViewPaneButtonStyleKey}"
 									Click="ToTheTopButton_Click"
-									ToolTipService.ToolTip="RSS一覧のトップへ戻ります。">
+									ToolTipService.ToolTip="すぱこーRSSフィード一覧のトップへスクロールします。">
 								<Grid>
 									<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
 											  HorizontalAlignment="Left"
 											  Glyph="&#xE80F;"/>
 									<TextBlock Margin="40,0,0,0"
-											   Text="トップへ戻る"/>
+											   Text="トップへスクロール"/>
 								</Grid>
 							</Button>
 						</StackPanel>
 						<StackPanel VerticalAlignment="Bottom">
-							<Border BorderBrush="#ff202020" BorderThickness="1"/>
-							<Button x:Name="UserGuideButton"
-									Style="{StaticResource SplitViewPaneButtonStyleKey}"
-									ToolTipService.ToolTip="使い方ガイドを開きます。">
-								<Grid>
-									<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
-											  HorizontalAlignment="Left"
-											  Glyph="&#xE8A5;"/>
-									<TextBlock Margin="40,0,0,0"
-											   Text="使い方ガイド"/>
-								</Grid>
-							</Button>
 							<Button x:Name="SettingAboutButton"
 									Style="{StaticResource SplitViewPaneButtonStyleKey}"
 									Click="SettingAboutButton_Click"
@@ -269,7 +257,6 @@
 						   PrimaryButtonClick="loadErrorDialog_PrimaryButtonClick">
 				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 					<TextBlock Margin="5"
-							   TextAlignment="Center"
 							   TextWrapping="Wrap">
 						ごめんね～、すぱこーRSSフィードを取得できなかったみたい。<LineBreak/>
 						ネットワークに接続されているか確認してね。
