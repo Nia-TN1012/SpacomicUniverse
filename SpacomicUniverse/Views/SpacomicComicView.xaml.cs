@@ -1,4 +1,28 @@
-﻿using System;
+﻿#region バージョン情報
+/**
+*	@file SpacomicComicView.xaml.cs
+*	@brief 漫画の画像を表示する画面「コミックビュー」を表します。
+*
+*	@par バージョン Version
+*	1.0.0
+*	@par 作成者 Author
+*	智中ニア（Nia Tomonaka）
+*	@par コピーライト Copyright
+*	Copyright (C) 2016 Chronoir.net
+*	@par 作成日
+*	2016/10/09
+*	@par 最終更新日
+*	2016/10/10
+*	@par ライセンス Licence
+*	BSD Licence（ 2-caluse ）
+*	@par 連絡先 Contact
+*	@@nia_tn1012（ https://twitter.com/nia_tn1012/ ）
+*	@par ホームページ Homepage
+*	- http://chronoir.net/ (ホームページ)
+*/
+#endregion
+
+using System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
