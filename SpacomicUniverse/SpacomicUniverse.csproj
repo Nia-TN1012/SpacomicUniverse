@@ -112,6 +112,9 @@
     <Compile Include="Views\AppSettingView.xaml.cs">
       <DependentUpon>AppSettingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SpacomicMainView.xaml.cs">
+      <DependentUpon>SpacomicMainView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SpacomicRSSCollectionView.xaml.cs">
       <DependentUpon>SpacomicRSSCollectionView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
     <Page Include="Views\AppSettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SpacomicMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SpacomicRSSCollectionView.xaml">
       <Generator>MSBuild:Compile</Generator>

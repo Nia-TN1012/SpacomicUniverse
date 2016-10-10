@@ -34,4 +34,84 @@
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 	</Style>
 
+	<Style x:Key="SplitViewPaneToggleButtonStyleKey" TargetType="ToggleButton">
+		<Setter Property="Height" Value="40"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+	</Style>
+
+	<Style TargetType="RadioButton" x:Key="SplitViewRadioButtonStyleKey">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RadioButton">
+					<Border  Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPointerOver}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Pressed">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPressed}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Disabled"/>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="CheckStates">
+								<VisualState x:Name="Checked">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Unchecked"/>
+								<VisualState x:Name="Indeterminate"/>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+
+						<Grid x:Name="Presenter" Height="40">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+
+							<!-- アイコン部 -->
+							<ContentPresenter x:Name="IconPresenter"
+											  HorizontalAlignment="Center" VerticalAlignment="Center"
+											  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+											  Content="{TemplateBinding Tag}"/>
+
+							<!-- テキスト部 -->
+							<ContentPresenter x:Name="TextPresenter"
+											  Grid.Column="1"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  ContentTransitions="{TemplateBinding ContentTransitions}" />
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 </ResourceDictionary>
