@@ -18,27 +18,30 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		SpacoRSSModelオブジェクトを表します。
 		/// </summary>
-		private SpacomicRSSCollectionModel spacoRSSModel;
+		private SpacomicRSSCollectionModel spacomicRSSCollectionModel;
 
 		/// <summary>
 		///		すぱこーRSSフィードのチャネル情報のコレクションを取得します。
 		/// </summary>
 		public IEnumerable<SpacoRSSSause> SauseItems =>
-			spacoRSSModel.SauseItems.Values.AsEnumerable();
+			spacomicRSSCollectionModel.SauseItems.Values.AsEnumerable();
 
 		/// <summary>
 		///		AppSettingViewModelクラスの新しいインスタンスを生成します。
 		/// </summary>
 		public AppSettingViewModel() {
 			// AppオブジェクトからModelを取得します。
-			spacoRSSModel = ( App.Current as App )?.SpacomicRSSCollectionModel;
+			spacomicRSSCollectionModel = ( App.Current as App )?.SpacomicRSSCollectionModel;
 
-			if( spacoRSSModel != null ) {
-				// プロパティの変更を通知します。
-				spacoRSSModel.PropertyChanged +=
-					( sender, e ) =>
-						PropertyChanged?.Invoke( sender, e );
+			// Modelの参照の取得に失敗したら、例外をスローします。
+			if( spacomicRSSCollectionModel == null ) {
+				throw new Exception( $"Failed to get reference of Model's instance on {GetType().ToString()}" );
 			}
+
+			// プロパティの変更を通知します。
+			spacomicRSSCollectionModel.PropertyChanged +=
+				( sender, e ) =>
+					PropertyChanged?.Invoke( sender, e );
 		}
 
 		/// <summary>
@@ -61,7 +64,8 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		キャッシュ画像を削除するコマンドを取得します。
 		/// </summary>
-		public ICommand DeleteCache => deleteCache ?? ( deleteCache = new DeleteCacheCommand( this ) );
+		public ICommand DeleteCache =>
+			deleteCache ?? ( deleteCache = new DeleteCacheCommand( this ) );
 
 		/// <summary>
 		///		コンテンツ、チャネル情報にあるキャッシュ済みの画像を削除するコマンドです。
@@ -91,7 +95,7 @@ namespace SpacomicUniverse {
 			/// <param name="parameter">パラメーター（使用しません）</param>
 			/// <returns>コンテンツがある時 : true / コンテンツが空の時 : false</returns>
 			public bool CanExecute( object parameter ) =>
-				viewModel.spacoRSSModel?.Items?.Any() ?? false;
+				viewModel.spacomicRSSCollectionModel.Items.Any();
 
 			/// <summary>
 			///		コマンド実行の可否の変更した時のイベントハンドラーです。
@@ -103,7 +107,7 @@ namespace SpacomicUniverse {
 			/// </summary>
 			/// <param name="parameter">パラメーター（使用しません）</param>
 			public void Execute( object parameter ) {
-				viewModel.spacoRSSModel?.DeleteCache();
+				viewModel.spacomicRSSCollectionModel.DeleteCache();
 			}
 
 		}

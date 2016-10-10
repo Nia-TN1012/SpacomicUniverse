@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,13 +23,14 @@ namespace SpacomicUniverse {
 		///		すぱこーRSSフィードのコンテンツのコレクションを取得します。
 		/// </summary>
 		public IEnumerable<SpacomicRSSItem> Items =>
-			spacomicRSSCollectionModel?.Items;
+			spacomicRSSCollectionModel.Items;
 
 		/// <summary>
 		///		現在選択しているコンテンツを取得します。
 		/// </summary>
 		public SpacomicRSSItem SelectedItem =>
-			spacomicRSSCollectionModel?.Items != null && spacomicRSSCollectionModel.Items.Any() && SelectedIndex >= 0 ?
+			spacomicRSSCollectionModel.Items.Any() &&
+			SelectedIndex >= 0 && SelectedIndex < spacomicRSSCollectionModel.Items.Count ?
 			spacomicRSSCollectionModel.Items[SelectedIndex] : null;
 
 		/// <summary>
@@ -88,12 +90,15 @@ namespace SpacomicUniverse {
 			// AppオブジェクトからModelを取得します。
 			spacomicRSSCollectionModel = ( App.Current as App )?.SpacomicRSSCollectionModel;
 
-			if( spacomicRSSCollectionModel != null ) {
-				// プロパティの変更を通知します。
-				spacomicRSSCollectionModel.PropertyChanged +=
-					( sender, e ) =>
-						PropertyChanged?.Invoke( sender, e );
+			// Modelの参照の取得に失敗したら、例外をスローします。
+			if( spacomicRSSCollectionModel == null ) {
+				throw new Exception( $"Failed to get reference of Model's instance on {GetType().ToString()}" );
 			}
+
+			// プロパティの変更を通知します。
+			spacomicRSSCollectionModel.PropertyChanged +=
+				( sender, e ) =>
+					PropertyChanged?.Invoke( sender, e );
 		}
 
 		/// <summary>

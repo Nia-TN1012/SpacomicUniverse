@@ -62,32 +62,34 @@ namespace SpacomicUniverse {
 			// AppオブジェクトからModelを取得します。
 			spacomicRSSCollectionModel = ( App.Current as App )?.SpacomicRSSCollectionModel;
 
-			if( spacomicRSSCollectionModel != null ) {
-				// プロパティの変更を通知します。
-				spacomicRSSCollectionModel.PropertyChanged +=
-					( sender, e ) =>
-						PropertyChanged?.Invoke( sender, e );
+			// Modelの参照の取得に失敗したら、例外をスローします。
+			if( spacomicRSSCollectionModel == null ) {
+				throw new Exception( $"Failed to get reference of Model's instance on {GetType().ToString()}" );
+			}
 
-				// RSSフィードの取得が完了したことをView側に通知します。
-				spacomicRSSCollectionModel.GetRSSCompleted +=
-					( sender, e ) => {
+			// プロパティの変更を通知します。
+			spacomicRSSCollectionModel.PropertyChanged +=
+				( sender, e ) =>
+					PropertyChanged?.Invoke( sender, e );
+
+			// RSSフィードの取得が完了したことをView側に通知します。
+			spacomicRSSCollectionModel.GetRSSCompleted +=
+				( sender, e ) => {
 						// RSSフィード取得中のフラグをオフにします。
 						IsProgress = false;
 						// 年月ごとにグループ分けします。
 						Items = spacomicRSSCollectionModel.Items
-							.GroupBy( _ => _.PubDate.ToString( "yyyy年MM月" ) )
-							.Select( _ => new SpacomicRSSItemsGroup { GroupTitle = _.Key, Items = _.AsEnumerable() } );
-						NotifyPropertyChanged( nameof( Items ) );
+						.GroupBy( _ => _.PubDate.ToString( "yyyy年MM月" ) )
+						.Select( _ => new SpacomicRSSItemsGroup { GroupTitle = _.Key, Items = _.AsEnumerable() } );
+					NotifyPropertyChanged( nameof( Items ) );
 						// RSSフィード取得完了したことをView側に通知します。
 						GetRSSCompleted?.Invoke( this, e );
-					};
+				};
 
-				// すぱこーRSSフィードの最新話が見つかったことを通知します。
-				spacomicRSSCollectionModel.NewRSSContentsFound +=
-					( sender, e ) =>
-						NewRSSContentsFound?.Invoke( sender, e );
-						
-			}
+			// すぱこーRSSフィードの最新話が見つかったことを通知します。
+			spacomicRSSCollectionModel.NewRSSContentsFound +=
+				( sender, e ) =>
+					NewRSSContentsFound?.Invoke( sender, e );
 		}
 
 		/// <summary>
@@ -99,7 +101,7 @@ namespace SpacomicUniverse {
 			IsProgress = true;
 			Items = null;
 			NotifyPropertyChanged( nameof( Items ) );
-			spacomicRSSCollectionModel?.GetRSS( forceReload );
+			spacomicRSSCollectionModel.GetRSS( forceReload );
 		}
 
 		/// <summary>
@@ -132,7 +134,8 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		RSSフィードを取得するコマンドを取得します。
 		/// </summary>
-		public ICommand GetRSS => getRSS ?? ( getRSS = new GetRSSCommand( this ) );
+		public ICommand GetRSS =>
+			getRSS ?? ( getRSS = new GetRSSCommand( this ) );
 
 		/// <summary>
 		///		RSSフィードを取得を中止するコマンドを表します。
@@ -141,7 +144,8 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		RSSフィードを取得を中止するコマンドを取得します。
 		/// </summary>
-		public ICommand CancelGetRSS => cancelGetRSS ?? ( cancelGetRSS = new CancelGetRSSCommand( this ) );
+		public ICommand CancelGetRSS =>
+			cancelGetRSS ?? ( cancelGetRSS = new CancelGetRSSCommand( this ) );
 
 		/// <summary>
 		///		RSSフィードを取得するコマンドです。
@@ -236,7 +240,7 @@ namespace SpacomicUniverse {
 			public void Execute( object parameter ) {
 				if( viewModel.IsProgress ) {
 					// RSSフィード取得を中止します。
-					viewModel.spacomicRSSCollectionModel?.CancelGetRSS();
+					viewModel.spacomicRSSCollectionModel.CancelGetRSS();
 					// RSSフィード取得中のフラグをオフにします。
 					viewModel.IsProgress = false;
 				}

@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SpacomicUniverse {
 	/// <summary>
-	/// 既定の Application クラスを補完するアプリケーション固有の動作を提供します。
+	///		既定の Application クラスを補完するアプリケーション固有の動作を提供します。
 	/// </summary>
 	sealed partial class App : Application {
 
@@ -17,8 +17,8 @@ namespace SpacomicUniverse {
 		public SpacomicRSSCollectionModel SpacomicRSSCollectionModel { get; } = new SpacomicRSSCollectionModel();
 
 		/// <summary>
-		/// 単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
-		///最初の行であるため、main() または WinMain() と論理的に等価です。
+		///		単一アプリケーション オブジェクトを初期化します。これは、実行される作成したコードの
+		///		最初の行であるため、main() または WinMain() と論理的に等価です。
 		/// </summary>
 		public App() {
 			InitializeComponent();
@@ -26,8 +26,8 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		/// アプリケーションがエンド ユーザーによって正常に起動されたときに呼び出されます。他のエントリ ポイントは、
-		/// アプリケーションが特定のファイルを開くために起動されたときなどに使用されます。
+		///		アプリケーションがエンド ユーザーによって正常に起動されたときに呼び出されます。他のエントリ ポイントは、
+		///		アプリケーションが特定のファイルを開くために起動されたときなどに使用されます。
 		/// </summary>
 		/// <param name="e">起動の要求とプロセスの詳細を表示します。</param>
 		protected override void OnLaunched( LaunchActivatedEventArgs e ) {
@@ -67,18 +67,18 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		/// 特定のページへの移動が失敗したときに呼び出されます
+		///		特定のページへの移動が失敗したときに呼び出されます
 		/// </summary>
 		/// <param name="sender">移動に失敗したフレーム</param>
 		/// <param name="e">ナビゲーション エラーの詳細</param>
 		void OnNavigationFailed( object sender, NavigationFailedEventArgs e ) {
-			throw new Exception( "Failed to load Page " + e.SourcePageType.FullName );
+			throw new Exception( $"Failed to load Page {e.SourcePageType.FullName}" );
 		}
 
 		/// <summary>
-		/// アプリケーションの実行が中断されたときに呼び出されます。
-		/// アプリケーションが終了されるか、メモリの内容がそのままで再開されるかに
-		/// かかわらず、アプリケーションの状態が保存されます。
+		///		アプリケーションの実行が中断されたときに呼び出されます。
+		///		アプリケーションが終了されるか、メモリの内容がそのままで再開されるかに
+		///		かかわらず、アプリケーションの状態が保存されます。
 		/// </summary>
 		/// <param name="sender">中断要求の送信元。</param>
 		/// <param name="e">中断要求の詳細。</param>
