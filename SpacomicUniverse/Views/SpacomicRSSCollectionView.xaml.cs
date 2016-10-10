@@ -43,9 +43,9 @@ namespace SpacomicUniverse {
 	public sealed partial class SpacomicRSSCollectionView : Page {
 
 		/// <summary>
-		///		すぱこーRSSフィードの最新話を見つけた時に通知するトースト用XMLデータを表します。
+		///		すぱこーRSSフィードの最新話を見つけた時に通知するトースト通知（天丼通知）用XMLデータを表します。
 		/// </summary>
-		private XmlDocument toastXml;
+		private XmlDocument tendonNotificationXml;
 
 		/// <summary>
 		///		SpacomicRSSCollectionViewクラスの新しいインスタンスを生成します。
@@ -61,19 +61,19 @@ namespace SpacomicUniverse {
 		private void CreateToast() {
 			try {
 				// トーストのテンプレートから「イメージとテキスト」のXMLデータを取得します。
-				toastXml = ToastNotificationManager.GetTemplateContent( ToastTemplateType.ToastImageAndText01 );
-				var toastBindingElement = toastXml.DocumentElement.SelectSingleNode( "./visual/binding" );
+				tendonNotificationXml = ToastNotificationManager.GetTemplateContent( ToastTemplateType.ToastImageAndText01 );
+				var toastBindingElement = tendonNotificationXml.DocumentElement.SelectSingleNode( "./visual/binding" );
 
 				// トーストのテキストを設定します。
 				var toastTextElement = toastBindingElement.SelectSingleNode( "./text" );
-				toastTextElement.AppendChild( toastXml.CreateTextNode( "Webで、すぱこーRSSフィードの最新話が公開されているよ。一覧画面から再取得してみてね！" ) );
+				toastTextElement.AppendChild( tendonNotificationXml.CreateTextNode( "Webで、すぱこーRSSフィードの最新話が公開されているよ。一覧画面から再取得してみてね！" ) );
 
 				// トーストの画像を設定します。
 				var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
 				toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/pronama-tendon.png" );
 
 				// トーストの表示の長さを設定します。
-				var toastElement = toastXml.DocumentElement;
+				var toastElement = tendonNotificationXml.DocumentElement;
 				toastElement.SetAttribute( "duration", "short" );
 			}
 			catch( Exception ) { }
@@ -149,8 +149,8 @@ namespace SpacomicUniverse {
 		///		すぱこーRSSフィードの最新話を見つけた時に実行します。
 		/// </summary>
 		private void spacoRSSListViewModel_NewRSSContentsFound( object sender, EventArgs e ) {
-			if( toastXml != null ) {
-				ToastNotification toast = new ToastNotification( toastXml );
+			if( tendonNotificationXml != null ) {
+				ToastNotification toast = new ToastNotification( tendonNotificationXml );
 				ToastNotificationManager.CreateToastNotifier().Show( toast );
 			}
 		}
