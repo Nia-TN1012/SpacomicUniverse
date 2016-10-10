@@ -97,13 +97,11 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		GridViewをタップした時に実行します。
+		///		GridView上のアイテムをタップした時に実行します。
 		/// </summary>
-		private void GridView_Tapped( object sender, TappedRoutedEventArgs e ) {
-			GridView gridView = sender as GridView;
-
-			if( gridView != null && gridView.Items.Any() && gridView.SelectedIndex >= 0 ) {
-				Frame.Navigate( typeof( SpacomicComicView ), gridView.SelectedIndex );
+		private void GridViewItem_Tapped( object sender, TappedRoutedEventArgs e ) {
+			if( SpacomicRSSList.Items.Any() && SpacomicRSSList.SelectedIndex >= 0 ) {
+				Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex );
 			}
 		}
 
@@ -123,9 +121,9 @@ namespace SpacomicUniverse {
 		///		トップへ戻るボタンを押した時に実行します。
 		/// </summary>
 		private void ToTheTopButton_Click( object sender, RoutedEventArgs e ) {
-			if( SpacoRSSList.Items?.Any() ?? false ) {
-				SpacoRSSList.SelectedIndex = 0;
-				SpacoRSSList.ScrollIntoView( SpacoRSSList.Items[0] );
+			if( SpacomicRSSList.Items?.Any() ?? false ) {
+				SpacomicRSSList.SelectedIndex = 0;
+				SpacomicRSSList.ScrollIntoView( SpacomicRSSList.Items[0] );
 			}
 			HamburgerButton.IsChecked = false;
 		}
