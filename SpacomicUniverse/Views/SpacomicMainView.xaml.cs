@@ -120,5 +120,15 @@ namespace SpacomicUniverse {
 				ToastNotificationManager.CreateToastNotifier().Show( tendon );
 			}
 		}
+
+		/// <summary>
+		///		Webブラウザで開くボタンを押した時に実行します。
+		/// </summary>
+		private void OpenSpacoWithWebBrowserButton_Click( object sender, RoutedEventArgs e ) {
+			var comicView = SpacomicContentFrame.Content as SpacomicComicView;
+			if( comicView != null ) {
+				comicView.OpenSpacoWithWebBrowser();
+			}
+		}
 	}
 }

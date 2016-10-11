@@ -11,6 +11,7 @@
 		<!-- Converterリソース -->
 		<local:DateTimeStringConverter x:Key="DateTimeStringConverterKey"/>
 		<local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterKey"/>
+		<local:TypeNameMatchingToVisibilityConverter x:Key="TypeNameMatchingToVisibilityConverterKey"/>
 	</Page.Resources>
 
 	<Page.DataContext>
@@ -44,20 +45,27 @@
 					   FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"
 					   Text="{Binding Content.Tag, TargetNullValue=すぱこみっく！ユニバース, ElementName=SpacomicContentFrame}"/>
 
+			<!-- すぱこーRSSフィード一覧時に表示するボタン -->
 			<Grid Grid.Column="2">
-				<Button Grid.Column="2"
-						Style="{StaticResource AppBarButtonStyleKey}"
-						Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
-						Content="&#xE72C;"
-						CommandParameter="true"
-						Command="{Binding GetRSS}"
-						ToolTipService.ToolTip="すぱこーRSSフィードを再取得"/>
-				<Button Grid.Column="2"
-						Style="{StaticResource AppBarButtonStyleKey}"
-						Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
-						Content="&#xE711;"
-						Command="{Binding CancelGetRSS}"
-						ToolTipService.ToolTip="すぱこーRSSフィードの取得を中止"/>
+				<Grid Visibility="{Binding Content, Converter={StaticResource TypeNameMatchingToVisibilityConverterKey}, ConverterParameter=SpacomicRSSCollectionView, ElementName=SpacomicContentFrame}">
+					<Button Style="{StaticResource AppBarButtonStyleKey}"
+							Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
+							Content="&#xE72C;"
+							CommandParameter="true"
+							Command="{Binding GetRSS}"
+							ToolTipService.ToolTip="すぱこーRSSフィードを再取得"/>
+					<Button Style="{StaticResource AppBarButtonStyleKey}"
+							Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
+							Content="&#xE711;"
+							Command="{Binding CancelGetRSS}"
+							ToolTipService.ToolTip="すぱこーRSSフィードの取得を中止"/>
+				</Grid>
+				<Grid Visibility="{Binding Content, Converter={StaticResource TypeNameMatchingToVisibilityConverterKey}, ConverterParameter=SpacomicComicView, ElementName=SpacomicContentFrame}">
+					<Button Style="{StaticResource AppBarButtonStyleKey}"
+							Content="&#xE774;"
+							Click="OpenSpacoWithWebBrowserButton_Click"
+							ToolTipService.ToolTip="Webブラウザで開く"/>
+				</Grid>
 			</Grid>
 		</Grid>
 
@@ -72,20 +80,23 @@
 							<RadioButton x:Name="SwitchSpacomicRSSFeedViewButton"
 										 Style="{StaticResource SplitViewRadioButtonStyleKey}"
 										 GroupName="SpacomicNavi"
-										 Tag="&#xE80F;" Content="ホーム"
-										 Click="SwitchSpacomicRSSFeedViewButton_Click"/>
+										 Tag="&#xE80F;" Content="すぱこーRSSフィード一覧"
+										 Click="SwitchSpacomicRSSFeedViewButton_Click"
+										 ToolTipService.ToolTip="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 						</StackPanel>
 						<StackPanel VerticalAlignment="Bottom">
 							<RadioButton x:Name="SwitchSettingAboutButton"
 										 Style="{StaticResource SplitViewRadioButtonStyleKey}"
 										 GroupName="SpacomicNavi"
-										 Tag="&#xE713;" Content="設定"
-										 Click="SwitchSettingAboutButton_Click"/>
+										 Tag="&#xE713;" Content="アプリの設定"
+										 Click="SwitchSettingAboutButton_Click"
+										 ToolTipService.ToolTip="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 						</StackPanel>
 					</Grid>
 				</SplitView.Pane>
-				<!-- RSSフィード一覧とアプリ設定 -->
-				<Frame x:Name="SpacomicContentFrame" Navigated="SpacomicContentFrame_Navigated"/>
+				<!-- すぱこーRSSフィード一覧とコミックビュー、アプリ設定 -->
+				<Frame x:Name="SpacomicContentFrame"
+					   Navigated="SpacomicContentFrame_Navigated"/>
 			</SplitView>
 
 			<ContentDialog x:Name="LoadErrorDialog"

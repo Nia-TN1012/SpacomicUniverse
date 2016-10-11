@@ -102,6 +102,7 @@
     <Compile Include="Common\BoolToVisibiltyConverter.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\DateTimeStringConverter.cs" />
+    <Compile Include="Common\TypeNameMatchingToVisibiltyConverter.cs" />
     <Compile Include="Common\SpacomicRSSItem.cs" />
     <Compile Include="Common\SpacomicLocalIO.cs" />
     <Compile Include="Models\SpacomicRSSCollectionModel.cs" />

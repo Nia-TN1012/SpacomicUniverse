@@ -23,6 +23,8 @@
 #endregion
 
 using System;
+using System.Threading.Tasks;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -152,14 +154,16 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		Webブラウザで開くボタンを押した時に実行します。
+		///		
 		/// </summary>
-		private async void Button_Click( object sender, RoutedEventArgs e ) {
+		public async Task OpenSpacoWithWebBrowser() {
 			try {
-				// リンク先を既定のブラウザで開きます。
-				await Windows.System.Launcher.LaunchUriAsync( new Uri( spacomicComicViewModel.SelectedItem.Link ) );
+				if( spacomicComicViewModel.SelectedItem != null ) {
+					// リンク先を既定のブラウザで開きます。
+					await Launcher.LaunchUriAsync( new Uri( spacomicComicViewModel.SelectedItem.Link ) );
+				}
 			}
-			catch( Exception ) {}
+			catch( Exception ) { }
 		}
 	}
 }

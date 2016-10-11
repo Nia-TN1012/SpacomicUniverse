@@ -120,10 +120,31 @@
 					  Background="{ThemeResource AppBarBackgroundThemeBrush}">
 				<GridView.GroupStyle>
 					<GroupStyle>
+						<GroupStyle.HeaderContainerStyle>
+							<Style TargetType="GridViewHeaderItem">
+								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+							</Style>
+						</GroupStyle.HeaderContainerStyle>
 						<GroupStyle.HeaderTemplate>
 							<DataTemplate>
-								<TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-										   Text="{Binding GroupTitle}"/>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+
+									<TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+											   Text="{Binding GroupTitle}"/>
+
+									<Button Grid.Column="1"
+											HorizontalAlignment="Right"
+											Background="Transparent"
+											Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+											FontFamily="{ThemeResource SymbolThemeFontFamily}"
+											Content="&#xE74A;"
+											Click="Button_Click"
+											ToolTipService.ToolTip="先頭へジャンプ"/>
+								</Grid>
 							</DataTemplate>
 						</GroupStyle.HeaderTemplate>
 					</GroupStyle>
@@ -169,30 +190,7 @@
 				</Image>
 			</StackPanel>
 		</Grid>
-
-		<!--<ContentDialog x:Name="LoadErrorDialog"
-					   MaxWidth="400" MaxHeight="400"
-					   HorizontalAlignment="Center" VerticalAlignment="Center"
-					   Title="エラー"
-					   IsPrimaryButtonEnabled="True"
-					   PrimaryButtonText="OK"
-					   PrimaryButtonClick="loadErrorDialog_PrimaryButtonClick">
-			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-				<TextBlock Margin="5"
-						   TextWrapping="Wrap">
-					ごめんね～、すぱこーRSSフィードを取得できなかったみたい。<LineBreak/>
-					ネットワークに接続されているか確認してね。
-				</TextBlock>
-				<Image Margin="5" Width="80"
-					   Source="ms-appx:///Assets/sd05s.png"/>
-			</StackPanel>
-			<ContentDialog.Transitions>
-				<TransitionCollection>
-					<AddDeleteThemeTransition/>
-				</TransitionCollection>
-			</ContentDialog.Transitions>
-		</ContentDialog>-->
-
+		
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 				<VisualState x:Name="WideState">
