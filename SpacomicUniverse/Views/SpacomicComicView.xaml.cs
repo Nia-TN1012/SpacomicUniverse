@@ -67,7 +67,7 @@ namespace SpacomicUniverse {
 
 			// RSSフィード一覧のGridViewで選択したインデックスを、ViewModel側にも設定します。
 			if( e.NavigationMode == NavigationMode.New ) {
-				spacoRSSContentsViewModel.SelectedIndex = e.Parameter is int ? ( int )e.Parameter : 0;
+				spacomicComicViewModel.SelectedIndex = e.Parameter is int ? ( int )e.Parameter : 0;
 			}
 		}
 
@@ -124,8 +124,8 @@ namespace SpacomicUniverse {
 		///		FlipViewのサイズが変化した時に実行します。
 		/// </summary>
 		private void FlipView_SizeChanged( object sender, SizeChangedEventArgs e ) {
-			spacoRSSContentsViewModel.ContentWidth = e.NewSize.Width;
-			spacoRSSContentsViewModel.ContentHeight = e.NewSize.Height;
+			spacomicComicViewModel.ContentWidth = e.NewSize.Width;
+			spacomicComicViewModel.ContentHeight = e.NewSize.Height;
 		}
 
 		/// <summary>
@@ -135,7 +135,7 @@ namespace SpacomicUniverse {
 			// 初期化済みフラグがオフの時、FlipViewのインデックスをViewModelのインデックスに設定します。
 			if( !flipViewInitialized ) {
 				var flipView = sender as FlipView;
-				flipView.SelectedIndex = spacoRSSContentsViewModel.SelectedIndex;
+				flipView.SelectedIndex = spacomicComicViewModel.SelectedIndex;
 				flipViewInitialized = true;
 			}
 		}
@@ -147,7 +147,7 @@ namespace SpacomicUniverse {
 			// 初期化済みフラグがオンの時、ViewModelのインデックスをFlipViewのインデックスに設定します。
 			if( flipViewInitialized ) {
 				var flipView = sender as FlipView;
-				spacoRSSContentsViewModel.SelectedIndex = flipView.SelectedIndex;
+				spacomicComicViewModel.SelectedIndex = flipView.SelectedIndex;
 			}
 		}
 
@@ -157,7 +157,7 @@ namespace SpacomicUniverse {
 		private async void Button_Click( object sender, RoutedEventArgs e ) {
 			try {
 				// リンク先を既定のブラウザで開きます。
-				await Windows.System.Launcher.LaunchUriAsync( new Uri( spacoRSSContentsViewModel.SelectedItem.Link ) );
+				await Windows.System.Launcher.LaunchUriAsync( new Uri( spacomicComicViewModel.SelectedItem.Link ) );
 			}
 			catch( Exception ) {}
 		}

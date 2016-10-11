@@ -5,7 +5,8 @@
     xmlns:local="using:SpacomicUniverse"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Enabled">
+    mc:Ignorable="d" Tag="すぱこーRSSフィード一覧"
+	NavigationCacheMode="Enabled">
 
 	<Page.Resources>
 		<!-- Converterリソース -->
@@ -109,168 +110,88 @@
 	</Page.Resources>
 
 	<Page.DataContext>
-		<local:SpacoRSSCollectionViewModel x:Name="spacoRSSListViewModel"
-									 GetRSSCompleted="spacoRSSListViewModel_GetRSSCompleted"
-									 NewRSSContentsFound="spacoRSSListViewModel_NewRSSContentsFound"/>
+		<local:SpacoRSSCollectionViewModel/>
 	</Page.DataContext>
 
 	<Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
-		<Grid.RowDefinitions>
-			<!-- アプリのバー -->
-			<RowDefinition Height="Auto"/>
-			<!-- GridView -->
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-
-		<Grid Grid.Row="0"
-			  Background="{StaticResource PronamaGreenKey}">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-
-			<ToggleButton x:Name="HamburgerButton"
-						  Grid.Column="0"
-						  Style="{StaticResource AppBarToggleButtonStyleKey}"
-						  Content="&#xE700;"/>
-			
-			<TextBlock Grid.Column="1" 
-					   HorizontalAlignment="Center" VerticalAlignment="Center"
-					   FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"
-					   Text="すぱこーRSSフィード一覧"/>
-
-			<Button Grid.Column="2"
-					Style="{StaticResource AppBarButtonStyleKey}"
-					Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
-					Content="&#xE72C;"
-					CommandParameter="true"
-					Command="{Binding GetRSS}"
-					ToolTipService.ToolTip="すぱこーRSSフィードを再取得"/>
-			<Button Grid.Column="2"
-					Style="{StaticResource AppBarButtonStyleKey}"
-					Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
-					Content="&#xE711;"
-					Command="{Binding CancelGetRSS}"
-					ToolTipService.ToolTip="すぱこーRSSフィードの取得を中止"/>
-		</Grid>
-
-		<Grid Grid.Row="1">
-			<SplitView x:Name="SplitViewer" 
-					   DisplayMode="Overlay" CompactPaneLength="40" OpenPaneLength="240"
-					   IsPaneOpen="{Binding IsChecked, Mode=TwoWay, ElementName=HamburgerButton}">
-				<SplitView.Pane>
-					<Grid VerticalAlignment="Stretch">
-						<StackPanel VerticalAlignment="Top">
-							<Button x:Name="ToTheTopButton"
-									Style="{StaticResource SplitViewPaneButtonStyleKey}"
-									Click="ToTheTopButton_Click"
-									ToolTipService.ToolTip="すぱこーRSSフィード一覧のトップへスクロールします。">
-								<Grid>
-									<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
-											  HorizontalAlignment="Left"
-											  Glyph="&#xE80F;"/>
-									<TextBlock Margin="40,0,0,0"
-											   Text="トップへ"/>
-								</Grid>
-							</Button>
-						</StackPanel>
-						<StackPanel VerticalAlignment="Bottom">
-							<Button x:Name="SettingAboutButton"
-									Style="{StaticResource SplitViewPaneButtonStyleKey}"
-									Click="SettingAboutButton_Click"
-									ToolTipService.ToolTip="アプリの設定画面を開きます。">
-								<Grid>
-									<FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
-											  HorizontalAlignment="Left"
-											  Glyph="&#xE713;"/>
-									<TextBlock Margin="40,0,0,0"
-											   Text="設定"/>
-								</Grid>
-							</Button>
-						</StackPanel>
-					</Grid>
-				</SplitView.Pane>
-				<Grid>
-					<GridView x:Name="SpacomicRSSList"
-							  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
-							  Background="{ThemeResource AppBarBackgroundThemeBrush}">
-						<GridView.GroupStyle>
-							<GroupStyle>
-								<GroupStyle.HeaderTemplate>
-									<DataTemplate>
-										<TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-												   Text="{Binding GroupTitle}"/>
-									</DataTemplate>
-								</GroupStyle.HeaderTemplate>
-							</GroupStyle>
-						</GridView.GroupStyle>
-						<GridView.ItemContainerTransitions>
-							<TransitionCollection>
-								<AddDeleteThemeTransition/>
-								<ContentThemeTransition/>
-								<ReorderThemeTransition/>
-								<EntranceThemeTransition IsStaggeringEnabled="False"/>
-							</TransitionCollection>
-						</GridView.ItemContainerTransitions>
-					</GridView>
-
-					<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
-								Visibility="{Binding IsProgress, Converter={StaticResource BoolToVisibilityConverterKey}}">
-						<!-- プログレスリング -->
-						<ProgressRing Margin="5" Height="60" Width="60"
-									  Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-									  IsActive="{Binding IsProgress}">
-							<ProgressRing.Transitions>
-								<TransitionCollection>
-									<AddDeleteThemeTransition/>
-								</TransitionCollection>
-							</ProgressRing.Transitions>
-						</ProgressRing>
-						<TextBlock Margin="5"
-								   TextAlignment="Center"
-								   Text="すぱこーRSSフィードを取得しているよ">
-							<TextBlock.Transitions>
-								<TransitionCollection>
-									<AddDeleteThemeTransition/>
-								</TransitionCollection>
-							</TextBlock.Transitions>
-						</TextBlock>
-						<Image Margin="5" Width="120"
-							   Source="ms-appx:///Assets/sd_eye0s.png">
-							<Image.Transitions>
-								<TransitionCollection>
-									<AddDeleteThemeTransition/>
-								</TransitionCollection>
-							</Image.Transitions>
-						</Image>
-					</StackPanel>
-				</Grid>
-			</SplitView>
-
-			<ContentDialog x:Name="LoadErrorDialog"
-						   MaxWidth="400" MaxHeight="400"
-						   HorizontalAlignment="Center" VerticalAlignment="Center"
-						   Title="エラー"
-						   IsPrimaryButtonEnabled="True"
-						   PrimaryButtonText="OK"
-						   PrimaryButtonClick="loadErrorDialog_PrimaryButtonClick">
-				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-					<TextBlock Margin="5"
-							   TextWrapping="Wrap">
-						ごめんね～、すぱこーRSSフィードを取得できなかったみたい。<LineBreak/>
-						ネットワークに接続されているか確認してね。
-					</TextBlock>
-					<Image Margin="5" Width="80"
-						   Source="ms-appx:///Assets/sd05s.png"/>
-				</StackPanel>
-				<ContentDialog.Transitions>
+		<Grid>
+			<GridView x:Name="SpacomicRSSList"
+					  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
+					  Background="{ThemeResource AppBarBackgroundThemeBrush}">
+				<GridView.GroupStyle>
+					<GroupStyle>
+						<GroupStyle.HeaderTemplate>
+							<DataTemplate>
+								<TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+										   Text="{Binding GroupTitle}"/>
+							</DataTemplate>
+						</GroupStyle.HeaderTemplate>
+					</GroupStyle>
+				</GridView.GroupStyle>
+				<GridView.ItemContainerTransitions>
 					<TransitionCollection>
 						<AddDeleteThemeTransition/>
+						<ContentThemeTransition/>
+						<ReorderThemeTransition/>
+						<EntranceThemeTransition IsStaggeringEnabled="False"/>
 					</TransitionCollection>
-				</ContentDialog.Transitions>
-			</ContentDialog>
+				</GridView.ItemContainerTransitions>
+			</GridView>
+
+			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+						Visibility="{Binding IsProgress, Converter={StaticResource BoolToVisibilityConverterKey}}">
+				<!-- プログレスリング -->
+				<ProgressRing Margin="5" Height="60" Width="60"
+							  Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+							  IsActive="{Binding IsProgress}">
+					<ProgressRing.Transitions>
+						<TransitionCollection>
+							<AddDeleteThemeTransition/>
+						</TransitionCollection>
+					</ProgressRing.Transitions>
+				</ProgressRing>
+				<TextBlock Margin="5"
+						   TextAlignment="Center"
+						   Text="すぱこーRSSフィードを取得しているよ">
+					<TextBlock.Transitions>
+						<TransitionCollection>
+							<AddDeleteThemeTransition/>
+						</TransitionCollection>
+					</TextBlock.Transitions>
+				</TextBlock>
+				<Image Margin="5" Width="120"
+					   Source="ms-appx:///Assets/sd_eye0s.png">
+					<Image.Transitions>
+						<TransitionCollection>
+							<AddDeleteThemeTransition/>
+						</TransitionCollection>
+					</Image.Transitions>
+				</Image>
+			</StackPanel>
 		</Grid>
+
+		<!--<ContentDialog x:Name="LoadErrorDialog"
+					   MaxWidth="400" MaxHeight="400"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"
+					   Title="エラー"
+					   IsPrimaryButtonEnabled="True"
+					   PrimaryButtonText="OK"
+					   PrimaryButtonClick="loadErrorDialog_PrimaryButtonClick">
+			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+				<TextBlock Margin="5"
+						   TextWrapping="Wrap">
+					ごめんね～、すぱこーRSSフィードを取得できなかったみたい。<LineBreak/>
+					ネットワークに接続されているか確認してね。
+				</TextBlock>
+				<Image Margin="5" Width="80"
+					   Source="ms-appx:///Assets/sd05s.png"/>
+			</StackPanel>
+			<ContentDialog.Transitions>
+				<TransitionCollection>
+					<AddDeleteThemeTransition/>
+				</TransitionCollection>
+			</ContentDialog.Transitions>
+		</ContentDialog>-->
 
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
@@ -279,10 +200,9 @@
 						<AdaptiveTrigger MinWindowWidth="660"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="SplitViewer.DisplayMode" Value="CompactOverlay"/>
-						<Setter Target="SpacoRSSList.ItemsPanel" Value="{StaticResource WideItemPanelTemplateForGridView}"/>
-						<Setter Target="SpacoRSSList.ItemContainerStyle" Value="{StaticResource WideStyleForGridView}"/>
-						<Setter Target="SpacoRSSList.ItemTemplate" Value="{StaticResource WideDataTemplateForGridView}"/>
+						<Setter Target="SpacomicRSSList.ItemsPanel" Value="{StaticResource WideItemPanelTemplateForGridView}"/>
+						<Setter Target="SpacomicRSSList.ItemContainerStyle" Value="{StaticResource WideStyleForGridView}"/>
+						<Setter Target="SpacomicRSSList.ItemTemplate" Value="{StaticResource WideDataTemplateForGridView}"/>
 					</VisualState.Setters>
 				</VisualState>
 				<VisualState x:Name="NarrowState">
@@ -290,10 +210,9 @@
 						<AdaptiveTrigger MinWindowWidth="0"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="SplitViewer.DisplayMode" Value="Overlay"/>
-						<Setter Target="SpacoRSSList.ItemsPanel" Value="{StaticResource NarrowItemPanelTemplateForGridView}"/>
-						<Setter Target="SpacoRSSList.ItemContainerStyle" Value="{StaticResource NarrowStyleForGridView}"/>
-						<Setter Target="SpacoRSSList.ItemTemplate" Value="{StaticResource NarrowDataTemplateForGridView}"/>
+						<Setter Target="SpacomicRSSList.ItemsPanel" Value="{StaticResource NarrowItemPanelTemplateForGridView}"/>
+						<Setter Target="SpacomicRSSList.ItemContainerStyle" Value="{StaticResource NarrowStyleForGridView}"/>
+						<Setter Target="SpacomicRSSList.ItemTemplate" Value="{StaticResource NarrowDataTemplateForGridView}"/>
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>

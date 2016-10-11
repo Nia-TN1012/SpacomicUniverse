@@ -136,6 +136,7 @@ namespace SpacomicUniverse {
 			SauseItems.Clear();
 			Items.Clear();
 			cancellationTokenSource = new CancellationTokenSource();
+			GetRSSStarted( this, null );
 
 			try {
 				// Webからの再取得をリクエストされた時
@@ -238,6 +239,11 @@ namespace SpacomicUniverse {
 				item.DeleteCache();
 			}
 		}
+
+		/// <summary>
+		///		すぱこーRSSフィードの取得開始時に発生させるイベントハンドラーです。
+		/// </summary>
+		public event EventHandler GetRSSStarted;
 
 		/// <summary>
 		///		すぱこーRSSフィードの取得完了後に発生させるイベントハンドラーです。

@@ -76,9 +76,9 @@
 							<VisualStateGroup x:Name="CheckStates">
 								<VisualState x:Name="Checked">
 									<Storyboard>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckMarkPresenter"
 																	   Storyboard.TargetProperty="Background">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PronamaGreenKey}"/>
 										</ObjectAnimationUsingKeyFrames>
 									</Storyboard>
 								</VisualState>
@@ -93,14 +93,21 @@
 								<ColumnDefinition Width="*"/>
 							</Grid.ColumnDefinitions>
 
+							<Grid x:Name="CheckMarkPresenter"
+								  HorizontalAlignment="Left"
+								  Width="5"
+								  Background="{x:Null}"/>
+
 							<!-- アイコン部 -->
 							<ContentPresenter x:Name="IconPresenter"
+											  Margin="5"
 											  HorizontalAlignment="Center" VerticalAlignment="Center"
 											  FontFamily="{ThemeResource SymbolThemeFontFamily}"
 											  Content="{TemplateBinding Tag}"/>
 
 							<!-- テキスト部 -->
 							<ContentPresenter x:Name="TextPresenter"
+											  Margin="5,0,0,0"
 											  Grid.Column="1"
 											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"

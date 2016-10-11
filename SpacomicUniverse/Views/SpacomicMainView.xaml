@@ -13,6 +13,12 @@
 		<local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterKey"/>
 	</Page.Resources>
 
+	<Page.DataContext>
+		<local:SpacomicMainViewModel x:Name="spacomicMainViewModel"
+									 GetRSSCompleted="spacomicMainViewModel_GetRSSCompleted"
+									 NewRSSContentsFound="spacomicMainViewModel_NewRSSContentsFound"/>
+	</Page.DataContext>
+
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -36,27 +42,29 @@
 			<TextBlock Grid.Column="1" 
 					   HorizontalAlignment="Center" VerticalAlignment="Center"
 					   FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"
-					   Text="すぱこみっく！ユニバース"/>
+					   Text="{Binding Content.Tag, TargetNullValue=すぱこみっく！ユニバース, ElementName=SpacomicContentFrame}"/>
 
-			<Button Grid.Column="2"
-					Style="{StaticResource AppBarButtonStyleKey}"
-					Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
-					Content="&#xE72C;"
-					CommandParameter="true"
-					Command="{Binding GetRSS}"
-					ToolTipService.ToolTip="すぱこーRSSフィードを再取得"/>
-			<Button Grid.Column="2"
-					Style="{StaticResource AppBarButtonStyleKey}"
-					Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
-					Content="&#xE711;"
-					Command="{Binding CancelGetRSS}"
-					ToolTipService.ToolTip="すぱこーRSSフィードの取得を中止"/>
+			<Grid Grid.Column="2">
+				<Button Grid.Column="2"
+						Style="{StaticResource AppBarButtonStyleKey}"
+						Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
+						Content="&#xE72C;"
+						CommandParameter="true"
+						Command="{Binding GetRSS}"
+						ToolTipService.ToolTip="すぱこーRSSフィードを再取得"/>
+				<Button Grid.Column="2"
+						Style="{StaticResource AppBarButtonStyleKey}"
+						Visibility="{Binding IsEnabled, Converter={StaticResource BoolToVisibilityConverterKey}, RelativeSource={RelativeSource Self}}"
+						Content="&#xE711;"
+						Command="{Binding CancelGetRSS}"
+						ToolTipService.ToolTip="すぱこーRSSフィードの取得を中止"/>
+			</Grid>
 		</Grid>
 
 		<!-- フレーム -->
 		<Grid Grid.Row="1">
 			<SplitView x:Name="SplitViewer" 
-					   DisplayMode="CompactInline" CompactPaneLength="40" OpenPaneLength="240"
+					   DisplayMode="Overlay" CompactPaneLength="40" OpenPaneLength="240"
 					   IsPaneOpen="{Binding IsChecked, Mode=TwoWay, ElementName=HamburgerButton}">
 				<SplitView.Pane>
 					<Grid VerticalAlignment="Stretch">
@@ -64,13 +72,8 @@
 							<RadioButton x:Name="SwitchSpacomicRSSFeedViewButton"
 										 Style="{StaticResource SplitViewRadioButtonStyleKey}"
 										 GroupName="SpacomicNavi"
-										 Tag="&#xE80F;" Content="すぱこーRSSフィード一覧"
-										 Checked="SwitchSpacomicRSSFeedViewButton_Checked"/>
-							<RadioButton x:Name="SwitchSpacomicComicViewButton"
-										 Style="{StaticResource SplitViewRadioButtonStyleKey}"
-										 GroupName="SpacomicNavi"
-										 Tag="&#xE80F;" Content="コミックビュー"
-										 Checked="SwitchSpacomicComicViewButton_Checked"/>
+										 Tag="&#xE80F;" Content="ホーム"
+										 Click="SwitchSpacomicRSSFeedViewButton_Click"/>
 						</StackPanel>
 						<StackPanel VerticalAlignment="Bottom">
 							<RadioButton x:Name="SwitchSettingAboutButton"
@@ -81,8 +84,53 @@
 						</StackPanel>
 					</Grid>
 				</SplitView.Pane>
-				<Frame x:Name="SpacomicContentFrame"/>
+				<!-- RSSフィード一覧とアプリ設定 -->
+				<Frame x:Name="SpacomicContentFrame" Navigated="SpacomicContentFrame_Navigated"/>
 			</SplitView>
+
+			<ContentDialog x:Name="LoadErrorDialog"
+						   MaxWidth="400" MaxHeight="400"
+						   HorizontalAlignment="Center" VerticalAlignment="Center"
+						   Title="エラー"
+						   IsPrimaryButtonEnabled="True"
+						   PrimaryButtonText="OK"
+						   PrimaryButtonClick="loadErrorDialog_PrimaryButtonClick">
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+					<TextBlock Margin="5"
+							   TextWrapping="Wrap">
+						ごめんね～、すぱこーRSSフィードを取得できなかったみたい。<LineBreak/>
+						ネットワークに接続されているか確認してね。
+					</TextBlock>
+					<Image Margin="5" Width="80"
+						   Source="ms-appx:///Assets/sd05s.png"/>
+				</StackPanel>
+				<ContentDialog.Transitions>
+					<TransitionCollection>
+						<AddDeleteThemeTransition/>
+					</TransitionCollection>
+				</ContentDialog.Transitions>
+			</ContentDialog>
 		</Grid>
+
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="WideState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="660"/>
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="SplitViewer.DisplayMode" Value="CompactOverlay"/>
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="NarrowState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0"/>
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="SplitViewer.DisplayMode" Value="Overlay"/>
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
 	</Grid>
 </Page>
