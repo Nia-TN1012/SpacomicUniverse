@@ -4,7 +4,7 @@
 *	@brief すぱこーRSSフィードのコンテンツを管理します。
 *
 *	@par バージョン Version
-*	1.0.0
+*	1.1.0
 *	@par 作成者 Author
 *	智中ニア（Nia Tomonaka）
 *	@par コピーライト Copyright
@@ -12,7 +12,7 @@
 *	@par 作成日
 *	2016/10/09
 *	@par 最終更新日
-*	2016/10/10
+*	2016/10/11
 *	@par ライセンス Licence
 *	BSD Licence（ 2-caluse ）
 *	@par 連絡先 Contact
@@ -25,7 +25,6 @@
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -65,14 +64,14 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		すぱこーRSSフィードのコンテンツを格納するコレクションを取得します。
 		/// </summary>
-		public ObservableCollection<SpacomicRSSItem> Items { get; private set; }
+		public List<SpacomicRSSItem> Items { get; private set; }
 
 		/// <summary>
 		///		SpacoRSSListModelの新しいインスタンスを生成します。
 		/// </summary>
 		public SpacomicRSSCollectionModel() {
 			SauseItems = new Dictionary<string, SpacoRSSSause>();
-			Items = new ObservableCollection<SpacomicRSSItem>();
+			Items = new List<SpacomicRSSItem>();
 		}
 
 		/// <summary>
@@ -141,10 +140,7 @@ namespace SpacomicUniverse {
 			try {
 				// Webからの再取得をリクエストされた時
 				if( forceReload ) {
-					IEnumerable<SpacomicRSSItem> list = await GetRSSCore();
-					foreach( var item in list.OrderByDescending( _ => _.PubDate ) ) {
-						Items.Add( item );
-					}
+					Items.AddRange( ( await GetRSSCore() ).OrderByDescending( _ => _.PubDate ) );
 					// ローカルファイルに保存します。
 					await SpacomicLocalIO.SaveSpacoRSSSauseFile( SauseItems );
 					await SpacomicLocalIO.SaveRSSCollectionFile( Items );
@@ -159,20 +155,14 @@ namespace SpacomicUniverse {
 						foreach( var item in spacoRSSauseFromLocal.Item2 ) {
 							SauseItems[item.Key] = item.Value;
 						}
-						IEnumerable<SpacomicRSSItem> list = spacoRSSListFromLocal.Item2;
-						foreach( var item in list ) {
-							Items.Add( item );
-						}
+						Items.AddRange( spacoRSSListFromLocal.Item2 );
 
 						// Web上に最新話があるかどうかチェックします。
 						CheckNewContents();
 					}
 					// ローカルファイルからの読み込みに失敗した場合、Webから取得します
 					else {
-						IEnumerable<SpacomicRSSItem> list = await GetRSSCore();
-						foreach( var item in list.OrderByDescending( _ => _.PubDate ) ) {
-							Items.Add( item );
-						}
+						Items.AddRange( ( await GetRSSCore() ).OrderByDescending( _ => _.PubDate ) );
 						// ローカルファイルに保存します。
 						await SpacomicLocalIO.SaveSpacoRSSSauseFile( SauseItems );
 						await SpacomicLocalIO.SaveRSSCollectionFile( Items );
@@ -222,7 +212,7 @@ namespace SpacomicUniverse {
 				}
 				// 最新話が見つかったら、ViewModelに通知します。
 				if( newContentsFound ) {
-					NewRSSContentsFound?.Invoke( this, null );
+					NewRSSContentsFound?.Invoke( this, new EventArgs() );
 				}
 			}
 			catch( Exception ) {}
@@ -238,6 +228,7 @@ namespace SpacomicUniverse {
 			foreach( var item in Items ) {
 				item.DeleteCache();
 			}
+			ImageCachesDeleted?.Invoke( this, new EventArgs() );
 		}
 
 		/// <summary>
@@ -254,6 +245,11 @@ namespace SpacomicUniverse {
 		///		すぱこーRSSフィードの新しい話が見つかった時に発生させるイベントハンドラーです。
 		/// </summary>
 		public event EventHandler NewRSSContentsFound;
+
+		/// <summary>
+		///		画像のキャッシュを削除した時に発生させるイベントハンドラーです。
+		/// </summary>
+		public event EventHandler ImageCachesDeleted;
 
 		/// <summary>
 		///		プロパティ変更後に発生させるイベントハンドラーです。

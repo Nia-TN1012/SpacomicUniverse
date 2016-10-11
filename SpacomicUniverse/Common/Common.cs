@@ -4,7 +4,7 @@
 *	@brief すぱこみっく！ユニバースで使用する、その他のクラスなどを定義しています。
 *
 *	@par バージョン Version
-*	1.0.0
+*	1.1.0
 *	@par 作成者 Author
 *	智中ニア（Nia Tomonaka）
 *	@par コピーライト Copyright
@@ -12,7 +12,7 @@
 *	@par 作成日
 *	2016/10/09
 *	@par 最終更新日
-*	2016/10/10
+*	2016/10/11
 *	@par ライセンス Licence
 *	BSD Licence（ 2-caluse ）
 *	@par 連絡先 Contact

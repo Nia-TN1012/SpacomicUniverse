@@ -8,7 +8,7 @@
 	<Style x:Key="DarkMaterialBorderStyleForGridViewItemKey" TargetType="Border">
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="#FF202020"/>
-		<Setter Property="BorderThickness" Value="1,1,1,2"/>
+		<Setter Property="BorderThickness" Value="1,1,1,3"/>
 	</Style>
 	
 	<Style x:Key="DarkMaterialBorderStyleKey" TargetType="Border"
@@ -17,30 +17,134 @@
 		<Setter Property="Background" Value="{x:Null}"/>
 	</Style>
 
-	<Style x:Key="AppBarButtonStyleKey" TargetType="Button">
-		<Setter Property="Width" Value="40"/>
-		<Setter Property="Height" Value="40"/>
+	<Style x:Key="AppButtonStyleKey" TargetType="Button">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPointerOver}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Pressed">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPressed}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Disabled">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundDisabled}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextPresenter"
+																	   Storyboard.TargetProperty="Foreground">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+
+						<Grid x:Name="Presenter">
+							<ContentPresenter x:Name="TextPresenter"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  ContentTransitions="{TemplateBinding ContentTransitions}"
+											  AutomationProperties.AccessibilityView="Raw"/>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="AppBarButtonStyleKey" TargetType="Button"
+		   BasedOn="{StaticResource AppButtonStyleKey}">
+		<Setter Property="Width" Value="48"/>
+		<Setter Property="Height" Value="48"/>
+		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}"/>
+		<Setter Property="FontSize" Value="{ThemeResource TextStyleLargeFontSize}"/>
 	</Style>
 
-	<Style x:Key="AppBarToggleButtonStyleKey" TargetType="ToggleButton">
-		<Setter Property="Width" Value="40"/>
-		<Setter Property="Height" Value="40"/>
+	<Style x:Key="AppToggleButtonStyleKey" TargetType="ToggleButton">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="PointerOver">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPointerOver}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Pressed">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPressed}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Disabled">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Presenter"
+																	   Storyboard.TargetProperty="Background">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundDisabled}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextPresenter"
+																	   Storyboard.TargetProperty="Foreground">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+
+						<Grid x:Name="Presenter">
+							<ContentPresenter x:Name="TextPresenter"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  ContentTransitions="{TemplateBinding ContentTransitions}"
+											  AutomationProperties.AccessibilityView="Raw"/>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="AppBarToggleButtonStyleKey" TargetType="ToggleButton"
+		   BasedOn="{StaticResource AppToggleButtonStyleKey}">
+		<Setter Property="Width" Value="48"/>
+		<Setter Property="Height" Value="48"/>
+		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}"/>
-	</Style>
-
-	<Style x:Key="SplitViewPaneButtonStyleKey" TargetType="Button">
-		<Setter Property="Height" Value="40"/>
-		<Setter Property="HorizontalAlignment" Value="Stretch"/>
-		<Setter Property="HorizontalContentAlignment" Value="Left"/>
-		<Setter Property="VerticalContentAlignment" Value="Center"/>
-	</Style>
-
-	<Style x:Key="SplitViewPaneToggleButtonStyleKey" TargetType="ToggleButton">
-		<Setter Property="Height" Value="40"/>
-		<Setter Property="HorizontalAlignment" Value="Stretch"/>
-		<Setter Property="HorizontalContentAlignment" Value="Left"/>
-		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="FontSize" Value="{ThemeResource TextStyleLargeFontSize}"/>
 	</Style>
 
 	<Style TargetType="RadioButton" x:Key="SplitViewRadioButtonStyleKey">
@@ -52,7 +156,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="RadioButton">
-					<Border  Background="{TemplateBinding Background}"
+					<Border Background="{TemplateBinding Background}"
 							BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
 						<VisualStateManager.VisualStateGroups>
 							<VisualStateGroup x:Name="CommonStates">
@@ -89,9 +193,9 @@
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
 
-						<Grid x:Name="Presenter" Height="40">
+						<Grid x:Name="Presenter" Height="48">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="48"/>
 								<ColumnDefinition Width="*"/>
 							</Grid.ColumnDefinitions>
 
@@ -115,7 +219,8 @@
 											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 											  Content="{TemplateBinding Content}"
 											  ContentTemplate="{TemplateBinding ContentTemplate}"
-											  ContentTransitions="{TemplateBinding ContentTransitions}" />
+											  ContentTransitions="{TemplateBinding ContentTransitions}"
+											  AutomationProperties.AccessibilityView="Raw"/>
 						</Grid>
 					</Border>
 				</ControlTemplate>

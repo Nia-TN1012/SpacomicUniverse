@@ -4,7 +4,7 @@
 *	@brief すぱこーRSSフィードの一覧を表示する画面用のViewModelを表します。
 *
 *	@par バージョン Version
-*	1.0.0
+*	1.1.0
 *	@par 作成者 Author
 *	智中ニア（Nia Tomonaka）
 *	@par コピーライト Copyright
@@ -12,7 +12,7 @@
 *	@par 作成日
 *	2016/10/09
 *	@par 最終更新日
-*	2016/10/10
+*	2016/10/11
 *	@par ライセンス Licence
 *	BSD Licence（ 2-caluse ）
 *	@par 連絡先 Contact
@@ -97,6 +97,12 @@ namespace SpacomicUniverse {
 					DivideItemsIntoTheGroupsOfMonth();
 					// RSSフィード取得完了したことをView側に通知します。
 					GetRSSCompleted?.Invoke( this, e );
+				};
+
+			// 画像のキャッシュの削除が完了したことをView側に通知します。
+			spacomicRSSCollectionModel.ImageCachesDeleted +=
+				( sender, e ) => {
+					NotifyPropertyChanged( nameof( Items ) );
 				};
 
 			if( spacomicRSSCollectionModel.Items != null ) {

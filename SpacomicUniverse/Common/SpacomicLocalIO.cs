@@ -4,7 +4,7 @@
 *	@brief 取得したすぱこーRSSフィードを、ローカルファイルへ保存・読み出しをします。
 *
 *	@par バージョン Version
-*	1.0.0
+*	1.1.0
 *	@par 作成者 Author
 *	智中ニア（Nia Tomonaka）
 *	@par コピーライト Copyright
@@ -12,7 +12,7 @@
 *	@par 作成日
 *	2016/10/09
 *	@par 最終更新日
-*	2016/10/10
+*	2016/10/11
 *	@par ライセンス Licence
 *	BSD Licence（ 2-caluse ）
 *	@par 連絡先 Contact
@@ -57,12 +57,12 @@ namespace SpacomicUniverse {
 			TaskResult result = TaskResult.Succeeded;
 			List<SpacomicRSSItem> list = null;
 
-			// ローカルファイルを正しく開いた時
 			try {
 				StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-				StorageFile spacoRSSListFile = await localFolder.GetFileAsync( rssListFilePath );
-				if( spacoRSSListFile != null ) {
-					XElement spacoXml = XDocument.Parse( await FileIO.ReadTextAsync( spacoRSSListFile ) ).Root;
+				var spacoRSSListFile = await localFolder.TryGetItemAsync( rssListFilePath );
+				// ローカルファイルを正しく開いた時
+				if( spacoRSSListFile != null && spacoRSSListFile is IStorageFile ) {
+					XElement spacoXml = XDocument.Parse( await FileIO.ReadTextAsync( ( IStorageFile )spacoRSSListFile ) ).Root;
 					list = spacoXml.Elements( "item" ).Select( item =>
 						new SpacomicRSSItem {
 							Type = item.Attribute( "type" ).Value,
@@ -137,10 +137,10 @@ namespace SpacomicUniverse {
 
 			try {
 				StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-				StorageFile spacoRSSSauseFile = await localFolder.GetFileAsync( rssSauseFilePath );
+				var spacoRSSSauseFile = await localFolder.TryGetItemAsync( rssSauseFilePath );
 				// ローカルファイルを正しく開いた時
-				if( spacoRSSSauseFile != null ) {
-					XElement sauseXml = XDocument.Parse( await FileIO.ReadTextAsync( spacoRSSSauseFile ) ).Root;
+				if( spacoRSSSauseFile != null && spacoRSSSauseFile is IStorageFile ) {
+					XElement sauseXml = XDocument.Parse( await FileIO.ReadTextAsync( ( IStorageFile )spacoRSSSauseFile ) ).Root;
 					list = sauseXml.Elements( "sause" ).Select( item =>
 						new KeyValuePair<string, SpacoRSSSause>(
 							item.Attribute( "type" ).Value,

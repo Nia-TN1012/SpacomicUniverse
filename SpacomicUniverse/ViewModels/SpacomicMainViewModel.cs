@@ -1,12 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region バージョン情報
+/**
+*	@file SpacomicMainViewModel.cs
+*	@brief すぱこみっく！ユニバースのメインページのViewModelを表します。
+*
+*	@par バージョン Version
+*	1.1.0
+*	@par 作成者 Author
+*	智中ニア（Nia Tomonaka）
+*	@par コピーライト Copyright
+*	Copyright (C) 2016 Chronoir.net
+*	@par 作成日
+*	2016/10/09
+*	@par 最終更新日
+*	2016/10/11
+*	@par ライセンス Licence
+*	BSD Licence（ 2-caluse ）
+*	@par 連絡先 Contact
+*	@@nia_tn1012（ https://twitter.com/nia_tn1012/ ）
+*	@par ホームページ Homepage
+*	- http://chronoir.net/ (ホームページ)
+*/
+#endregion
+
+using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
+/// <summary>
+///		すぱこみっく ユニバース
+/// </summary>
 namespace SpacomicUniverse {
 
+	/// <summary>
+	///		すぱこみっく！ユニバースのメインページのViewModelを表します。
+	/// </summary>
 	class SpacomicMainViewModel : INotifyPropertyChanged {
 
 		/// <summary>

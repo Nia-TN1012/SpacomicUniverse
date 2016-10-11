@@ -72,7 +72,7 @@
 		<!-- フレーム -->
 		<Grid Grid.Row="1">
 			<SplitView x:Name="SplitViewer" 
-					   DisplayMode="Overlay" CompactPaneLength="40" OpenPaneLength="240"
+					   DisplayMode="Overlay" CompactPaneLength="48" OpenPaneLength="240"
 					   IsPaneOpen="{Binding IsChecked, Mode=TwoWay, ElementName=HamburgerButton}">
 				<SplitView.Pane>
 					<Grid VerticalAlignment="Stretch">
@@ -127,7 +127,7 @@
 			<VisualStateGroup>
 				<VisualState x:Name="WideState">
 					<VisualState.StateTriggers>
-						<AdaptiveTrigger MinWindowWidth="660"/>
+						<AdaptiveTrigger MinWindowWidth="680"/>
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
 						<Setter Target="SplitViewer.DisplayMode" Value="CompactOverlay"/>

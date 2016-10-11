@@ -1,4 +1,28 @@
-﻿using System;
+﻿#region バージョン情報
+/**
+*	@file SpacomicMainView.cs
+*	@brief すぱこみっく！ユニバースのメインページを表します。
+*
+*	@par バージョン Version
+*	1.1.0
+*	@par 作成者 Author
+*	智中ニア（Nia Tomonaka）
+*	@par コピーライト Copyright
+*	Copyright (C) 2016 Chronoir.net
+*	@par 作成日
+*	2016/10/09
+*	@par 最終更新日
+*	2016/10/11
+*	@par ライセンス Licence
+*	BSD Licence（ 2-caluse ）
+*	@par 連絡先 Contact
+*	@@nia_tn1012（ https://twitter.com/nia_tn1012/ ）
+*	@par ホームページ Homepage
+*	- http://chronoir.net/ (ホームページ)
+*/
+#endregion
+
+using System;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -9,6 +33,7 @@ using Windows.UI.Xaml.Navigation;
 ///		すぱこみっく ユニバース
 /// </summary>
 namespace SpacomicUniverse {
+
 	/// <summary>
 	///		すぱこみっく！ユニバースのメインページを表します。
 	/// </summary>
@@ -31,30 +56,31 @@ namespace SpacomicUniverse {
 		///		すぱこーRSSフィードの最新話を見つけた時に通知する、トースト通知（天丼通知）用XMLデータを作成します。
 		/// </summary>
 		private void CreateTendon() {
-			try {
-				// トーストのテンプレートから「イメージとテキスト」のXMLデータを取得します。
-				tendonNotificationXml = ToastNotificationManager.GetTemplateContent( ToastTemplateType.ToastImageAndText01 );
-				var toastBindingElement = tendonNotificationXml.DocumentElement.SelectSingleNode( "./visual/binding" );
+			// トーストのテンプレートから「イメージとテキスト」のXMLデータを取得します。
+			tendonNotificationXml = ToastNotificationManager.GetTemplateContent( ToastTemplateType.ToastImageAndText01 );
+			var toastBindingElement = tendonNotificationXml.DocumentElement.SelectSingleNode( "./visual/binding" );
 
-				// トーストのテキストを設定します。
-				var toastTextElement = toastBindingElement.SelectSingleNode( "./text" );
-				toastTextElement.AppendChild( tendonNotificationXml.CreateTextNode( "Webで、すぱこーRSSフィードの最新話が公開されているよ。一覧画面から再取得してみてね！" ) );
+			// トーストのテキストを設定します。
+			var toastTextElement = toastBindingElement.SelectSingleNode( "./text" );
+			toastTextElement.AppendChild( tendonNotificationXml.CreateTextNode( "Webで、すぱこーRSSフィードの最新話が公開されているよ。一覧画面から再取得してみてね！" ) );
 
-				// トーストの画像を設定します。
-				var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
-				toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/pronama-tendon.png" );
+			// トーストの画像を設定します。
+			var toastImageAttribute = ( XmlElement )toastBindingElement.SelectSingleNode( "./image" );
+			toastImageAttribute.SetAttribute( "src", "ms-appx:///Assets/pronama-tendon.png" );
 
-				// トーストの表示の長さを設定します。
-				var toastElement = tendonNotificationXml.DocumentElement;
-				toastElement.SetAttribute( "duration", "short" );
-			}
-			catch( Exception ) { }
+			// トーストの表示の長さを設定します。
+			var toastElement = tendonNotificationXml.DocumentElement;
+			toastElement.SetAttribute( "duration", "short" );
 		}
 
+		/// <summary>
+		///		別のページから遷移した時に実行します。
+		/// </summary>
+		/// <param name="e">イベント引数</param>
 		protected override void OnNavigatedTo( NavigationEventArgs e ) {
 			base.OnNavigatedTo( e );
 
-			SwitchSpacomicRSSFeedViewButton.IsChecked = true;
+			// SplitView内のFrameのトップページに、すぱこーRSSフィード一覧をセットします。
 			SpacomicContentFrame.Navigate( typeof( SpacomicRSSCollectionView ) );
 
 			if( e.NavigationMode == NavigationMode.New ) {
@@ -63,11 +89,18 @@ namespace SpacomicUniverse {
 			}
 		}
 
+		/// <summary>
+		///		SplitView内のFrameで、ナビゲートが発生した時に実行します。
+		/// </summary>
 		private void SpacomicContentFrame_Navigated( object sender, NavigationEventArgs e ) {
 			if( e.SourcePageType != null ) {
+				// Pageの型名と対応するラジオボタンにチェックを入れます。
 				switch( e.SourcePageType.Name ) {
 					case nameof( SpacomicRSSCollectionView ):
 						SwitchSpacomicRSSFeedViewButton.IsChecked = true;
+						break;
+					case nameof( AppSettingView ):
+						SwitchSettingAboutButton.IsChecked = true;
 						break;
 				}
 			}
@@ -77,12 +110,20 @@ namespace SpacomicUniverse {
 		///		RSSフィード一覧ボタンをクリックした時に実行します。
 		/// </summary>
 		private void SwitchSpacomicRSSFeedViewButton_Click( object sender, RoutedEventArgs e ) {
-			// RSSフィード一覧ページから、別のページに遷移していた場合、RSSフィード一覧ページに戻ります。
-			var currentInlineFrame = ( SpacomicContentFrame?.Content as Page )?.Frame;
-			while( currentInlineFrame?.CanGoBack ?? false ) {
-				currentInlineFrame.GoBack();
+			// 現在のページがRSSフィード一覧の時
+			// ※このif文の条件を満たすのは、現在のページがRSSフィード一覧の時のみです。
+			if( !SpacomicContentFrame.CanGoBack ) {
+				// SpacomicRSSCollectionViewオブジェクトに、GridViewのロールアップを実行させます。
+				( SpacomicContentFrame.Content as SpacomicRSSCollectionView )?.GridViewJumpToFirstItem();
 			}
-			SwitchSpacomicRSSFeedViewButton.IsChecked = true;
+			// RSSフィード一覧ページから、別のページに遷移していた時
+			else {
+				// RSSフィード一覧ページまで戻ります。
+				while( SpacomicContentFrame.CanGoBack ) {
+					SpacomicContentFrame.GoBack();
+				}
+				SwitchSpacomicRSSFeedViewButton.IsChecked = true;
+			}
 			HamburgerButton.IsChecked = false;
 		}
 
@@ -115,10 +156,8 @@ namespace SpacomicUniverse {
 		///		すぱこーRSSフィードの最新話を見つけた時に実行します。
 		/// </summary>
 		private void spacomicMainViewModel_NewRSSContentsFound( object sender, EventArgs e ) {
-			if( tendonNotificationXml != null ) {
-				ToastNotification tendon = new ToastNotification( tendonNotificationXml );
-				ToastNotificationManager.CreateToastNotifier().Show( tendon );
-			}
+			ToastNotification tendon = new ToastNotification( tendonNotificationXml );
+			ToastNotificationManager.CreateToastNotifier().Show( tendon );
 		}
 
 		/// <summary>
@@ -126,9 +165,7 @@ namespace SpacomicUniverse {
 		/// </summary>
 		private void OpenSpacoWithWebBrowserButton_Click( object sender, RoutedEventArgs e ) {
 			var comicView = SpacomicContentFrame.Content as SpacomicComicView;
-			if( comicView != null ) {
-				comicView.OpenSpacoWithWebBrowser();
-			}
+			comicView?.OpenSpacoWithWebBrowser();
 		}
 	}
 }

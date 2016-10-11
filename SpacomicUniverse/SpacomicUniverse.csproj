@@ -132,10 +132,14 @@
     <None Include="SpacomicUniverse_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Chronoir-logo.png" />
+    <Content Include="Assets\mascot-apps-contest-logo-2016.png" />
+    <Content Include="Assets\Pronama-logo.png" />
     <Content Include="Assets\pronama-tendon.png" />
     <Content Include="Assets\sd05s.png" />
     <Content Include="Assets\sd_eye0s.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\UniSPADA-Pronama.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
