@@ -67,6 +67,21 @@ namespace SpacomicUniverse {
 		/// </summary>
 		private void SpacomicRSSList_ItemClick( object sender, ItemClickEventArgs e ) {
 			if( SpacomicRSSList.Items.Any() && SpacomicRSSList.SelectedIndex >= 0 ) {
+				// この時点では、クリックしたアイテムのインデックスがSelectedIndexやSelectedItemなどに反映されていません。
+				// まず、クリックしたアイテムと選択されたアイテムを比較して、同じインスタンスを参照していれば、コミックビューに遷移します。
+				// ※キーボード操作で選択した場合、この条件文は必ず満たします。
+				if( e.ClickedItem == SpacomicRSSList.SelectedItem ) {
+					Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex );
+				}
+			}
+		}
+
+		/// <summary>
+		///		GridView上のアイテムをタップした時に実行します。
+		/// </summary>
+		/// <remarks>ItemClickイベントでページ遷移できた場合、このイベントは実行しません。</remarks>
+		private void GridViewItem_Tapped( object sender, TappedRoutedEventArgs e ) {
+			if( SpacomicRSSList.Items.Any() && SpacomicRSSList.SelectedIndex >= 0 ) {
 				Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex );
 			}
 		}
