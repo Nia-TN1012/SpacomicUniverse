@@ -114,10 +114,23 @@
 	</Page.DataContext>
 
 	<Grid Background="{ThemeResource AppBarBackgroundThemeBrush}">
-		<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="3*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="3*"/>
+		</Grid.ColumnDefinitions>
+
+		<Image Grid.Row="1" Grid.Column="1"
+			   Margin="5" MaxWidth="512" MaxHeight="512"
+			   HorizontalAlignment="Right" VerticalAlignment="Bottom"
+			   Source="ms-appx:///Assets/pronama-bg-list.png"/>
+
+		<Grid Grid.RowSpan="2" Grid.ColumnSpan="2">
 			<GridView x:Name="SpacomicRSSList"
-					  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
-					  Background="{ThemeResource AppBarBackgroundThemeBrush}">
+					  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}">
 				<GridView.GroupStyle>
 					<GroupStyle>
 						<GroupStyle.HeaderTemplate>
@@ -138,36 +151,38 @@
 				</GridView.ItemContainerTransitions>
 			</GridView>
 
-			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
-						Visibility="{Binding IsProgress, Converter={StaticResource BoolToVisibilityConverterKey}}">
-				<!-- プログレスリング -->
-				<ProgressRing Margin="5" Height="60" Width="60"
-							  Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-							  IsActive="{Binding IsProgress}">
-					<ProgressRing.Transitions>
-						<TransitionCollection>
-							<AddDeleteThemeTransition/>
-						</TransitionCollection>
-					</ProgressRing.Transitions>
-				</ProgressRing>
-				<TextBlock Margin="5"
-						   TextAlignment="Center"
-						   Text="すぱこーRSSフィードを取得しているよ">
-					<TextBlock.Transitions>
-						<TransitionCollection>
-							<AddDeleteThemeTransition/>
-						</TransitionCollection>
-					</TextBlock.Transitions>
-				</TextBlock>
-				<Image Margin="5" Width="120"
-					   Source="ms-appx:///Assets/sd_eye0s.png">
-					<Image.Transitions>
-						<TransitionCollection>
-							<AddDeleteThemeTransition/>
-						</TransitionCollection>
-					</Image.Transitions>
-				</Image>
-			</StackPanel>
+			<Grid Visibility="{Binding IsProgress, Converter={StaticResource BoolToVisibilityConverterKey}}"
+				  Background="{ThemeResource AppBarBackgroundThemeBrush}">
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+					<!-- プログレスリング -->
+					<ProgressRing Margin="5" Height="60" Width="60"
+								  Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+								  IsActive="{Binding IsProgress}">
+						<ProgressRing.Transitions>
+							<TransitionCollection>
+								<AddDeleteThemeTransition/>
+							</TransitionCollection>
+						</ProgressRing.Transitions>
+					</ProgressRing>
+					<TextBlock Margin="5"
+							   TextAlignment="Center"
+							   Text="すぱこーRSSフィードを取得しているよ">
+						<TextBlock.Transitions>
+							<TransitionCollection>
+								<AddDeleteThemeTransition/>
+							</TransitionCollection>
+						</TextBlock.Transitions>
+					</TextBlock>
+					<Image Margin="5" Width="120"
+						   Source="ms-appx:///Assets/sd_eye0s.png">
+						<Image.Transitions>
+							<TransitionCollection>
+								<AddDeleteThemeTransition/>
+							</TransitionCollection>
+						</Image.Transitions>
+					</Image>
+				</StackPanel>
+			</Grid>
 		</Grid>
 		
 		<VisualStateManager.VisualStateGroups>

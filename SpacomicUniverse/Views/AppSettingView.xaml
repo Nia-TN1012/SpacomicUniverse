@@ -12,9 +12,24 @@
 	</Page.DataContext>
 	
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<Pivot>
-			<PivotItem Header="設定">
-				<ScrollViewer Margin="5,30,5,5">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="3*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="3*"/>
+		</Grid.ColumnDefinitions>
+		
+		<Image Grid.Row="1" Grid.Column="1"
+			   Margin="5" MaxWidth="512" MaxHeight="512"
+			   HorizontalAlignment="Right" VerticalAlignment="Bottom"
+			   Source="ms-appx:///Assets/pronama-bg-setting.png"/>
+		
+		<Pivot Grid.RowSpan="2" Grid.ColumnSpan="2">
+			<PivotItem Header="設定"
+					   Margin="5">
+				<ScrollViewer Margin="0,25,0,0">
 					<StackPanel>
 						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
 							<StackPanel Margin="5">
@@ -30,8 +45,9 @@
 					</StackPanel>
 				</ScrollViewer>
 			</PivotItem>
-			<PivotItem Header="すぱこーについて">
-				<ScrollViewer Margin="5">
+			<PivotItem Header="すぱこーについて"
+					   Margin="5">
+				<ScrollViewer>
 					<ItemsControl ItemsSource="{Binding SauseItems}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
@@ -66,8 +82,9 @@
 					</ItemsControl>
 				</ScrollViewer>
 			</PivotItem>
-			<PivotItem Header="アプリについて">
-				<ScrollViewer Margin="5">
+			<PivotItem Header="アプリについて"
+					   Margin="5">
+				<ScrollViewer>
 					<StackPanel>
 						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
 							<StackPanel>
