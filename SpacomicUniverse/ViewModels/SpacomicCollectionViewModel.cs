@@ -128,7 +128,7 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		すぱこーRSSフィードの取得完了後に発生させるイベントハンドラーです。
 		/// </summary>
-		public event TaskResultEventHandler GetRSSCompleted;
+		public event EventHandler<GetRSSResult> GetRSSCompleted;
 
 		/// <summary>
 		///		プロパティ変更後に発生させるイベントハンドラーです。

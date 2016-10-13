@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -131,7 +132,7 @@ namespace SpacomicUniverse {
 		/// <param name="forceReload">強制的にWebから取得するフラグ</param>
 		public async Task GetRSS( bool forceReload = false ) {
 			// 初期化
-			TaskResult result = TaskResult.Succeeded;
+			GetRSSResult result = GetRSSResult.Succeeded;
 			SauseItems.Clear();
 			Items.Clear();
 			cancellationTokenSource = new CancellationTokenSource();
@@ -140,10 +141,32 @@ namespace SpacomicUniverse {
 			try {
 				// Webからの再取得をリクエストされた時
 				if( forceReload ) {
-					Items.AddRange( ( await GetRSSCore() ).OrderByDescending( _ => _.PubDate ) );
-					// ローカルファイルに保存します。
-					await SpacomicLocalIO.SaveSpacoRSSSauseFile( SauseItems );
-					await SpacomicLocalIO.SaveRSSCollectionFile( Items );
+					try {
+						Items.AddRange( ( await GetRSSCore() ).OrderByDescending( _ => _.PubDate ) );
+						// 取得したすぱこーRSSフィードのデータをローカルファイルに保存します。
+						await SpacomicLocalIO.SaveSpacoRSSSauseFile( SauseItems );
+						await SpacomicLocalIO.SaveRSSCollectionFile( Items );
+					}
+					// Webからの再取得に失敗した場合、ローカルファイルからリストアします。
+					// Itemsが空であれば、保存済みのローカルファイルは、再取得する前のすぱこーRSSフィードのデータが残っています。
+					catch( Exception ) when( !Items.Any() ) {
+						// 保存済みのローカルファイルからリストア
+						var spacoRSSauseFromLocal = await SpacomicLocalIO.LoadSpacoRSSSauseFile();
+						var spacoRSSListFromLocal = await SpacomicLocalIO.LoadRSSCollectionFile();
+
+						// 保存済みのローカルファイルからのリストアが成功した時
+						if( spacoRSSauseFromLocal.Item1 == GetRSSResult.Succeeded && spacoRSSListFromLocal.Item1 == GetRSSResult.Succeeded ) {
+							foreach( var item in spacoRSSauseFromLocal.Item2 ) {
+								SauseItems[item.Key] = item.Value;
+							}
+							Items.AddRange( spacoRSSListFromLocal.Item2 );
+							result = GetRSSResult.LocalDataRestored;
+						}
+						// リストアに失敗した場合、例外をリスローします。
+						else {
+							throw;
+						}
+					}
 				}
 				else {
 					// 保存済みのローカルファイルから読み込み
@@ -151,7 +174,7 @@ namespace SpacomicUniverse {
 					var spacoRSSListFromLocal = await SpacomicLocalIO.LoadRSSCollectionFile();
 
 					// 保存済みのローカルファイルからの読み込みが成功した時
-					if( spacoRSSauseFromLocal.Item1 == TaskResult.Succeeded && spacoRSSListFromLocal.Item1 == TaskResult.Succeeded ) {
+					if( spacoRSSauseFromLocal.Item1 == GetRSSResult.Succeeded && spacoRSSListFromLocal.Item1 == GetRSSResult.Succeeded ) {
 						foreach( var item in spacoRSSauseFromLocal.Item2 ) {
 							SauseItems[item.Key] = item.Value;
 						}
@@ -163,7 +186,6 @@ namespace SpacomicUniverse {
 					// ローカルファイルからの読み込みに失敗した場合、Webから取得します
 					else {
 						Items.AddRange( ( await GetRSSCore() ).OrderByDescending( _ => _.PubDate ) );
-						// ローカルファイルに保存します。
 						await SpacomicLocalIO.SaveSpacoRSSSauseFile( SauseItems );
 						await SpacomicLocalIO.SaveRSSCollectionFile( Items );
 					}
@@ -172,19 +194,18 @@ namespace SpacomicUniverse {
 			catch( OperationCanceledException ) {
 				SauseItems.Clear();
 				Items.Clear();
-				result = TaskResult.Canceled;
+				result = GetRSSResult.Canceled;
 			}
 			catch( Exception ) {
 				SauseItems.Clear();
 				Items.Clear();
-				result = TaskResult.Failed;
+				result = GetRSSResult.Failed;
 			}
 			finally {
 				cancellationTokenSource.Dispose();
 			}
-
 			// すぱこーRSSフィードの取得が完了したことをViewModel側に通知します。
-			GetRSSCompleted?.Invoke( this, new TaskResultEventArgs( result ) );
+			GetRSSCompleted?.Invoke( this, result );
 		}
 
 		/// <summary>
@@ -239,7 +260,7 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		すぱこーRSSフィードの取得完了後に発生させるイベントハンドラーです。
 		/// </summary>
-		public event TaskResultEventHandler GetRSSCompleted;
+		public event EventHandler<GetRSSResult> GetRSSCompleted;
 
 		/// <summary>
 		///		すぱこーRSSフィードの新しい話が見つかった時に発生させるイベントハンドラーです。

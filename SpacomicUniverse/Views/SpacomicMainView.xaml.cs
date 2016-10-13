@@ -138,9 +138,9 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		すぱこーRSSフィードの取得が完了した時に実行します。
 		/// </summary>
-		private async void spacomicMainViewModel_GetRSSCompleted( object sender, TaskResultEventArgs e ) {
+		private async void spacomicMainViewModel_GetRSSCompleted( object sender, GetRSSResult e ) {
 			// 失敗した場合、エラーダイアログを表示します。
-			if( e.Result != TaskResult.Succeeded ) {
+			if( e != GetRSSResult.Succeeded ) {
 				await LoadErrorDialog.ShowAsync();
 			}
 		}

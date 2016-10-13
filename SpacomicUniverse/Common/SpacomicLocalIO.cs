@@ -53,8 +53,8 @@ namespace SpacomicUniverse {
 		///		ローカルに保存したファイルから、すぱこーRSSフィードを読み込みます。
 		/// </summary>
 		/// <returns>結果情報とすぱこーRSSフィードコレクションのタプルオブジェクト</returns>
-		public static async Task<Tuple<TaskResult, IEnumerable<SpacomicRSSItem>>> LoadRSSCollectionFile() {
-			TaskResult result = TaskResult.Succeeded;
+		public static async Task<Tuple<GetRSSResult, IEnumerable<SpacomicRSSItem>>> LoadRSSCollectionFile() {
+			GetRSSResult result = GetRSSResult.Succeeded;
 			List<SpacomicRSSItem> list = null;
 
 			try {
@@ -81,14 +81,14 @@ namespace SpacomicUniverse {
 					).ToList();
 				}
 				else {
-					result = TaskResult.Failed;
+					result = GetRSSResult.Failed;
 				}
 			}
 			catch( Exception ) {
-				result = TaskResult.Failed;
+				result = GetRSSResult.Failed;
 			}
 
-			return new Tuple<TaskResult, IEnumerable<SpacomicRSSItem>>( result, list );
+			return new Tuple<GetRSSResult, IEnumerable<SpacomicRSSItem>>( result, list );
 		}
 
 		/// <summary>
@@ -131,8 +131,8 @@ namespace SpacomicUniverse {
 		///		ローカルに保存したファイルから、すぱこーRSSフィードのチャネル情報を読み込みます。
 		/// </summary>
 		/// <returns>結果情報とすぱこーRSSフィードのチャネル情報のタプルオブジェクト</returns>
-		public static async Task<Tuple<TaskResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>> LoadSpacoRSSSauseFile() {
-			TaskResult result = TaskResult.Succeeded;
+		public static async Task<Tuple<GetRSSResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>> LoadSpacoRSSSauseFile() {
+			GetRSSResult result = GetRSSResult.Succeeded;
 			List<KeyValuePair<string, SpacoRSSSause>> list = null;
 
 			try {
@@ -156,14 +156,14 @@ namespace SpacomicUniverse {
 					).ToList();
 				}
 				else {
-					result = TaskResult.Failed;
+					result = GetRSSResult.Failed;
 				}
 			}
 			catch( Exception ) {
-				result = TaskResult.Failed;
+				result = GetRSSResult.Failed;
 			}
 
-			return new Tuple<TaskResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>( result, list );
+			return new Tuple<GetRSSResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>( result, list );
 		}
 
 		/// <summary>
