@@ -28,6 +28,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Windows.ApplicationModel;
 
 /// <summary>
 ///		すぱこみっく ユニバース
@@ -38,6 +39,17 @@ namespace SpacomicUniverse {
 	///		アプリの設定画面用のViewModelクラスを表します。
 	/// </summary>
 	class AppSettingViewModel : INotifyPropertyChanged {
+
+		/// <summary>
+		///		パッケージの情報を表します。
+		/// </summary>
+		private PackageId packageInfo;
+
+		/// <summary>
+		///		現在のバージョン番号を取得します。
+		/// </summary>
+		public string CurrentVersion =>
+			packageInfo != null ? $"{packageInfo?.Version.Major}.{packageInfo.Version.Minor}.{packageInfo.Version.Build}" : "";
 
 		/// <summary>
 		///		SpacoRSSModelオブジェクトを表します。
@@ -66,6 +78,8 @@ namespace SpacomicUniverse {
 			spacomicRSSCollectionModel.PropertyChanged +=
 				( sender, e ) =>
 					PropertyChanged?.Invoke( sender, e );
+
+			packageInfo = Package.Current.Id;
 		}
 
 		/// <summary>

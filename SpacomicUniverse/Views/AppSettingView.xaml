@@ -111,7 +111,9 @@
 								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
-									Version : <Bold>1.1.2</Bold>
+									Version : 
+									<Run FontWeight="Bold"
+										 Text="{Binding CurrentVersion}"/>
 								</TextBlock>
 								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
