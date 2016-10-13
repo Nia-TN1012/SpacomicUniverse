@@ -25,6 +25,7 @@
 using System;
 using System.Linq;
 using Windows.Data.Xml.Dom;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -62,9 +63,9 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		GridView上のアイテムをタップした時に実行します。
+		///		GridView上のアイテムをタップ or クリックした時に実行します。
 		/// </summary>
-		private void GridViewItem_Tapped( object sender, TappedRoutedEventArgs e ) {
+		private void SpacomicRSSList_ItemClick( object sender, ItemClickEventArgs e ) {
 			if( SpacomicRSSList.Items.Any() && SpacomicRSSList.SelectedIndex >= 0 ) {
 				Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex );
 			}

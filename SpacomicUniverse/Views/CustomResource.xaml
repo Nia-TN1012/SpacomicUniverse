@@ -6,7 +6,6 @@
 	<SolidColorBrush x:Key="PronamaGreenKey" Color="#FF15A63F"/>
 
 	<Style x:Key="DarkMaterialBorderStyleForGridViewItemKey" TargetType="Border">
-		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="#FF202020"/>
 		<Setter Property="BorderThickness" Value="1,1,1,3"/>
 	</Style>
@@ -14,7 +13,6 @@
 	<Style x:Key="DarkMaterialBorderStyleKey" TargetType="Border"
 		   BasedOn="{StaticResource DarkMaterialBorderStyleForGridViewItemKey}">
 		<Setter Property="Margin" Value="5"/>
-		<Setter Property="Background" Value="{x:Null}"/>
 	</Style>
 
 	<Style x:Key="AppButtonStyleKey" TargetType="Button">

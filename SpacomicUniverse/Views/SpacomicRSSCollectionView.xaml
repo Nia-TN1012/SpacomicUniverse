@@ -34,8 +34,7 @@
 		<!-- アイテムの表示方法 -->
 		<DataTemplate x:Key="WideDataTemplateForGridView">
 			<Border Width="300" Height="300"
-					Style="{StaticResource DarkMaterialBorderStyleForGridViewItemKey}"
-					Tapped="GridViewItem_Tapped">
+					Style="{StaticResource DarkMaterialBorderStyleForGridViewItemKey}">
 				<Grid>
 					<!-- サムネイル画像 -->
 					<Image Stretch="UniformToFill"
@@ -75,8 +74,7 @@
 
 		<!-- アイテムの表示方法 -->
 		<DataTemplate x:Name="NarrowDataTemplateForGridView">
-			<Border Style="{StaticResource DarkMaterialBorderStyleForGridViewItemKey}"
-					Tapped="GridViewItem_Tapped">
+			<Border Style="{StaticResource DarkMaterialBorderStyleForGridViewItemKey}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="110"/>
@@ -130,7 +128,9 @@
 
 		<Grid Grid.RowSpan="2" Grid.ColumnSpan="2">
 			<GridView x:Name="SpacomicRSSList"
-					  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}">
+					  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
+					  IsItemClickEnabled="True"
+					  ItemClick="SpacomicRSSList_ItemClick">
 				<GridView.GroupStyle>
 					<GroupStyle>
 						<GroupStyle.HeaderTemplate>

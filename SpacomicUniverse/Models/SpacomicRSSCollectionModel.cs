@@ -27,7 +27,6 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -93,6 +92,7 @@ namespace SpacomicUniverse {
 					using( XmlReader reader = await Task.Run( () => SpacoRSSClient.GetXmlReaderAsync( url, cancellationTokenSource.Token ) ) ) {
 						SpacoRSSReader srr = await Task.Run( () => SpacoRSSReader.LoadAsync( reader, cancellationTokenSource.Token ) );
 
+						// すぱこーRSSフィードのチャネル情報を設定します。
 						if( !SauseItems.ContainsKey( sause.Type ) ) {
 							SauseItems[sause.Type] = new SpacoRSSSause {
 								Title = srr.Title,
