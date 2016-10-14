@@ -154,6 +154,7 @@
     <Content Include="Assets\UserGuide\pc_getrss.png" />
     <Content Include="Assets\UserGuide\pc_getrss_failed.png" />
     <Content Include="Assets\UserGuide\pc_home.png" />
+    <Content Include="Assets\UserGuide\pc_home_date.png" />
     <Content Include="Assets\UserGuide\pc_navigation.png" />
     <Content Include="Assets\UserGuide\pc_tendon.png" />
     <Content Include="Assets\UserGuide\sp_home.png" />

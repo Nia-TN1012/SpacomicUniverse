@@ -60,6 +60,17 @@
 						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
 							<StackPanel Margin="5">
 								<TextBlock Margin="5" TextWrapping="Wrap">
+									すぱこーRSSフィード一覧で年月の部分を選択すると、年月を選択する表示に切り替わります。<LineBreak/>
+									年月を選択すると、その月での最新の話にスクロールします。
+								</TextBlock>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_home_date.png"/>
+							</StackPanel>
+						</Border>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap">
 									すぱこーRSSフィードをWebから再取得するには、右上にある「
 									<Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
 										 FontWeight="Bold"

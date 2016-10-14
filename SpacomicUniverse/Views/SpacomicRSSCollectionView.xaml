@@ -129,28 +129,59 @@
 			   Source="ms-appx:///Assets/pronama-bg-list.png"/>
 
 		<Grid Grid.RowSpan="2" Grid.ColumnSpan="2">
-			<GridView x:Name="SpacomicRSSList"
-					  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
-					  IsItemClickEnabled="True" ItemClick="SpacomicRSSList_ItemClick">
-				<GridView.GroupStyle>
-					<GroupStyle>
-						<GroupStyle.HeaderTemplate>
+			<SemanticZoom x:Name="SpacomicSemantics"
+						  ViewChangeStarted="SpacomicSemantics_ViewChangeStarted">
+				<SemanticZoom.ZoomedOutView>
+					<GridView x:Name="SpacomicRSSDateList"
+							  ItemsSource="{Binding Items}"
+							  ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+							  ItemsPanel="{StaticResource NarrowItemPanelTemplateForGridView}"
+							  ItemContainerStyle="{StaticResource NarrowStyleForGridView}">
+						<GridView.ItemTemplate>
 							<DataTemplate>
-								<TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+								<TextBlock Margin="10,5"
+										   FontSize="{ThemeResource GridViewHeaderItemThemeFontSize}"
+										   Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
 										   Text="{Binding GroupTitle}"/>
 							</DataTemplate>
-						</GroupStyle.HeaderTemplate>
-					</GroupStyle>
-				</GridView.GroupStyle>
-				<GridView.ItemContainerTransitions>
-					<TransitionCollection>
-						<AddDeleteThemeTransition/>
-						<ContentThemeTransition/>
-						<ReorderThemeTransition/>
-						<EntranceThemeTransition IsStaggeringEnabled="False"/>
-					</TransitionCollection>
-				</GridView.ItemContainerTransitions>
-			</GridView>
+						</GridView.ItemTemplate>
+						<GridView.ItemContainerTransitions>
+							<TransitionCollection>
+								<AddDeleteThemeTransition/>
+								<ContentThemeTransition/>
+								<ReorderThemeTransition/>
+								<EntranceThemeTransition IsStaggeringEnabled="False"/>
+							</TransitionCollection>
+						</GridView.ItemContainerTransitions>
+					</GridView>
+				</SemanticZoom.ZoomedOutView>
+				<SemanticZoom.ZoomedInView>
+					<GridView x:Name="SpacomicRSSList"
+							  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
+							  IsItemClickEnabled="True" ItemClick="SpacomicRSSList_ItemClick"
+							  ScrollViewer.IsHorizontalScrollChainingEnabled="False">
+						<GridView.GroupStyle>
+							<GroupStyle>
+								<GroupStyle.HeaderTemplate>
+									<DataTemplate>
+										<TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
+												   Text="{Binding GroupTitle}"/>
+									</DataTemplate>
+								</GroupStyle.HeaderTemplate>
+							</GroupStyle>
+						</GridView.GroupStyle>
+						<GridView.ItemContainerTransitions>
+							<TransitionCollection>
+								<AddDeleteThemeTransition/>
+								<ContentThemeTransition/>
+								<ReorderThemeTransition/>
+								<EntranceThemeTransition IsStaggeringEnabled="False"/>
+							</TransitionCollection>
+						</GridView.ItemContainerTransitions>
+					</GridView>
+
+				</SemanticZoom.ZoomedInView>
+			</SemanticZoom>
 
 			<Grid Visibility="{Binding IsProgress, Converter={StaticResource BoolToVisibilityConverterKey}}"
 				  Background="{ThemeResource AppBarBackgroundThemeBrush}">

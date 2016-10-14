@@ -22,13 +22,8 @@
 */
 #endregion
 
-using System;
 using System.Linq;
-using Windows.Data.Xml.Dom;
-using Windows.System;
 using Windows.UI.Core;
-using Windows.UI.Notifications;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -66,7 +61,7 @@ namespace SpacomicUniverse {
 		///		GridView上のアイテムをタップ or クリックした時に実行します。
 		/// </summary>
 		private void SpacomicRSSList_ItemClick( object sender, ItemClickEventArgs e ) {
-			if( SpacomicRSSList.Items.Any() && SpacomicRSSList.SelectedIndex >= 0 ) {
+			if( ( SpacomicRSSList.Items?.Any() ?? false ) && SpacomicRSSList.SelectedIndex >= 0 ) {
 				// この時点では、クリックしたアイテムのインデックスがSelectedIndexやSelectedItemなどに反映されていません。
 				// まず、クリックしたアイテムと選択されたアイテムを比較して、同じインスタンスを参照していれば、コミックビューに遷移します。
 				// ※キーボード操作で選択した場合、この条件文は必ず満たします。
@@ -81,8 +76,21 @@ namespace SpacomicUniverse {
 		/// </summary>
 		/// <remarks>ItemClickイベントでページ遷移できた場合、このイベントは実行しません。</remarks>
 		private void GridViewItem_Tapped( object sender, TappedRoutedEventArgs e ) {
-			if( SpacomicRSSList.Items.Any() && SpacomicRSSList.SelectedIndex >= 0 ) {
+			if( ( SpacomicRSSList.Items?.Any() ?? false ) && SpacomicRSSList.SelectedIndex >= 0 ) {
 				Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex );
+			}
+		}
+
+		/// <summary>
+		///		セマンティックズームコントロールのズームが変更された時に実行されます。
+		/// </summary>
+		private void SpacomicSemantics_ViewChangeStarted( object sender, SemanticZoomViewChangedEventArgs e ) {
+			if( !e.IsSourceZoomedInView ) {
+				var selectedGroupFirst = ( e.SourceItem.Item as SpacomicRSSItemsGroup )?.Items?.First();
+				if( ( SpacomicRSSList.Items?.Any() ?? false ) && selectedGroupFirst != null ) {
+					SpacomicRSSList.SelectedItem = selectedGroupFirst;
+					SpacomicRSSList.ScrollIntoView( selectedGroupFirst );
+				}
 			}
 		}
 
@@ -91,9 +99,17 @@ namespace SpacomicUniverse {
 		/// </summary>
 		/// <remarks>SpacomicMainViewから呼び出します。</remarks>
 		public void GridViewJumpToFirstItem() {
-			if( SpacomicRSSList.Items?.Any() ?? false ) {
-				SpacomicRSSList.SelectedIndex = 0;
-				SpacomicRSSList.ScrollIntoView( SpacomicRSSList.Items[0] );
+			if( SpacomicSemantics.IsZoomedInViewActive ) {
+				if( SpacomicRSSList.Items?.Any() ?? false ) {
+					SpacomicRSSList.SelectedIndex = 0;
+					SpacomicRSSList.ScrollIntoView( SpacomicRSSList.Items[0] );
+				}
+			}
+			else {
+				if( SpacomicRSSDateList.Items?.Any() ?? false ) {
+					SpacomicRSSDateList.SelectedIndex = 0;
+					SpacomicRSSDateList.ScrollIntoView( SpacomicRSSDateList.Items[0] );
+				}
 			}
 		}
 
@@ -102,7 +118,7 @@ namespace SpacomicUniverse {
 		/// </summary>
 		/// <remarks>SpacomicMainViewから呼び出します。</remarks>
 		public void NavigateToComicView() {
-			if( SpacomicRSSList.Items.Any() ) {
+			if( SpacomicRSSList.Items?.Any() ?? false ) {
 				Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex >= 0 ? SpacomicRSSList.SelectedIndex : 0 );
 			}
 		}
