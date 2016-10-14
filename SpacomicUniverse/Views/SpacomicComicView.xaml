@@ -20,12 +20,12 @@
 			<ColumnDefinition Width="2*"/>
 			<ColumnDefinition Width="3*"/>
 		</Grid.ColumnDefinitions>
-		
+
 		<Image Grid.Row="1" Grid.Column="1"
 			   Margin="5" MaxWidth="512" MaxHeight="512"
 			   HorizontalAlignment="Right" VerticalAlignment="Bottom"
 			   Source="ms-appx:///Assets/pronama-bg-comic.png" />
-		
+
 		<FlipView Grid.RowSpan="2" Grid.ColumnSpan="2"
 				  ItemsSource="{Binding Items}"
 				  SelectedIndex="{Binding SelectedIndex}"

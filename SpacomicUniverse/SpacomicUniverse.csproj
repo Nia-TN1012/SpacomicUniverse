@@ -134,6 +134,7 @@
   <ItemGroup>
     <Content Include="Assets\Chronoir-logo.png" />
     <Content Include="Assets\mascot-apps-contest-logo-2016.png" />
+    <Content Include="Assets\no_image.png" />
     <Content Include="Assets\pronama-bg-comic.png" />
     <Content Include="Assets\pronama-bg-list.png" />
     <Content Include="Assets\pronama-bg-setting.png" />

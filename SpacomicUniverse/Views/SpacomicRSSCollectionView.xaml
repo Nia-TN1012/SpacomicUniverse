@@ -131,8 +131,7 @@
 		<Grid Grid.RowSpan="2" Grid.ColumnSpan="2">
 			<GridView x:Name="SpacomicRSSList"
 					  ItemsSource="{Binding Source={StaticResource SpacoRSSCollectionViewSourceKey}}"
-					  IsItemClickEnabled="True"
-					  ItemClick="SpacomicRSSList_ItemClick">
+					  IsItemClickEnabled="True" ItemClick="SpacomicRSSList_ItemClick">
 				<GridView.GroupStyle>
 					<GroupStyle>
 						<GroupStyle.HeaderTemplate>
@@ -159,31 +158,18 @@
 					<!-- プログレスリング -->
 					<ProgressRing Margin="5" Height="60" Width="60"
 								  Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-								  IsActive="{Binding IsProgress}">
-						<ProgressRing.Transitions>
-							<TransitionCollection>
-								<AddDeleteThemeTransition/>
-							</TransitionCollection>
-						</ProgressRing.Transitions>
-					</ProgressRing>
+								  IsActive="{Binding IsProgress}"/>
 					<TextBlock Margin="5"
 							   TextAlignment="Center"
-							   Text="すぱこーRSSフィードを取得しているよ">
-						<TextBlock.Transitions>
-							<TransitionCollection>
-								<AddDeleteThemeTransition/>
-							</TransitionCollection>
-						</TextBlock.Transitions>
-					</TextBlock>
+							   Text="すぱこーRSSフィードを取得しているよ"/>
 					<Image Margin="5" Width="120"
-						   Source="ms-appx:///Assets/sd_eye0s.png">
-						<Image.Transitions>
-							<TransitionCollection>
-								<AddDeleteThemeTransition/>
-							</TransitionCollection>
-						</Image.Transitions>
-					</Image>
+						   Source="ms-appx:///Assets/sd_eye0s.png"/>
 				</StackPanel>
+				<Grid.ChildrenTransitions>
+					<TransitionCollection>
+						<EntranceThemeTransition/>
+					</TransitionCollection>
+				</Grid.ChildrenTransitions>
 			</Grid>
 		</Grid>
 		

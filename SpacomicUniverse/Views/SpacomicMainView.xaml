@@ -117,7 +117,7 @@
 				</StackPanel>
 				<ContentDialog.Transitions>
 					<TransitionCollection>
-						<AddDeleteThemeTransition/>
+						<PopupThemeTransition/>
 					</TransitionCollection>
 				</ContentDialog.Transitions>
 			</ContentDialog>
