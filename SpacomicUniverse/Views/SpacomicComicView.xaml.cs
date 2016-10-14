@@ -154,7 +154,7 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		
+		///		現在開いているすぱこーの話に関連付けられたリンクを、Webブラウザで開きます。
 		/// </summary>
 		public async Task OpenSpacoWithWebBrowser() {
 			try {

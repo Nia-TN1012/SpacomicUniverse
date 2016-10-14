@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="SpacomicUniverse.UserGuideView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SpacomicUniverse"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Tag="使い方ガイド">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="3*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="3*"/>
+		</Grid.ColumnDefinitions>
+
+		<Image Grid.Row="1" Grid.Column="1"
+			   Margin="5" MaxWidth="512" MaxHeight="512"
+			   HorizontalAlignment="Right" VerticalAlignment="Bottom"
+			   Source="ms-appx:///Assets/pronama-bg-setting.png"/>
+
+		<Pivot Grid.RowSpan="2" Grid.ColumnSpan="2">
+			<PivotItem Header="すぱこーRSSフィードを表示する"
+					   Margin="5">
+				<ScrollViewer>
+					<StackPanel>
+						
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+		</Pivot>
+	</Grid>
+</Page>

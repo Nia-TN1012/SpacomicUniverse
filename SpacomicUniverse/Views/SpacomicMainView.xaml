@@ -83,8 +83,20 @@
 										 Tag="&#xE80F;" Content="すぱこーRSSフィード一覧"
 										 Click="SwitchSpacomicRSSFeedViewButton_Click"
 										 ToolTipService.ToolTip="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+							<RadioButton x:Name="SwitchSpacomicComicViewButton"
+										 Style="{StaticResource SplitViewRadioButtonStyleKey}"
+										 GroupName="SpacomicNavi"
+										 Tag="&#xE786;" Content="コミックビュー"
+										 Click="SwitchSpacomicComicViewButton_Click"
+										 ToolTipService.ToolTip="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 						</StackPanel>
 						<StackPanel VerticalAlignment="Bottom">
+							<RadioButton x:Name="SwitchUserGuideButton"
+										 Style="{StaticResource SplitViewRadioButtonStyleKey}"
+										 GroupName="SpacomicNavi"
+										 Tag="&#xE897;" Content="使い方ガイド"
+										 Click="SwitchUserGuideButton_Click"
+										 ToolTipService.ToolTip="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 							<RadioButton x:Name="SwitchSettingAboutButton"
 										 Style="{StaticResource SplitViewRadioButtonStyleKey}"
 										 GroupName="SpacomicNavi"

@@ -89,10 +89,21 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		GridViewの先頭のアイテムにジャンプします。
 		/// </summary>
+		/// <remarks>SpacomicMainViewから呼び出します。</remarks>
 		public void GridViewJumpToFirstItem() {
 			if( SpacomicRSSList.Items?.Any() ?? false ) {
 				SpacomicRSSList.SelectedIndex = 0;
 				SpacomicRSSList.ScrollIntoView( SpacomicRSSList.Items[0] );
+			}
+		}
+
+		/// <summary>
+		///		コミックビューにページ遷移し、現在選択されている話を開きます。
+		/// </summary>
+		/// <remarks>SpacomicMainViewから呼び出します。</remarks>
+		public void NavigateToComicView() {
+			if( SpacomicRSSList.Items.Any() ) {
+				Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex >= 0 ? SpacomicRSSList.SelectedIndex : 0 );
 			}
 		}
 	}

@@ -99,6 +99,12 @@ namespace SpacomicUniverse {
 					case nameof( SpacomicRSSCollectionView ):
 						SwitchSpacomicRSSFeedViewButton.IsChecked = true;
 						break;
+					case nameof( SpacomicComicView ):
+						SwitchSpacomicComicViewButton.IsChecked = true;
+						break;
+					case nameof( UserGuideView ):
+						SwitchUserGuideButton.IsChecked = true;
+						break;
 					case nameof( AppSettingView ):
 						SwitchSettingAboutButton.IsChecked = true;
 						break;
@@ -124,6 +130,29 @@ namespace SpacomicUniverse {
 				}
 				SwitchSpacomicRSSFeedViewButton.IsChecked = true;
 			}
+			HamburgerButton.IsChecked = false;
+		}
+
+		/// <summary>
+		///		コミックビューボタンをクリックした時に実行します。
+		/// </summary>
+		private void SwitchSpacomicComicViewButton_Click( object sender, RoutedEventArgs e ) {
+			if( ( SpacomicContentFrame.Content as SpacomicComicView ) == null ) {
+				// RSSフィード一覧ページまで戻ります。
+				while( SpacomicContentFrame.CanGoBack ) {
+					SpacomicContentFrame.GoBack();
+				}
+				var rssCollectionView = SpacomicContentFrame.Content as SpacomicRSSCollectionView;
+				rssCollectionView?.NavigateToComicView();
+			}
+			HamburgerButton.IsChecked = false;
+		}
+
+		/// <summary>
+		///		使い方ガイドボタンをクリックした時に実行します。
+		/// </summary>
+		private void SwitchUserGuideButton_Click( object sender, RoutedEventArgs e ) {
+			SpacomicContentFrame.Navigate( typeof( UserGuideView ) );
 			HamburgerButton.IsChecked = false;
 		}
 
