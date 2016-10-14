@@ -147,6 +147,16 @@
     <Content Include="Assets\sd_eye0s.png" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\UniSPADA-Pronama.png" />
+    <Content Include="Assets\UserGuide\pc_app_setting.png" />
+    <Content Include="Assets\UserGuide\pc_comic.png" />
+    <Content Include="Assets\UserGuide\pc_comic_ex.png" />
+    <Content Include="Assets\UserGuide\pc_comic_mouse.png" />
+    <Content Include="Assets\UserGuide\pc_getrss.png" />
+    <Content Include="Assets\UserGuide\pc_getrss_failed.png" />
+    <Content Include="Assets\UserGuide\pc_home.png" />
+    <Content Include="Assets\UserGuide\pc_navigation.png" />
+    <Content Include="Assets\UserGuide\pc_tendon.png" />
+    <Content Include="Assets\UserGuide\sp_home.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -23,11 +23,288 @@
 			   Source="ms-appx:///Assets/pronama-bg-setting.png"/>
 
 		<Pivot Grid.RowSpan="2" Grid.ColumnSpan="2">
-			<PivotItem Header="すぱこーRSSフィードを表示する"
+			<PivotItem Header="RSSフィードを表示する"
 					   Margin="5">
 				<ScrollViewer>
 					<StackPanel>
-						
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap"
+										   Text="アプリを起動すると、すぱこーRSSフィードの一覧が表示されます。"/>
+								<Border Margin="20, 5" Style="{StaticResource DarkYellowMaterialBorderStyleKey}">
+									<TextBlock Margin="5" TextWrapping="Wrap">
+										<Run FontWeight="Bold" Foreground="Yellow"
+											 Text="※初回起動時について"/><LineBreak/>
+										初回起動時、WebからすぱこーRSSフィードを取得します。一度取得したすぱこーRSSフィードのデータは
+										ローカルファイルとして保存され、次回以降の起動時はそのファイルを読み込みます。
+									</TextBlock>
+								</Border>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_home.png"/>
+							</StackPanel>
+						</Border>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap">
+									スマートフォンなど、
+									<Run FontWeight="Bold"
+										 Text="ウィンドウの幅が680px（スケールファクター（拡大率）が100%の時）未満"/>
+									の場合、以下のようなリスト表示となります。
+								</TextBlock>
+								<Image Margin="5" MaxWidth="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/sp_home.png"/>
+							</StackPanel>
+						</Border>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap">
+									すぱこーRSSフィードをWebから再取得するには、右上にある「
+									<Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
+										 FontWeight="Bold"
+										 Text="&#xE72C;"/>
+									」（すぱこーRSSフィードを再取得）ボタンを押します。
+								</TextBlock>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_getrss.png"/>
+								<TextBlock Margin="5" TextWrapping="Wrap">
+									※RSSフィードの取得を中止するには、「
+									<Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
+										 FontWeight="Bold"
+										 Text="&#xE711;"/>
+									」（すぱこーRSSフィードの取得を中止）ボタンを押します。
+								</TextBlock>
+								<Border Margin="20,5" Style="{StaticResource DarkYellowMaterialBorderStyleKey}">
+									<StackPanel>
+										<TextBlock Margin="5" TextWrapping="Wrap">
+											インターネットへの接続エラーなどで、RSSフィードの取得に失敗した場合、以下のようなエラーダイアログが表示されます。
+											ネットワークの接続を確認して、通信状態の良好なところで再度取得してください。
+										</TextBlock>
+										<Image Margin="5" MaxHeight="300"
+											   HorizontalAlignment="Left"
+											   Source="ms-appx:///Assets/UserGuide/pc_getrss_failed.png"/>
+										<TextBlock Margin="5" TextWrapping="Wrap">
+											※ローカルにRSSフィードのデータが残っている場合、それがリストアされます。
+										</TextBlock>
+									</StackPanel>
+								</Border>
+							</StackPanel>
+						</Border>
+						<Border Margin="5" Style="{StaticResource DarkYellowMaterialBorderStyleKey}">
+							<StackPanel>
+								<TextBlock Margin="5" TextWrapping="Wrap">
+									<Run FontWeight="Bold" Foreground="Yellow"
+										 Text="※最新話のチェック機能について"/><LineBreak/>
+									アプリ起動時（初回起動時を除く）、Web上にすぱこーの最新話があるかどうかチェックし、
+									見つかった時。プロ生ちゃんが通知してくれます。
+								</TextBlock>
+								<Image Margin="5" MaxHeight="100"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_tendon.png"/>
+							</StackPanel>
+						</Border>
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem Header="漫画を読む">
+				<ScrollViewer>
+					<StackPanel>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap">
+									すぱこーRSSフィード一覧にて、読みたい話をタップ（マウスではクリック）すると、
+									<Run FontWeight="Bold" Foreground="Lime"
+										 Text="コミックビュー"/>
+									に移動し、その話の漫画を表示します。
+								</TextBlock>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_comic.png"/>
+							</StackPanel>
+						</Border>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap">
+									コミックビューでは、ピンチイン・アウト操作で漫画画像の拡大・縮小することができます。<LineBreak/>
+									また、ダブルタップ操作で、原寸大⇔画面に収まるようにサイズ調整の切り替えができます。<LineBreak/>
+									左右のスワイプ操作で、前後の話に移動します。
+								</TextBlock>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_comic_ex.png"/>
+								<TextBlock Margin="5" TextWrapping="Wrap">
+									右上にある「
+									<Run FontFamily="{ThemeResource SymbolThemeFontFamily}"
+										 FontWeight="Bold"
+										 Text="&#xE774;"/>
+									」（Webブラウザで開く）ボタンを押すと、現在読んでいるすぱこーの話に関連付けられたリンクを、Webブラウザで開きます。
+								</TextBlock>
+								<Border Margin="20,5" Style="{StaticResource DarkYellowMaterialBorderStyleKey}">
+									<StackPanel>
+										<TextBlock Margin="5" TextWrapping="Wrap">
+									<Run FontWeight="Bold" Foreground="Yellow"
+										 Text="※マウス操作の場合"/><LineBreak/>
+											Ctrlキーを押しながらマウスホイールを回すと、拡大・縮小できます。<LineBreak/>
+											ダブルクリックで、原寸大⇔画面に収まるようにサイズ調整の切り替えができます。<LineBreak/>
+											また、マウス操作の場合、画面の左右に前後の話に移動するボタンが表示されます。
+										</TextBlock>
+										<Image Margin="5" MaxHeight="300"
+											   HorizontalAlignment="Left"
+											   Source="ms-appx:///Assets/UserGuide/pc_comic_mouse.png"/>
+									</StackPanel>
+								</Border>
+							</StackPanel>
+						</Border>
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem Header="ナビゲーションメニュー">
+				<ScrollViewer>
+					<StackPanel>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap"
+										   Text="左上のハンバーガーボタン押すと、ナビゲーションメニューが開きます。"/>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_navigation.png"/>
+							</StackPanel>
+						</Border>
+						<Border Margin="5" Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<Grid Margin="5">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="1*"/>
+									<RowDefinition Height="1*"/>
+									<RowDefinition Height="1*"/>
+									<RowDefinition Height="1*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="1*"/>
+									<ColumnDefinition Width="3*"/>
+								</Grid.ColumnDefinitions>
+
+								<Grid Grid.Row="0" Grid.Column="0"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeIconTextBlockStyleKey}"
+											   Text="&#xE80F;"/>
+								</Grid>
+								<Grid Grid.Row="0" Grid.Column="1"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeTextBlockStyleKey}"
+											   Text="すぱこーRSSフィード一覧"/>
+								</Grid>
+								<Grid Grid.Row="0" Grid.Column="2"
+									 Style="{StaticResource TableCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableCellLikeTextBlockStyleKey}">
+										コミックビューやアプリ設定画面からすぱこーRSSフィード一覧に戻ります。<LineBreak/>
+										※すぱこーRSSフィード一覧画面の時に押すと、先頭のアイテムへスクロールします。
+									</TextBlock>
+								</Grid>
+
+								<Grid Grid.Row="1" Grid.Column="0"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeIconTextBlockStyleKey}"
+											   Text="&#xE786;"/>
+								</Grid>
+								<Grid Grid.Row="1" Grid.Column="1"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeTextBlockStyleKey}"
+											   Text="コミックビュー"/>
+								</Grid>
+								<Grid Grid.Row="1" Grid.Column="2"
+									  Style="{StaticResource TableCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableCellLikeTextBlockStyleKey}"
+											   Text="コミックビューを開き、すぱこーRSSフィード一覧で現在選択されている話の漫画画像を表示します。"/>
+								</Grid>
+
+								<Grid Grid.Row="2" Grid.Column="0"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeIconTextBlockStyleKey}"
+											   Text="&#xE897;"/>
+								</Grid>
+								<Grid Grid.Row="2" Grid.Column="1"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeTextBlockStyleKey}"
+											   Text="使い方ガイド"/>
+								</Grid>
+								<Grid Grid.Row="2" Grid.Column="2"
+									  Style="{StaticResource TableCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableCellLikeTextBlockStyleKey}"
+											   Text="使い方ガイド（このページ）を開きます。"/>
+								</Grid>
+
+								<Grid Grid.Row="3" Grid.Column="0"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeIconTextBlockStyleKey}"
+											   Text="&#xE713;"/>
+								</Grid>
+								<Grid Grid.Row="3" Grid.Column="1"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeTextBlockStyleKey}"
+											   Text="アプリの設定"/>
+								</Grid>
+								<Grid Grid.Row="3" Grid.Column="2"
+									  Style="{StaticResource TableCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableCellLikeTextBlockStyleKey}"
+											   Text="アプリの設定画面を開きます。"/>
+								</Grid>
+							</Grid>
+						</Border>
+					</StackPanel>
+				</ScrollViewer>
+			</PivotItem>
+			<PivotItem Header="アプリを設定する">
+				<ScrollViewer>
+					<StackPanel>
+						<Border Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<StackPanel Margin="5">
+								<TextBlock Margin="5" TextWrapping="Wrap"
+										   Text="アプリの設定画面では、設定を行ったり、すぱこーについての情報、アプリについての情報を表示を表示したりします。"/>
+								<Image Margin="5" MaxHeight="300"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/UserGuide/pc_app_setting.png"/>
+							</StackPanel>
+						</Border>
+						<Border Margin="5" Style="{StaticResource DarkMaterialBorderStyleKey}">
+							<Grid Margin="5">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="1*"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="1*"/>
+									<ColumnDefinition Width="3*"/>
+								</Grid.ColumnDefinitions>
+
+								<Grid Grid.Row="0" Grid.Column="0"
+									  Style="{StaticResource TableHeaderCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableHeaderCellLikeTextBlockStyleKey}"
+											   Text="画像のキャッシュデータを削除"/>
+								</Grid>
+								<Grid Grid.Row="0" Grid.Column="1"
+									  Style="{StaticResource TableCellLikeGridStyleKey}">
+									<TextBlock Style="{StaticResource TableCellLikeTextBlockStyleKey}"
+											   Text="Web上から取得したサムネイル画像、漫画画像、バナー画像のキャッシュを削除し、次回表示する時にWeb上から再度取得するようにします。"/>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border Margin="5" Style="{StaticResource DarkYellowMaterialBorderStyleKey}">
+							<StackPanel>
+								<TextBlock Margin="5" TextWrapping="Wrap">
+								<Run FontWeight="Bold" Foreground="Yellow"
+									 Text="※画像のキャッシュ機能について"/><LineBreak/>
+									すぱこみっく！ユニバースでは、サムネイル画像、漫画画像、バナー画像は必要に応じてWeb上から取得して
+									メモリ内にキャッシュし、アプリを閉じるまで保持されます。<LineBreak/><LineBreak/>
+									画像の取得に失敗した場合、以下のような代替画像が表示されます。ネットワークの接続などを確認して、
+									設定画面からキャッシュを削除し、画像を再度取得してください。
+								</TextBlock>
+								<Image Margin="5" MaxHeight="200"
+									   HorizontalAlignment="Left"
+									   Source="ms-appx:///Assets/no_image.png"/>
+							</StackPanel>
+						</Border>
 					</StackPanel>
 				</ScrollViewer>
 			</PivotItem>

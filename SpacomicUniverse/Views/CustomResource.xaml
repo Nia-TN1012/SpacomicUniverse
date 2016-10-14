@@ -15,6 +15,12 @@
 		<Setter Property="Margin" Value="5"/>
 	</Style>
 
+	<Style x:Key="DarkYellowMaterialBorderStyleKey" TargetType="Border"
+		   BasedOn="{StaticResource DarkMaterialBorderStyleKey}">
+		<Setter Property="BorderBrush" Value="#FF323200"/>
+		<Setter Property="Background" Value="#20FFFF00"/>
+	</Style>
+
 	<Style x:Key="AppButtonStyleKey" TargetType="Button">
 		<Setter Property="Template">
 			<Setter.Value>
@@ -224,6 +230,35 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+	</Style>
+
+	<Style x:Key="TableCellLikeGridStyleKey" TargetType="Grid">
+		<Setter Property="Margin" Value="1"/>
+		<Setter Property="Background" Value="#10FFFFFF"/>
+	</Style>
+
+	<Style x:Key="TableHeaderCellLikeGridStyleKey" TargetType="Grid"
+		   BasedOn="{StaticResource TableCellLikeGridStyleKey}">
+		<Setter Property="Background" Value="#20FFFFFF"/>
+	</Style>
+
+	<Style x:Key="TableCellLikeTextBlockStyleKey" TargetType="TextBlock">
+		<Setter Property="Margin" Value="5"/>
+		<Setter Property="TextWrapping" Value="Wrap"/>
+	</Style>
+
+	<Style x:Key="TableHeaderCellLikeTextBlockStyleKey" TargetType="TextBlock"
+		   BasedOn="{StaticResource TableCellLikeTextBlockStyleKey}">
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+	</Style>
+
+	<Style x:Key="TableHeaderCellLikeIconTextBlockStyleKey" TargetType="TextBlock"
+		   BasedOn="{StaticResource TableCellLikeTextBlockStyleKey}">
+		<Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
 	</Style>
 
 </ResourceDictionary>

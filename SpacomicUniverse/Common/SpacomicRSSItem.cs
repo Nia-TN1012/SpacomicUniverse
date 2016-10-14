@@ -113,10 +113,23 @@ namespace SpacomicUniverse {
 
 			try {
 				bitmap = new BitmapImage( new Uri( url ) );
+				bitmap.ImageFailed += Bitmap_ImageFailed;
 			}
 			catch( Exception ) {}
 
 			return bitmap;
+		}
+
+		/// <summary>
+		///		画像の取得に失敗した時に実行します。
+		/// </summary>
+		private void Bitmap_ImageFailed( object sender, ExceptionRoutedEventArgs e ) {
+			BitmapImage bitmap = sender as BitmapImage;
+			if( bitmap != null ) {
+				bitmap.ImageFailed -= Bitmap_ImageFailed;
+				// ダミーの画像をセットします。
+				bitmap.UriSource = new Uri( "ms-appx:///Assets/no_image.png" );
+			}
 		}
 
 		/// <summary>

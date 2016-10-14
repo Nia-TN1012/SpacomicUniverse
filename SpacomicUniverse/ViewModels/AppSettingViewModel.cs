@@ -79,6 +79,13 @@ namespace SpacomicUniverse {
 				( sender, e ) =>
 					PropertyChanged?.Invoke( sender, e );
 
+			// 画像のキャッシュの削除が完了したことをView側に通知します。
+			spacomicRSSCollectionModel.ImageCachesDeleted +=
+				( sender, e ) => {
+					NotifyPropertyChanged( nameof( SauseItems ) );
+				};
+
+			// パッケージ情報を取得します。
 			packageInfo = Package.Current.Id;
 		}
 
