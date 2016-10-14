@@ -113,7 +113,10 @@
 										   TextWrapping="Wrap">
 									Version : 
 									<Run FontWeight="Bold"
-										 Text="{Binding CurrentVersion}"/>
+										 Text="{Binding CurrentVersion}"/><LineBreak/>
+									<Hyperlink NavigateUri="https://raw.githubusercontent.com/Nia-TN1012/SpacomicUniverse/master/Privacy-Policy.txt">
+										<Run Text="アプリケーション プライバシーポリシー"/>
+									</Hyperlink>
 								</TextBlock>
 								<TextBlock Padding="5,5,5,3" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
