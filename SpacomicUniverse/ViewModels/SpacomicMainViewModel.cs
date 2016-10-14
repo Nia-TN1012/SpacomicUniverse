@@ -24,6 +24,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -41,6 +42,12 @@ namespace SpacomicUniverse {
 		///		SpacoRSSModelオブジェクトを表します。
 		/// </summary>
 		private SpacomicRSSCollectionModel spacomicRSSCollectionModel;
+
+		/// <summary>
+		///		コミックビューを開けるかどうか判別する値を取得します。
+		/// </summary>
+		public bool CanSwitchComicView =>
+			!IsProgress && spacomicRSSCollectionModel.Items.Any();
 
 		/// <summary>
 		///		すぱこーRSSフィード取得中のフラグを表します。
@@ -79,6 +86,7 @@ namespace SpacomicUniverse {
 				( sender, e ) => {
 					// RSSフィード取得中のフラグをオフにします。
 					IsProgress = false;
+					NotifyPropertyChanged( nameof( CanSwitchComicView ) );
 					// RSSフィード取得完了したことをView側に通知します。
 					GetRSSCompleted?.Invoke( this, e );
 				};
@@ -96,6 +104,7 @@ namespace SpacomicUniverse {
 		private void GetSpacoRSS( bool forceReload = false ) {
 			// RSSフィード取得中のフラグをオンにします。
 			IsProgress = true;
+			NotifyPropertyChanged( nameof( CanSwitchComicView ) );
 			spacomicRSSCollectionModel.GetRSS( forceReload );
 		}
 
