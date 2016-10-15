@@ -192,7 +192,7 @@
 									<Hyperlink NavigateUri="https://pronama.azurewebsites.net/">
 										<Run Text="プログラミング生放送"/>
 									</Hyperlink><LineBreak/><LineBreak/>
-									※素材について、RSSフィード取得及びエラーダイアログのSD画像はIxy氏、アイコン画像はささくら氏のものを使用しています。
+									※素材について、RSSフィード取得及びエラーダイアログのSD画像はIxy氏、アイコン画像及び背景内のワンポイント画像はささくら氏のものを使用しています。
 								</TextBlock>
 							</StackPanel>
 						</Border>

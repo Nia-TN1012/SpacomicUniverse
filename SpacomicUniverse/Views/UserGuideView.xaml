@@ -109,7 +109,7 @@
 									<Run FontWeight="Bold" Foreground="Yellow"
 										 Text="※最新話のチェック機能について"/><LineBreak/>
 									アプリ起動時（初回起動時を除く）、Web上にすぱこーの最新話があるかどうかチェックし、
-									見つかった時。プロ生ちゃんが通知してくれます。
+									見つかった時、プロ生ちゃんが通知してくれます。
 								</TextBlock>
 								<Image Margin="5" MaxHeight="100"
 									   HorizontalAlignment="Left"
