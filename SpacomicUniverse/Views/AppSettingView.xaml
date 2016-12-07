@@ -8,7 +8,7 @@
     mc:Ignorable="d" Tag="アプリの設定">
 
 	<Page.DataContext>
-		<local:AppSettingViewModel/>
+		<local:AppSettingViewModel x:Name="appSettingViewModel"/>
 	</Page.DataContext>
 	
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

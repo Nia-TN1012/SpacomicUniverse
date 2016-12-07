@@ -32,18 +32,18 @@ using Windows.UI.Xaml.Data;
 namespace SpacomicUniverse {
 
 	/// <summary>
-	///		DateTimeの値を指定した書式に従って変換します。
+	///		<see cref="DateTime"/>の値を指定した書式に従って変換します。
 	/// </summary>
 	public sealed class DateTimeStringConverter : IValueConverter {
 
 		/// <summary>
-		///		DateTimeの値を指定した書式に従って変換します。
+		///		<see cref="DateTime"/>の値を指定した書式に従って変換します。
 		/// </summary>
-		/// <param name="value">DateTimeの値</param>
+		/// <param name="value"><see cref="DateTime"/>の値</param>
 		/// <param name="targetType">ターゲットの値</param>
 		/// <param name="parameter">書式指定文字列</param>
 		/// <param name="language">カルチャ情報</param>
-		/// <returns>書式指定によって変換されたDateTimeの値の文字列</returns>
+		/// <returns>書式指定によって変換された<see cref="DateTime"/>の値の文字列</returns>
 		public object Convert( object value, Type targetType, object parameter, string language ) {
 			if( value != null && value is DateTime ) {
 				// 書式とカルチャー情報の指定

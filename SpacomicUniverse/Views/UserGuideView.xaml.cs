@@ -37,7 +37,7 @@ namespace SpacomicUniverse {
 	public sealed partial class UserGuideView : Page {
 
 		/// <summary>
-		///		UserGuideViewクラスの新しいインスタンスを生成します。
+		///		<see cref="UserGuideView"/>クラスの新しいインスタンスを生成します。
 		/// </summary>
 		public UserGuideView() {
 			InitializeComponent();

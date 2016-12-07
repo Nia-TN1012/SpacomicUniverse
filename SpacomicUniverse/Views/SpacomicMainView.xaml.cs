@@ -45,7 +45,7 @@ namespace SpacomicUniverse {
 		private XmlDocument tendonNotificationXml;
 
 		/// <summary>
-		///		SpacomicMainViewクラスの新しいインスタンスを生成します。
+		///		<see cref="SpacomicMainView"/>クラスの新しいインスタンスを生成します。
 		/// </summary>
 		public SpacomicMainView() {
 			InitializeComponent();
@@ -90,13 +90,14 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		SplitView内のFrameで、ナビゲートが発生した時に実行します。
+		///		<see cref="SplitView"/>内のFrameで、ナビゲートが発生した時に実行します。
 		/// </summary>
 		private void SpacomicContentFrame_Navigated( object sender, NavigationEventArgs e ) {
 			if( e.SourcePageType != null ) {
 				// Pageの型名と対応するラジオボタンにチェックを入れます。
 				switch( e.SourcePageType.Name ) {
 					case nameof( SpacomicRSSCollectionView ):
+						GC.Collect();
 						SwitchSpacomicRSSFeedViewButton.IsChecked = true;
 						break;
 					case nameof( SpacomicComicView ):

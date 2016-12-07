@@ -32,28 +32,28 @@ using Windows.UI.Xaml.Data;
 namespace SpacomicUniverse {
 
 	/// <summary>
-	///		bool値とVisibility値の相互変換を行います。
+	///		bool値と<see cref="Visibility"/>値の相互変換を行います。
 	/// </summary>
 	public sealed class BoolToVisibilityConverter : IValueConverter {
 		/// <summary>
-		///		bool値から対応するVisibility値に変換します。
+		///		bool値から対応する<see cref="Visibility"/>値に変換します。
 		/// </summary>
 		/// <param name="value">bool値</param>
 		/// <param name="targetType">ターゲットの型</param>
 		/// <param name="parameter">パラメーター</param>
 		/// <param name="language">言語</param>
-		/// <returns>bool値と対応するVisibility値</returns>
+		/// <returns>bool値と対応する<see cref="Visibility"/>値</returns>
 		public object Convert( object value, Type targetType, object parameter, string language ) =>
 			( value is bool && ( bool )value ) ? Visibility.Visible : Visibility.Collapsed;
 
 		/// <summary>
-		///		Visibility値から対応するbool値に変換します。
+		///		<see cref="Visibility"/>値から対応するbool値に変換します。
 		/// </summary>
-		/// <param name="value">Visibility値</param>
+		/// <param name="value"><see cref="Visibility"/>値</param>
 		/// <param name="targetType">ターゲットの型</param>
 		/// <param name="parameter">パラメーター</param>
 		/// <param name="language">言語</param>
-		/// <returns>Visibility値と対応するbool値</returns>
+		/// <returns><see cref="Visibility"/>値と対応するbool値</returns>
 		public object ConvertBack( object value, Type targetType, object parameter, string language ) =>
 			value is Visibility && ( Visibility )value == Visibility.Visible;
 	}

@@ -39,7 +39,7 @@ namespace SpacomicUniverse {
 	public sealed partial class SpacomicRSSCollectionView : Page {
 
 		/// <summary>
-		///		SpacomicRSSCollectionViewクラスの新しいインスタンスを生成します。
+		///		<see cref="SpacomicRSSCollectionView"/>クラスの新しいインスタンスを生成します。
 		/// </summary>
 		public SpacomicRSSCollectionView() {
 			InitializeComponent();
@@ -58,7 +58,7 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		GridView上のアイテムをタップ or クリックした時に実行します。
+		///		<see cref="GridView"/>上のアイテムをタップ or クリックした時に実行します。
 		/// </summary>
 		private void SpacomicRSSList_ItemClick( object sender, ItemClickEventArgs e ) {
 			if( ( SpacomicRSSList.Items?.Any() ?? false ) && SpacomicRSSList.SelectedIndex >= 0 ) {
@@ -72,7 +72,7 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		GridView上のアイテムをタップした時に実行します。
+		///		<see cref="GridView"/>上のアイテムをタップした時に実行します。
 		/// </summary>
 		/// <remarks>ItemClickイベントでページ遷移できた場合、このイベントは実行しません。</remarks>
 		private void GridViewItem_Tapped( object sender, TappedRoutedEventArgs e ) {
@@ -95,9 +95,9 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		GridViewの先頭のアイテムにジャンプします。
+		///		<see cref="GridView"/>の先頭のアイテムにジャンプします。
 		/// </summary>
-		/// <remarks>SpacomicMainViewから呼び出します。</remarks>
+		/// <remarks><see cref="SpacomicMainView"/>から呼び出します。</remarks>
 		public void GridViewJumpToFirstItem() {
 			if( SpacomicSemantics.IsZoomedInViewActive ) {
 				if( SpacomicRSSList.Items?.Any() ?? false ) {
@@ -116,7 +116,7 @@ namespace SpacomicUniverse {
 		/// <summary>
 		///		コミックビューにページ遷移し、現在選択されている話を開きます。
 		/// </summary>
-		/// <remarks>SpacomicMainViewから呼び出します。</remarks>
+		/// <remarks><see cref="SpacomicMainView"/>から呼び出します。</remarks>
 		public void NavigateToComicView() {
 			if( SpacomicRSSList.Items?.Any() ?? false ) {
 				Frame.Navigate( typeof( SpacomicComicView ), SpacomicRSSList.SelectedIndex >= 0 ? SpacomicRSSList.SelectedIndex : 0 );

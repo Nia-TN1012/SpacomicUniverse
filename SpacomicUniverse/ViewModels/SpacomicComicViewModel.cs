@@ -119,10 +119,20 @@ namespace SpacomicUniverse {
 				throw new Exception( $"Failed to get reference of Model's instance on {GetType().ToString()}" );
 			}
 
-			// プロパティの変更を通知します。
-			spacomicRSSCollectionModel.PropertyChanged +=
-				( sender, e ) =>
-					PropertyChanged?.Invoke( sender, e );
+			spacomicRSSCollectionModel.PropertyChanged += SpacomicRSSCollectionModel_PropertyChanged;
+		}
+
+		/// <summary>
+		///		プロパティの変更を通知します。
+		/// </summary>
+		private void SpacomicRSSCollectionModel_PropertyChanged( object sender, PropertyChangedEventArgs e ) =>
+			PropertyChanged?.Invoke( sender, e );
+
+		/// <summary>
+		///		<see cref="SpacomicRSSCollectionModel"/>のイベントハンドラーに登録済みのこのクラスのイベントをすべて解除します。
+		/// </summary>
+		public void UnsubscribeAllEvents() {
+			spacomicRSSCollectionModel.PropertyChanged -= SpacomicRSSCollectionModel_PropertyChanged;
 		}
 
 		/// <summary>

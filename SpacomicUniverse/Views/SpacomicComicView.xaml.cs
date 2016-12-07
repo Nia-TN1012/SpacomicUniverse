@@ -43,12 +43,12 @@ namespace SpacomicUniverse {
 	public sealed partial class SpacomicComicView : Page {
 
 		/// <summary>
-		///		FlipViewが初期化されたかどうかを表します。
+		///		<see cref="FlipView"/>が初期化されたかどうかを表します。
 		/// </summary>
 		private bool flipViewInitialized = false;
 
 		/// <summary>
-		///		SpacoContentsViewクラスの新しいインスタンスを生成します。
+		///		<see cref="SpacomicComicView"/>クラスの新しいインスタンスを生成します。
 		/// </summary>
 		public SpacomicComicView() {
 			InitializeComponent();
@@ -123,7 +123,7 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		FlipViewのサイズが変化した時に実行します。
+		///		<see cref="FlipView"/>のサイズが変化した時に実行します。
 		/// </summary>
 		private void FlipView_SizeChanged( object sender, SizeChangedEventArgs e ) {
 			spacomicComicViewModel.ContentWidth = e.NewSize.Width;
@@ -131,7 +131,7 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		FlipViewのDataContextが変更された時に実行します。
+		///		<see cref="FlipView"/>の<see cref="DataContext"/>が変更された時に実行します。
 		/// </summary>
 		private void FlipView_DataContextChanged( FrameworkElement sender, DataContextChangedEventArgs args ) {
 			// 初期化済みフラグがオフの時、FlipViewのインデックスをViewModelのインデックスに設定します。
@@ -143,7 +143,7 @@ namespace SpacomicUniverse {
 		}
 
 		/// <summary>
-		///		FlipViewのコンテンツ選択が変化した時に実行します。
+		///		<see cref="FlipView"/>のコンテンツ選択が変化した時に実行します。
 		/// </summary>
 		private void FlipView_SelectionChanged( object sender, SelectionChangedEventArgs e ) {
 			// 初期化済みフラグがオンの時、ViewModelのインデックスをFlipViewのインデックスに設定します。
@@ -164,6 +164,13 @@ namespace SpacomicUniverse {
 				}
 			}
 			catch( Exception ) { }
+		}
+
+		/// <summary>
+		///		<see cref="SpacomicComicView"/>のインスタンスが破棄される時に実行します。
+		/// </summary>
+		~SpacomicComicView() {
+			spacomicComicViewModel.UnsubscribeAllEvents();
 		}
 	}
 }

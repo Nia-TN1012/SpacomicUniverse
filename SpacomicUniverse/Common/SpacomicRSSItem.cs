@@ -49,7 +49,7 @@ namespace SpacomicUniverse {
 		public string RSSFeedURL { get; private set; }
 
 		/// <summary>
-		///		種別とRSSフィードのURLから、SpacoRSSSourceクラスの新しいインスタンスを生成します。
+		///		種別とRSSフィードのURLから、<see cref="SpacoRSSSource"/>クラスの新しいインスタンスを生成します。
 		/// </summary>
 		/// <param name="type">すぱこーRSSフィードの種別</param>
 		/// <param name="url">RSSフィードのURL</param>
@@ -107,7 +107,7 @@ namespace SpacomicUniverse {
 		///		指定したURLから画像を取得します。
 		/// </summary>
 		/// <param name="url">画像ののURL</param>
-		/// <returns>画像を格納したBitmapImageインスタンス</returns>
+		/// <returns>画像を格納した<see cref="BitmapImage"/>インスタンス</returns>
 		private BitmapImage DownloadImage( string url ) {
 			BitmapImage bitmap = null;
 
@@ -172,7 +172,7 @@ namespace SpacomicUniverse {
 			mediaCache ?? ( mediaCache = DownloadImage( MediaURL ) );
 
 		/// <summary>
-		///		すぱこーRSSフィードの種別とSpacoRSSItemオブジェクトから、SpacomicRSSItemの新しいインスタンスを生成します。
+		///		すぱこーRSSフィードの種別と<see cref="SpacoRSSItem"/>オブジェクトから、<see cref="SpacomicRSSItem"/>の新しいインスタンスを生成します。
 		/// </summary>
 		/// <param name="type">すぱこーRSSフィードの種別</param>
 		/// <param name="item">SpacoRSSItemのオブジェクト</param>
@@ -197,7 +197,7 @@ namespace SpacomicUniverse {
 		///		指定したURLから画像を取得します。
 		/// </summary>
 		/// <param name="url">画像ののURL</param>
-		/// <returns>画像を格納したBitmapImageインスタンス</returns>
+		/// <returns>画像を格納した<see cref="BitmapImage"/>インスタンス</returns>
 		private BitmapImage DownloadImage( string url ) {
 			BitmapImage bitmap = null;
 

@@ -37,7 +37,7 @@ namespace SpacomicUniverse {
 	public sealed partial class AppSettingView : Page {
 
 		/// <summary>
-		///		AppSettingViewクラスの新しいインスタンスを生成します。
+		///		<see cref="AppSettingView"/>クラスの新しいインスタンスを生成します。
 		/// </summary>
 		public AppSettingView() {
 			InitializeComponent();
@@ -79,6 +79,13 @@ namespace SpacomicUniverse {
 				Frame.GoBack();
 				e.Handled = true;
 			}
+		}
+
+		/// <summary>
+		///		<see cref="AppSettingView"/>のインスタンスが破棄される時に実行します。
+		/// </summary>
+		~AppSettingView() {
+			appSettingViewModel.UnsubscribeAllEvents();
 		}
 	}
 }
