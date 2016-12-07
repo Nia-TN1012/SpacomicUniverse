@@ -176,21 +176,8 @@ namespace SpacomicUniverse {
 		/// </summary>
 		/// <param name="type">すぱこーRSSフィードの種別</param>
 		/// <param name="item">SpacoRSSItemのオブジェクト</param>
-		public SpacomicRSSItem( string type = null, SpacoRSSItem item = null ) : base() {
+		public SpacomicRSSItem( string type = null, SpacoRSSItem item = null ) : base( item ) {
 			Type = type;
-			if( item != null ) {
-				Title = item.Title;
-				Description = item.Description;
-				Author = item.Author;
-				PubDate = item.PubDate;
-				Link = item.Link;
-				ModifiedDate = item.ModifiedDate;
-				Volume = item.Volume;
-				IsAvailable = item.IsAvailable;
-				MediaURL = item.MediaURL;
-				ThumbnailURL = item.ThumbnailURL;
-				ID = item.ID;
-			}
 		}
 
 		/// <summary>

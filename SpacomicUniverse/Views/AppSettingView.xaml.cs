@@ -68,6 +68,7 @@ namespace SpacomicUniverse {
 			if( e.NavigationMode == NavigationMode.Back ) {
 				var currentView = SystemNavigationManager.GetForCurrentView();
 				currentView.BackRequested -= Page_BackRequested;
+				appSettingViewModel.UnsubscribeAllEvents();
 			}
 		}
 
@@ -79,13 +80,6 @@ namespace SpacomicUniverse {
 				Frame.GoBack();
 				e.Handled = true;
 			}
-		}
-
-		/// <summary>
-		///		<see cref="AppSettingView"/>のインスタンスが破棄される時に実行します。
-		/// </summary>
-		~AppSettingView() {
-			appSettingViewModel.UnsubscribeAllEvents();
 		}
 	}
 }
