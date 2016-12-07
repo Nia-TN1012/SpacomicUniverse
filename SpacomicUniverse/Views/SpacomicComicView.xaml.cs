@@ -84,7 +84,6 @@ namespace SpacomicUniverse {
 			if( e.NavigationMode == NavigationMode.Back ) {
 				var currentView = SystemNavigationManager.GetForCurrentView();
 				currentView.BackRequested -= Page_BackRequested;
-				spacomicComicViewModel.UnsubscribeAllEvents();
 			}
 		}
 
@@ -165,6 +164,13 @@ namespace SpacomicUniverse {
 				}
 			}
 			catch( Exception ) { }
+		}
+
+		/// <summary>
+		///		<see cref="SpacomicComicView"/>のインスタンスが破棄される時に実行します。
+		/// </summary>
+		~SpacomicComicView() {
+			spacomicComicViewModel.UnsubscribeAllEvents();
 		}
 	}
 }

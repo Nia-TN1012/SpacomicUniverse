@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Chronoir_net.UniSPADA": "1.0.6.92",
+    "Chronoir_net.UniSPADA": "1.0.2.80",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },
   "frameworks": {
