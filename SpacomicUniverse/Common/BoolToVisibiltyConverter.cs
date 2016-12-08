@@ -4,7 +4,7 @@
 *	@brief bool値とVisibility値の相互変換を行う、Converterクラスです。
 *
 *	@par バージョン Version
-*	1.1.0
+*	1.2.5
 *	@par 作成者 Author
 *	智中ニア（Nia Tomonaka）
 *	@par コピーライト Copyright
@@ -12,7 +12,7 @@
 *	@par 作成日
 *	2016/10/09
 *	@par 最終更新日
-*	2016/10/11
+*	2016/12/08
 *	@par ライセンス Licence
 *	BSD Licence（ 2-caluse ）
 *	@par 連絡先 Contact
