@@ -105,6 +105,7 @@
     <Compile Include="Common\TypeNameMatchingToVisibiltyConverter.cs" />
     <Compile Include="Common\SpacomicRSSItem.cs" />
     <Compile Include="Common\SpacomicLocalIO.cs" />
+    <Compile Include="Models\SpacomicCoreModel.cs" />
     <Compile Include="Models\SpacomicRSSCollectionModel.cs" />
     <Compile Include="ViewModels\AppSettingViewModel.cs" />
     <Compile Include="ViewModels\SpacomicComicViewModel.cs" />
