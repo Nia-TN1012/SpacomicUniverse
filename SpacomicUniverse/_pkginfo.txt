@@ -1,1 +1,1 @@
-D:\Private\Project\UWP\SpacomicUniverse\SpacomicUniverse\AppPackages\SpacomicUniverse_1.2.5.0\SpacomicUniverse_1.2.5.0_x86_x64_arm.appxbundle
+D:\Private\Project\UWP\SpacomicUniverse\SpacomicUniverse\bin\ARM\Release\Upload\SpacomicUniverse_1.2.6.0\SpacomicUniverse_1.2.6.0_x86_x64_arm.appxbundle
