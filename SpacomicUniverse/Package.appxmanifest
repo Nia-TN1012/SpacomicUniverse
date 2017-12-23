@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="30069NiaTomonaka.356219281D069" Publisher="CN=Nia-TN1012" Version="1.2.7.0" />
-  <mp:PhoneIdentity PhoneProductId="ff287569-73f7-47a9-9b0a-9da1a0e1886d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="30069NiaTomonaka.356219281D069" Publisher="CN=A5B1B624-0B64-44B9-9815-39BE22557436" Version="1.2.7.0" />
+  <mp:PhoneIdentity PhoneProductId="aad1fecc-159b-4b9e-a76f-0e5a9952e2d6" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>すぱこみっく！ ユニバース</DisplayName>
     <PublisherDisplayName>Nia Tomonaka</PublisherDisplayName>
