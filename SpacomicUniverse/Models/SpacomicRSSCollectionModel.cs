@@ -220,7 +220,7 @@ namespace SpacomicUniverse {
 
 			try {
 				foreach( var sause in spacoSause ) {
-					string url = $"{sause.RSSFeedURL}&count=1";
+					string url = $"{sause.RSSFeedURL}?count=1";
 					// このforeachブロック専用のCancellationTokenを生成します。
 					using( CancellationTokenSource cancellationTokenSourceInstant = new CancellationTokenSource() ) {
 						// タイムアウトは5秒間に設定します。
