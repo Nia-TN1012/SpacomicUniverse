@@ -133,7 +133,7 @@
 								<TextBlock Padding="5,1,5,5" 
 										   FontSize="{ThemeResource ContentControlFontSize}"
 										   TextWrapping="Wrap">
-									© 2016 Chronoir.net<LineBreak/>
+									© 2016-2017 Chronoir.net<LineBreak/>
 									WebSite :  
 									<Hyperlink NavigateUri="https://chronoir.net/">
 										<Run Text="Chronoir.net"/>
