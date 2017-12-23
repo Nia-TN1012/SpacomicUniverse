@@ -191,13 +191,12 @@ namespace SpacomicUniverse {
 			/// </summary>
 			/// <param name="parameter">パラメーター（強制的にWebから取得するフラグ）</param>
 			public void Execute( object parameter ) {
-				bool forceReload;
-				if( !bool.TryParse( parameter.ToString(), out forceReload ) ) {
-					forceReload = false;
-				}
+                if( !bool.TryParse( parameter.ToString(), out bool forceReload ) ) {
+                    forceReload = false;
+                }
 
-				// RSSフィード取得します。
-				viewModel.GetSpacoRSS( forceReload );
+                // RSSフィード取得します。
+                viewModel.GetSpacoRSS( forceReload );
 			}
 		}
 

@@ -53,7 +53,7 @@ namespace SpacomicUniverse {
 		///		ローカルに保存したファイルから、すぱこーRSSフィードを読み込みます。
 		/// </summary>
 		/// <returns>結果情報とすぱこーRSSフィードコレクションのタプルオブジェクト</returns>
-		public static async Task<Tuple<GetRSSResult, IEnumerable<SpacomicRSSItem>>> LoadRSSCollectionFile() {
+		public static async Task<(GetRSSResult ResultCode, IEnumerable<SpacomicRSSItem> Items)> LoadRSSCollectionFile() {
 			GetRSSResult result = GetRSSResult.Succeeded;
 			List<SpacomicRSSItem> list = null;
 
@@ -88,7 +88,7 @@ namespace SpacomicUniverse {
 				result = GetRSSResult.Failed;
 			}
 
-			return new Tuple<GetRSSResult, IEnumerable<SpacomicRSSItem>>( result, list );
+			return ( result, list );
 		}
 
 		/// <summary>
@@ -131,7 +131,7 @@ namespace SpacomicUniverse {
 		///		ローカルに保存したファイルから、すぱこーRSSフィードのチャネル情報を読み込みます。
 		/// </summary>
 		/// <returns>結果情報とすぱこーRSSフィードのチャネル情報のタプルオブジェクト</returns>
-		public static async Task<Tuple<GetRSSResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>> LoadSpacoRSSSauseFile() {
+		public static async Task<(GetRSSResult ResultCode, IEnumerable<KeyValuePair<string, SpacoRSSSause>> Items)> LoadSpacoRSSSauseFile() {
 			GetRSSResult result = GetRSSResult.Succeeded;
 			List<KeyValuePair<string, SpacoRSSSause>> list = null;
 
@@ -163,7 +163,7 @@ namespace SpacomicUniverse {
 				result = GetRSSResult.Failed;
 			}
 
-			return new Tuple<GetRSSResult, IEnumerable<KeyValuePair<string, SpacoRSSSause>>>( result, list );
+			return ( result, list );
 		}
 
 		/// <summary>

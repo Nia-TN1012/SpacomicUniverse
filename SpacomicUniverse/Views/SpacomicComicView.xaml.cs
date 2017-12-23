@@ -108,18 +108,17 @@ namespace SpacomicUniverse {
 			}
 			// ズームが1倍の時、拡大します。
 			else {
-				var contentImage = ( scrollViewwer.Content as Image )?.Source as BitmapImage;
-				var doubleTapPoint = e.GetPosition( scrollViewwer );
+                var doubleTapPoint = e.GetPosition( scrollViewwer );
 
-				if( contentImage != null ) {
-					// 画像のサイズとScrollViewerのViewportとの比率を、縦横それぞれ求めます。
-					float zoomFactorWidth = ( float )( contentImage.PixelWidth / scrollViewwer.ViewportWidth );
-					float zoomFactorHeight = ( float )( contentImage.PixelHeight / scrollViewwer.ViewportHeight );
+                if( ( scrollViewwer.Content as Image )?.Source is BitmapImage contentImage ) {
+                    // 画像のサイズとScrollViewerのViewportとの比率を、縦横それぞれ求めます。
+                    float zoomFactorWidth = ( float )( contentImage.PixelWidth / scrollViewwer.ViewportWidth );
+                    float zoomFactorHeight = ( float )( contentImage.PixelHeight / scrollViewwer.ViewportHeight );
 
-					// ZoomFactorは比率の大きい方を設定します。
-					scrollViewwer.ChangeView( doubleTapPoint.X, doubleTapPoint.Y, Math.Max( zoomFactorWidth, zoomFactorHeight ), true );
-				}
-			}
+                    // ZoomFactorは比率の大きい方を設定します。
+                    scrollViewwer.ChangeView( doubleTapPoint.X, doubleTapPoint.Y, Math.Max( zoomFactorWidth, zoomFactorHeight ), true );
+                }
+            }
 		}
 
 		/// <summary>

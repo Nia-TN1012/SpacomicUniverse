@@ -124,13 +124,12 @@ namespace SpacomicUniverse {
 		///		画像の取得に失敗した時に実行します。
 		/// </summary>
 		private void Bitmap_ImageFailed( object sender, ExceptionRoutedEventArgs e ) {
-			BitmapImage bitmap = sender as BitmapImage;
-			if( bitmap != null ) {
-				bitmap.ImageFailed -= Bitmap_ImageFailed;
-				// ダミーの画像をセットします。
-				bitmap.UriSource = new Uri( "ms-appx:///Assets/no_image.png" );
-			}
-		}
+            if( sender is BitmapImage bitmap ) {
+                bitmap.ImageFailed -= Bitmap_ImageFailed;
+                // ダミーの画像をセットします。
+                bitmap.UriSource = new Uri( "ms-appx:///Assets/no_image.png" );
+            }
+        }
 
 		/// <summary>
 		///		バナー画像のキャッシュを削除します。
@@ -201,13 +200,12 @@ namespace SpacomicUniverse {
 		///		画像の取得に失敗した時に実行します。
 		/// </summary>
 		private void Bitmap_ImageFailed( object sender, ExceptionRoutedEventArgs e ) {
-			BitmapImage bitmap = sender as BitmapImage;
-			if( bitmap != null ) {
-				bitmap.ImageFailed -= Bitmap_ImageFailed;
-				// ダミーの画像をセットします。
-				bitmap.UriSource = new Uri( "ms-appx:///Assets/no_image.png" );
-			}
-		}
+            if( sender is BitmapImage bitmap ) {
+                bitmap.ImageFailed -= Bitmap_ImageFailed;
+                // ダミーの画像をセットします。
+                bitmap.UriSource = new Uri( "ms-appx:///Assets/no_image.png" );
+            }
+        }
 
 		/// <summary>
 		///		サムネイル画像と漫画画像のキャッシュを削除します。

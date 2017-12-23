@@ -158,11 +158,11 @@ namespace SpacomicUniverse {
 						var spacoRSSListFromLocal = await SpacomicLocalIO.LoadRSSCollectionFile();
 
 						// 保存済みのローカルファイルからのリストアが成功した時
-						if( spacoRSSauseFromLocal.Item1 == GetRSSResult.Succeeded && spacoRSSListFromLocal.Item1 == GetRSSResult.Succeeded ) {
-							foreach( var item in spacoRSSauseFromLocal.Item2 ) {
+						if( spacoRSSauseFromLocal.ResultCode == GetRSSResult.Succeeded && spacoRSSListFromLocal.ResultCode == GetRSSResult.Succeeded ) {
+							foreach( var item in spacoRSSauseFromLocal.Items ) {
 								SauseItems[item.Key] = item.Value;
 							}
-							Items.AddRange( spacoRSSListFromLocal.Item2 );
+							Items.AddRange( spacoRSSListFromLocal.Items );
 							result = GetRSSResult.LocalDataRestored;
 						}
 						// リストアに失敗した場合、例外をリスローします。
@@ -177,11 +177,11 @@ namespace SpacomicUniverse {
 					var spacoRSSListFromLocal = await SpacomicLocalIO.LoadRSSCollectionFile();
 
 					// 保存済みのローカルファイルからの読み込みが成功した時
-					if( spacoRSSauseFromLocal.Item1 == GetRSSResult.Succeeded && spacoRSSListFromLocal.Item1 == GetRSSResult.Succeeded ) {
-						foreach( var item in spacoRSSauseFromLocal.Item2 ) {
+					if( spacoRSSauseFromLocal.ResultCode == GetRSSResult.Succeeded && spacoRSSListFromLocal.ResultCode == GetRSSResult.Succeeded ) {
+						foreach( var item in spacoRSSauseFromLocal.Items ) {
 							SauseItems[item.Key] = item.Value;
 						}
-						Items.AddRange( spacoRSSListFromLocal.Item2 );
+						Items.AddRange( spacoRSSListFromLocal.Items );
 
 						// Web上に最新話があるかどうかチェックします。
 						CheckNewContents();
