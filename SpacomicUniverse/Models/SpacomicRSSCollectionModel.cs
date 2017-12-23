@@ -52,11 +52,11 @@ namespace SpacomicUniverse {
 		///		すぱこーRSSフィードの種別とRSSフィードのURLのリストを表します。
 		/// </summary>
 		private static SpacoRSSSource[] spacoSause = new SpacoRSSSource[] {
-			//new SpacoRSSSource( "すぱこー", "https://pronama-api.azurewebsites.net/feed/spaco" ),
-			//new SpacoRSSSource( "すぱこー 焼きそば編", "https://pronama-api.azurewebsites.net/feed/spacoyakisoba" )
+			new SpacoRSSSource( "すぱこー", "https://pronama-api.azurewebsites.net/feed/spaco" ),
+			new SpacoRSSSource( "すぱこー 焼きそば編", "https://pronama-api.azurewebsites.net/feed/spacoyakisoba" )
 			
-			new SpacoRSSSource( "すぱこー", "https://apis.chronoir.net/spaco-feed/?spaco=spaco" ),
-			new SpacoRSSSource( "すぱこー 焼きそば編", "https://apis.chronoir.net/spaco-feed/?spaco=spaco-yakisoba" )
+			//new SpacoRSSSource( "すぱこー", "https://apis.chronoir.net/spaco-feed/?spaco=spaco" ),
+			//new SpacoRSSSource( "すぱこー 焼きそば編", "https://apis.chronoir.net/spaco-feed/?spaco=spaco-yakisoba" )
 		};
 
 		/// <summary>
@@ -91,7 +91,7 @@ namespace SpacomicUniverse {
 				bool isContinue = true;
 
 				do {
-					string url = $"{sause.RSSFeedURL}&offset={offset}";
+					string url = $"{sause.RSSFeedURL}?offset={offset}";
 					using( XmlReader reader = await Task.Run( () => SpacoRSSClient.GetXmlReaderAsync( url, cancellationTokenSource.Token ) ) ) {
 						SpacoRSSReader srr = await Task.Run( () => SpacoRSSReader.LoadAsync( reader, cancellationTokenSource.Token ) );
 
